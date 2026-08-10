@@ -969,4 +969,16 @@
 	<string id="escape_shustryi_story2_5">
 		<text>Да ладно тебе... Разошёлся... Прямо как мамка моя покойная.</text>
 	</string>
+
+  <string id="ilya_wolf_test_0">
+    <text>Волк, можно вопрос?</text>
+</string>
+
+<string id="ilya_wolf_test_1">
+    <text>Ну, спрашивай.</text>
+</string>
+
+<string id="ilya_wolf_test_2">
+    <text>Да так, хотел проверить, работает ли мой новый диалог.</text>
+</string>
 </string_table>

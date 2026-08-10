@@ -1883,4 +1883,25 @@
             </phrase>
         </phrase_list>
     </dialog>
+
+<dialog id="ilya_wolf_test">
+    <phrase_list>
+
+        <phrase id="0">
+            <text>ilya_wolf_test_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>ilya_wolf_test_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>ilya_wolf_test_2</text>
+        </phrase>
+
+    </phrase_list>
+</dialog>
+
 </game_dialogs>
