@@ -1,0 +1,198 @@
+local jump_created = false
+
+local START_LC_STORY_ID = 900000
+
+function update()
+    -- Actor ещё не появился
+    if db.actor == nil then
+        return
+    end
+
+    -- Переход нужен только со стартового Кордона
+    if level.name() ~= "l01_escape" then
+        return
+    end
+
+    -- Не создаём переход каждый кадр
+    if jump_created then
+        return
+    end
+
+    jump_created = true
+
+    create_start_level_changer()
+end
+
+
+function create_start_level_changer()
+
+    local actor = db.actor
+
+    -- Создаём level_changer прямо в позиции ГГ
+    local obj = alife():create(
+        "level_changer",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id()
+    )
+
+    if obj == nil then
+        jump_created = false
+        return
+    end
+
+
+    local packet = net_packet()
+
+    ------------------------------------------------------------
+    -- Читаем созданный движком level_changer
+    ------------------------------------------------------------
+
+    obj:STATE_Write(packet)
+
+    -- cse_alife_object
+    local game_vertex_id     = packet:r_u16()
+    local unk1               = packet:r_float()
+    local unk2               = packet:r_u32()
+    local level_vertex_id    = packet:r_u32()
+    local object_flags       = packet:r_u32()
+    local custom_data        = packet:r_stringZ()
+    local story_id           = packet:r_u32()
+    local spawn_story_id     = packet:r_u32()
+
+
+    -- cse_shape
+    local shape_count = packet:r_u8()
+
+    for i = 1, shape_count do
+
+        local shape_type = packet:r_u8()
+
+        if shape_type == 0 then
+
+            -- sphere
+            packet:r_vec3()
+            packet:r_float()
+
+        else
+
+            -- box
+            packet:r_float()
+            packet:r_float()
+            packet:r_float()
+
+            packet:r_float()
+            packet:r_float()
+            packet:r_float()
+
+            packet:r_float()
+            packet:r_float()
+            packet:r_float()
+
+            packet:r_float()
+            packet:r_float()
+            packet:r_float()
+        end
+    end
+
+
+    -- cse_alife_space_restrictor
+    packet:r_u8()
+
+
+    -- старые параметры cse_alife_level_changer
+    packet:r_u16()
+    packet:r_u32()
+    packet:r_vec3()
+    packet:r_vec3()
+    packet:r_stringZ()
+    packet:r_stringZ()
+    packet:r_u8()
+
+
+    ------------------------------------------------------------
+    -- Полностью перезаписываем STATE
+    ------------------------------------------------------------
+
+    packet:w_begin(game_vertex_id)
+
+    packet:w_float(unk1)
+    packet:w_u32(unk2)
+
+    packet:w_u32(level_vertex_id)
+
+    -- стандартные flags для level_changer
+    packet:w_u32(bit_not(193))
+
+    packet:w_stringZ(custom_data)
+
+    -- Оставляем исходные значения, чтобы не создавать
+    -- новый story_id и не получить Story Registry conflict
+    packet:w_u32(START_LC_STORY_ID)
+    packet:w_u32(spawn_story_id)
+
+
+    ------------------------------------------------------------
+    -- Форма перехода
+    ------------------------------------------------------------
+
+    packet:w_u8(1)       -- одна shape
+    packet:w_u8(0)       -- sphere
+
+    packet:w_vec3(
+        vector():set(0, 0, 0)
+    )
+
+    packet:w_float(5.0)  -- радиус 5 метров
+
+
+    ------------------------------------------------------------
+    -- space restrictor
+    ------------------------------------------------------------
+
+    packet:w_u8(3)
+
+
+    ------------------------------------------------------------
+    -- КУДА ПЕРЕНОСИМ
+    -- Radar -> Pripyat, который мы нашли в all.spawn
+    ------------------------------------------------------------
+
+    packet:w_u16(2269)
+    packet:w_u32(145458)
+
+    packet:w_vec3(
+        vector():set(
+            34.8646354675293,
+            -2.15999984741211,
+            -290.553436279297
+        )
+    )
+
+    packet:w_vec3(
+        vector():set(
+            -2.49865606747335e-05,
+            1.60740029811859,
+            -1.28936753753806e-05
+        )
+    )
+
+    packet:w_stringZ("L11_Pripyat")
+
+    packet:w_stringZ("start_actor_01")
+
+    -- 1 = переход без вопроса
+    packet:w_u8(1)
+
+
+    ------------------------------------------------------------
+    -- Передаём изменённое состояние объекту
+    ------------------------------------------------------------
+
+    packet:r_seek(0)
+
+    obj:STATE_Read(
+        packet,
+        packet:w_tell()
+    )
+end
