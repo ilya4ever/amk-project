@@ -2,7 +2,71 @@ local jump_created = false
 
 local START_LC_STORY_ID = 900000
 
+function spawn_kindergarten_story_npcs()
+
+    if db.actor == nil then
+        return
+    end
+
+    -- Мы должны уже находиться в районе нашего старта в Припяти
+    if db.actor:game_vertex_id() ~= 2232 then
+        return
+    end
+
+
+    -- ========================================================
+    -- НЕИЗВЕСТНЫЙ
+    -- ========================================================
+
+    if not db.actor:has_info("ilya_pri_unknown_spawned") then
+
+        local npc = alife():create(
+            "ilya_pri_unknown_spawn",
+            vector():set(
+                103.66,
+                5.64,
+                -9.85
+            ),
+            218725,
+            2231
+        )
+
+        if npc ~= nil then
+            db.actor:give_info_portion(
+                "ilya_pri_unknown_spawned"
+            )
+        end
+    end
+
+
+    -- ========================================================
+    -- АЛЕКСАНДР
+    -- ========================================================
+
+    if not db.actor:has_info("ilya_pri_alexander_spawned") then
+
+        local npc = alife():create(
+            "ilya_pri_alexander_spawn",
+            vector():set(
+                103.60,
+                5.64,
+                -13.03
+            ),
+            218725,
+            2231
+        )
+
+        if npc ~= nil then
+            db.actor:give_info_portion(
+                "ilya_pri_alexander_spawned"
+            )
+        end
+    end
+end
+
 function update()
+spawn_kindergarten_story_npcs()
+
     -- Actor ещё не появился
     if db.actor == nil then
         return
@@ -12,6 +76,8 @@ function update()
     if level.name() ~= "l01_escape" then
         return
     end
+
+    
 
     -- Не создаём переход каждый кадр
     if jump_created then

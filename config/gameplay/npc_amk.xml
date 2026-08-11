@@ -8,4 +8,16 @@
 	<character id="amk_vitek_voron">
 		<class>amk_vitek_voron</class>
 	</character>
+
+	<!-- ILYA STORY - PRIPYAT KINDERGARTEN -->
+
+<character id="ilya_pri_unknown">
+    <class>ilya_pri_unknown</class>
+    <specific_character>ilya_pri_unknown</specific_character>
+</character>
+
+<character id="ilya_pri_alexander">
+    <class>ilya_pri_alexander</class>
+    <specific_character>ilya_pri_alexander</specific_character>
+</character>
 </xml>

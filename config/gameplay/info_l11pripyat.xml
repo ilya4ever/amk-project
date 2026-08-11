@@ -132,5 +132,8 @@
     <!--DELME: only for presentation -->
     <info_portion id="pri_aes_mapspot">
 	</info_portion>
+
+    <info_portion id="ilya_pri_unknown_spawned"></info_portion>
+<info_portion id="ilya_pri_alexander_spawned"></info_portion>
     
 </game_information_portions>

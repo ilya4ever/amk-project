@@ -68,5 +68,66 @@
 		<actor_dialog>dm_cool_info_dialog</actor_dialog>
 		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
 	</specific_character>
+
+<!-- ======================================================== -->
+<!-- ILYA STORY - PRIPYAT KINDERGARTEN                        -->
+<!-- ======================================================== -->
+
+<specific_character id="ilya_pri_unknown" team_default = "1">
+
+    <name>Неизвестный</name>
+    <icon>ui_npc_u_green_stalker_4</icon>
+    <bio>gar_stalker_regular_bio</bio>
+
+    <class>ilya_pri_unknown</class>
+    <community>stalker</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>50</rank>
+    <reputation>0</reputation>
+
+    <money min="0" max="0" infinitive="0"/>
+
+    <snd_config>characters_voice\human_01\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\novice\green_stalker_4</visual>
+
+    <supplies>
+        [spawn] \n
+    </supplies>
+
+    #include "gameplay\character_criticals_4.xml"
+
+</specific_character>
+
+
+<specific_character id="ilya_pri_alexander" team_default = "1">
+
+    <name>Александр</name>
+    <icon>ui_npc_u_green_stalker_2</icon>
+    <bio>gar_stalker_regular_bio</bio>
+
+    <class>ilya_pri_alexander</class>
+    <community>stalker</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>50</rank>
+    <reputation>0</reputation>
+
+    <money min="0" max="0" infinitive="0"/>
+
+    <snd_config>characters_voice\human_02\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\novice\green_stalker_2</visual>
+
+    <supplies>
+        [spawn] \n
+    </supplies>
+
+    #include "gameplay\character_criticals_4.xml"
+
+</specific_character>
 </xml>
 
