@@ -158,16 +158,14 @@ function create_start_level_changer()
     -- Radar -> Pripyat, который мы нашли в all.spawn
     ------------------------------------------------------------
 
-    packet:w_u16(2269)
-    packet:w_u32(145458)
+packet:w_u16(2232)
+packet:w_u32(214948)
 
-    packet:w_vec3(
-        vector():set(
-            34.8646354675293,
-            -2.15999984741211,
-            -290.553436279297
-        )
-    )
+packet:w_vec3(vector():set(
+    112.25,
+    5.64,
+    -31.82
+))
 
     packet:w_vec3(
         vector():set(
