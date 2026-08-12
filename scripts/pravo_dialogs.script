@@ -1,0 +1,141 @@
+function spawn_duty_squad()
+
+    if db.actor == nil then
+        return
+    end
+
+    if db.actor:has_info("pravo_pri_duty_spawned") then
+        return
+    end
+
+
+    -- ========================================================
+    -- КОМАНДИР
+    -- ========================================================
+
+    local leader = alife():create(
+        "pravo_pri_duty_leader_spawn",
+        vector():set(
+            102.95188903809,
+            -0.92949116230011,
+            -26.490100860596
+        ),
+        213633,
+        2234
+    )
+
+
+    -- ========================================================
+    -- БОЕЦ 1
+    -- ========================================================
+
+    local duty1 = alife():create(
+        "pravo_pri_duty_1_spawn",
+        vector():set(
+            103.26148223877,
+            -0.94035828113556,
+            -30.219137191772
+        ),
+        214322,
+        2234
+    )
+
+
+    -- ========================================================
+    -- БОЕЦ 2
+    -- ========================================================
+
+    local duty2 = alife():create(
+        "pravo_pri_duty_2_spawn",
+        vector():set(
+            94.766174316406,
+            -2.3414041996002,
+            -32.325805664063
+        ),
+        205430,
+        2144
+    )
+
+
+    -- ========================================================
+    -- БОЕЦ 3
+    -- ========================================================
+
+    local duty3 = alife():create(
+        "pravo_pri_duty_3_spawn",
+        vector():set(
+            94.29621887207,
+            -2.2847623825073,
+            -22.432395935059
+        ),
+        205444,
+        2144
+    )
+
+
+    if leader ~= nil
+    and duty1 ~= nil
+    and duty2 ~= nil
+    and duty3 ~= nil then
+
+        db.actor:give_info_portion(
+            "pravo_pri_duty_spawned"
+        )
+    end
+end
+
+
+
+function check_intro_finished()
+
+    if db.actor == nil then
+        return
+    end
+
+    if db.actor:has_info("pravo_pri_unknown_talked")
+    and db.actor:has_info("pravo_pri_alexander_talked")
+    and not db.actor:has_info("pravo_pri_intro_done") then
+
+        db.actor:give_info_portion(
+            "pravo_pri_intro_done"
+        )
+
+        spawn_duty_squad()
+    end
+end
+
+
+
+function unknown_finished(first_speaker, second_speaker)
+
+    if db.actor == nil then
+        return
+    end
+
+    if not db.actor:has_info("pravo_pri_unknown_talked") then
+
+        db.actor:give_info_portion(
+            "pravo_pri_unknown_talked"
+        )
+    end
+
+    check_intro_finished()
+end
+
+
+
+function alexander_finished(first_speaker, second_speaker)
+
+    if db.actor == nil then
+        return
+    end
+
+    if not db.actor:has_info("pravo_pri_alexander_talked") then
+
+        db.actor:give_info_portion(
+            "pravo_pri_alexander_talked"
+        )
+    end
+
+    check_intro_finished()
+end

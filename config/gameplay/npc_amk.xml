@@ -20,4 +20,28 @@
     <class>ilya_pri_alexander</class>
     <specific_character>ilya_pri_alexander</specific_character>
 </character>
+
+<!-- ======================================================== -->
+<!-- PRAVO STORY - PRIPYAT DUTY SQUAD                         -->
+<!-- ======================================================== -->
+
+<character id="pravo_pri_duty_leader">
+    <class>pravo_pri_duty_leader</class>
+    <specific_character>pravo_pri_duty_leader</specific_character>
+</character>
+
+<character id="pravo_pri_duty_1">
+    <class>pravo_pri_duty_1</class>
+    <specific_character>pravo_pri_duty_1</specific_character>
+</character>
+
+<character id="pravo_pri_duty_2">
+    <class>pravo_pri_duty_2</class>
+    <specific_character>pravo_pri_duty_2</specific_character>
+</character>
+
+<character id="pravo_pri_duty_3">
+    <class>pravo_pri_duty_3</class>
+    <specific_character>pravo_pri_duty_3</specific_character>
+</character>
 </xml>
