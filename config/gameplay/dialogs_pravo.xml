@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+
+<game_dialogs>
+
+    <!-- ==================================================== -->
+    <!-- НЕИЗВЕСТНЫЙ                                         -->
+    <!-- ==================================================== -->
+
+    <dialog id="pravo_pri_unknown_intro">
+
+        <dont_has_info>pravo_pri_unknown_talked</dont_has_info>
+
+        <phrase_list>
+
+            <phrase id="0">
+                <text>pravo_pri_unknown_intro_0</text>
+                <next>1</next>
+            </phrase>
+
+            <phrase id="1">
+                <text>pravo_pri_unknown_intro_1</text>
+                <next>2</next>
+            </phrase>
+
+            <phrase id="2">
+                <text>pravo_pri_unknown_intro_2</text>
+                <give_info>pravo_pri_unknown_talked</give_info>
+                <action>dialogs.break_dialog</action>
+            </phrase>
+
+        </phrase_list>
+
+    </dialog>
+
+
+    <!-- ==================================================== -->
+    <!-- АЛЕКСАНДР                                           -->
+    <!-- ==================================================== -->
+
+    <dialog id="pravo_pri_alexander_intro">
+
+        <has_info>pravo_pri_unknown_talked</has_info>
+        <dont_has_info>pravo_pri_alexander_talked</dont_has_info>
+
+        <phrase_list>
+
+            <phrase id="0">
+                <text>pravo_pri_alexander_intro_0</text>
+                <next>1</next>
+            </phrase>
+
+            <phrase id="1">
+                <text>pravo_pri_alexander_intro_1</text>
+                <next>2</next>
+            </phrase>
+
+            <phrase id="2">
+                <text>pravo_pri_alexander_intro_2</text>
+                <give_info>pravo_pri_alexander_talked</give_info>
+                <action>dialogs.break_dialog</action>
+            </phrase>
+
+        </phrase_list>
+
+    </dialog>
+
+</game_dialogs>

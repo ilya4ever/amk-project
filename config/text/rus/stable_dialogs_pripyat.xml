@@ -18,4 +18,38 @@
 	<string id="pri_followers_start_dlg_411">
 		<text>Пока.</text>
 	</string>
+
+	<!-- ======================================================== -->
+<!-- PRAVO STORY                                              -->
+<!-- ======================================================== -->
+
+
+<!-- Неизвестный -->
+
+<string id="pravo_pri_unknown_intro_0">
+    <text>Эй... Ты понимаешь, где мы?</text>
+</string>
+
+<string id="pravo_pri_unknown_intro_1">
+    <text>Без понятия. Я очнулся здесь так же, как и ты.</text>
+</string>
+
+<string id="pravo_pri_unknown_intro_2">
+    <text>Прекрасно... Значит, будем разбираться вместе.</text>
+</string>
+
+
+<!-- Александр -->
+
+<string id="pravo_pri_alexander_intro_0">
+    <text>Ты уже говорил с тем парнем?</text>
+</string>
+
+<string id="pravo_pri_alexander_intro_1">
+    <text>Да. Он тоже ничего не понимает. Нужно осмотреться.</text>
+</string>
+
+<string id="pravo_pri_alexander_intro_2">
+    <text>Согласен. Только далеко не уходи. Мне это место совсем не нравится.</text>
+</string>
 </string_table>

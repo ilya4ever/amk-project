@@ -99,6 +99,7 @@
 
     #include "gameplay\character_criticals_4.xml"
 
+<start_dialog>pravo_pri_unknown_intro</start_dialog>
 </specific_character>
 
 
@@ -128,6 +129,7 @@
 
     #include "gameplay\character_criticals_4.xml"
 
+<start_dialog>pravo_pri_alexander_intro</start_dialog>
 </specific_character>
 </xml>
 
