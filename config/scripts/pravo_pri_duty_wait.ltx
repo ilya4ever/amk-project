@@ -1,9 +1,30 @@
 [logic]
 active = remark@stay
 
+
+; ============================================================
+; До разговора с командиром
+; ============================================================
+
 [remark@stay]
 anim = guard
 no_move = true
+meet = default_meet
+
+on_info = {+pravo_pri_escape_started} remark@attack_delay
+
+
+; ============================================================
+; После последней реплики командира
+; ============================================================
+
+[remark@attack_delay]
+anim = threat
+no_move = true
+meet = no_meet
+
+on_timer = 1200 | nil %=killactor%
+
 
 [smart_terrains]
 none = true
