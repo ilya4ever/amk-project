@@ -1,0 +1,23 @@
+<!-- ======================================================== -->
+<!-- PRAVO STORY - ESCAPE                                     -->
+<!-- ======================================================== -->
+
+<game_task id="pravo_pri_escape_task">
+
+    <title>Сбежать</title>
+
+    <!-- Общая карточка задания -->
+    <objective>
+        <text>Спастись от отряда Долга.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_pri_escape_descr</article>
+       <infoportion_complete>pravo_pri_escape_done</infoportion_complete>
+    </objective>
+
+    <!-- Реальная цель -->
+    <objective>
+        <text>Покинуть район детского сада.</text>
+        <infoportion_complete>pravo_pri_escape_done</infoportion_complete>
+    </objective>
+
+</game_task>

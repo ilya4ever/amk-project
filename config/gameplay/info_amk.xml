@@ -12,4 +12,9 @@
 <info_portion id="pravo_pri_alexander_talked"></info_portion>
 <info_portion id="pravo_pri_intro_done"></info_portion>
 <info_portion id="pravo_pri_duty_spawned"></info_portion>
+<info_portion id="pravo_pri_escape_started">
+    <task>pravo_pri_escape_task</task>
+</info_portion>
+
+<info_portion id="pravo_pri_escape_done"></info_portion>
 </game_information_portions>

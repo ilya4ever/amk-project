@@ -52,4 +52,28 @@
 <string id="pravo_pri_alexander_intro_2">
     <text>Согласен. Только далеко не уходи. Мне это место совсем не нравится.</text>
 </string>
+
+<!-- ======================================================== -->
+<!-- PRAVO STORY - DUTY COMMANDER                             -->
+<!-- ======================================================== -->
+
+<string id="pravo_pri_duty_intro_0">
+    <text>Стоять. Вы кто такие? И почему без оружия?</text>
+</string>
+
+<string id="pravo_pri_duty_intro_1">
+    <text>Сами бы хотели знать. Мы очнулись здесь совсем недавно и понятия не имеем, что происходит.</text>
+</string>
+
+<string id="pravo_pri_duty_intro_2">
+    <text>Вот как... Плохо. Очень плохо.</text>
+</string>
+
+<string id="pravo_pri_duty_intro_3">
+    <text>Что именно плохо?</text>
+</string>
+
+<string id="pravo_pri_duty_intro_4">
+    <text>У нас здесь секретная операция. Свидетели нам не нужны. Парни, работаем.</text>
+</string>
 </string_table>

@@ -79,3 +79,9 @@
 <article id="mil_screw_flamethrower_descr" name = "mil_screw_flamethrower_descr" article_type="task">
     <text>mil_screw_flamethrower_text</text>
 </article>
+
+<article id="pravo_pri_escape_descr"
+         name="pravo_pri_escape_task"
+         article_type="task">
+    <text>pravo_pri_escape_descr_text</text>
+</article>

@@ -168,6 +168,8 @@
 
     #include "gameplay\character_criticals_3.xml"
 
+    <start_dialog>pravo_pri_duty_intro</start_dialog>
+
 </specific_character>
 
 
