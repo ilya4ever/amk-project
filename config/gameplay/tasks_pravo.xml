@@ -19,5 +19,20 @@
         <text>Покинуть район детского сада.</text>
         <infoportion_complete>pravo_pri_escape_done</infoportion_complete>
     </objective>
+</game_task>
 
+<game_task id="pravo_pri_dead_city_task">
+    <title>Мёртвый город</title>
+
+    <objective>
+        <text>Разобраться, действительно ли это Припять.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_pri_escape_descr</article>
+        <infoportion_complete>pravo_pri_dead_city_wheel_reached</infoportion_complete>
+    </objective>
+
+    <objective>
+        <text>Добраться до колеса обозрения.</text>
+        <infoportion_complete>pravo_pri_dead_city_wheel_reached</infoportion_complete>
+    </objective>
 </game_task>

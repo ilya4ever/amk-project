@@ -17,4 +17,10 @@
 </info_portion>
 
 <info_portion id="pravo_pri_escape_done"></info_portion>
+
+<info_portion id="pravo_pri_dead_city_started">
+    <task>pravo_pri_dead_city_task</task>
+</info_portion>
+
+<info_portion id="pravo_pri_dead_city_wheel_reached"></info_portion>
 </game_information_portions>

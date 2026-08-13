@@ -2120,3 +2120,23 @@ end
 function actor_stop_sleeping()
   sleep_manager.stopper()
 end
+
+
+function pravo_dead_city_thought(actor, npc)
+
+    if db.actor == nil then
+        return
+    end
+
+    local text = game.translate_string(
+        "pravo_pri_dead_city_thought"
+    )
+
+    news_manager.send_tip(
+        db.actor,
+        text,
+        nil,
+        nil,
+        9000
+    )
+end
