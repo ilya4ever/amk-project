@@ -11,25 +11,23 @@ local subjects_list = {
 
 	--Подземные уровни 
 level_U0 = {
-            "af_ameba_mica",
-            "af_soul",
-            "af_cristall",
-            "af_gold_fish",
-            "af_night_star",
-            "af_electra_moonlight",
-            "af_fuzz_kolobok",
-            "af_rusty_sea-urchin",
-            "af_dummy_glassbeads",
-            "af_dummy_pellicle",
-            "af_dummy_battery",
-            "af_dummy_dummy",
-            "af_dummy_spring",
+        "af_ameba_mica",
+        "af_soul",
+        "af_cristall",
+        "af_gold_fish",
+        "af_night_star",
+        "af_electra_moonlight",
+        "af_fuzz_kolobok",
+		"af_rusty_sea-urchin",
+		"af_dummy_glassbeads",
+		"af_dummy_pellicle",
+		"af_dummy_battery",
+		"af_dummy_dummy",
+		"af_dummy_spring",   
 		"monolit_gaz_outfit_m1",
 		"specops_outfit",
 		"neytral_gaz_outfit_m1",
-		"ammo_5.56x45_ss190", 
 		"ammo_5.56x45_ap",
-		"ammo_9x39_pab9",
 		"ammo_9x39_sp5",
 		"ammo_9x39_ap",
 		"ammo_7.62x54_7h1", 
@@ -46,21 +44,19 @@ level_U0 = {
 	--Кордон, Свалка (разная мелочь)
 	level_C1 = {
 		--Артефакты--
-		  "af_drops",
-        	  "af_ameba_slime",
-         	 "af_rusty_thorn",
-         	 "af_electra_sparkler",
-         	 "af_blood",
-         	 "af_vyvert",
-         	 "af_medusa",
-         	 "af_cristall_flower",
-         	 "af_gravi",
-         	 "af_mincer_meat",
-         	 "af_rusty_kristall",
+		"af_drops",
+		"af_ameba_slime",
+		"af_rusty_thorn",
+		"af_electra_sparkler",
+		"af_blood",
+		"af_vyvert",
+		"af_medusa",
+		"af_cristall_flower",
+		"af_gravi",
+		"af_mincer_meat",
+		"af_rusty_kristall",
 		--Аммуниция--
-		"ammo_9x18_fmj",
-		"ammo_9x18_pmm",
-		"ammo_9x19_fmj",
+		"ammo_9x19_pbp",
 		"ammo_12x70_buck",
 		"ammo_5.45x39_fmj",
 		"bandit_outfit",
@@ -69,40 +65,29 @@ level_U0 = {
 		"neytral_novice_gaz_outfit_m1",
 		"neytral_novice_outfit_m1",			
 		--Оружие--
-		"wpn_pm",
-		"wpn_pb",
 		"wpn_bm16",
 		"wpn_ak74u",
 		"wpn_mp5",
 		--Прочее--
-		"bread",
-		"bandage",
-		"kolbasa",
 		"medkit",
-		"vodka",
-		"conserva"
+		"vodka"
 	},
 	
 	--Агропром, Темная долина, Бар(средние за ценностью предметы)
 	level_C2 = {
 		--Артефакты--
 	    "af_electra_flash",
-          "af_rusty_kristall",
-          "af_ameba_slug",
-          "af_fireball",     
-          "af_night_star",
-          "af_gold_fish",
-          "af_soul",
-          "af_electra_moonlight",
-          "af_rusty_sea-urchin",
-          "af_ameba_mica",
-          "af_cristall",
+        "af_rusty_kristall",
+        "af_ameba_slug",
+        "af_fireball",     
+        "af_night_star",
+        "af_gold_fish",
+        "af_soul",
+        "af_electra_moonlight",
+        "af_rusty_sea-urchin",
+        "af_ameba_mica",
+        "af_cristall",
 		--Аммуниция--
-		"ammo_9x18_fmj",
-		"ammo_9x18_pmm",
-		"ammo_9x19_fmj",
-		"ammo_9x19_pbp",
-		"ammo_12x70_buck", 
 		"ammo_12x76_zhekan",
 		"ammo_5.45x39_fmj",
 		"ammo_5.45x39_ap",
@@ -123,26 +108,23 @@ level_U0 = {
 		--Прочее--
 		"mutant_dog_tail",
 		"mutant_boar_leg",
-		"kolbasa",
 		"medkit",
-		"antirad",
-		"energy_drink",
-		"conserva"
+		"antirad"
 	},
 
 	--Росток, Янтарь, Милитари (вот на том что тут делают кучу денег)
 	level_C3 = {
 		--Артефакты--
 	    "af_electra_moonlight",
-          "af_rusty_sea-urchin",
-          "af_ameba_mica",
-          "af_cristall",
-          "af_dummy_glassbeads",
-          "af_dummy_pellicle",
-          "af_dummy_battery",
-          "af_dummy_dummy",
-          "af_dummy_spring",
-          "af_fuzz_kolobok",
+        "af_rusty_sea-urchin",
+        "af_ameba_mica",
+        "af_cristall",
+        "af_dummy_glassbeads",
+        "af_dummy_pellicle",
+        "af_dummy_battery",
+        "af_dummy_dummy",
+        "af_dummy_spring",
+        "af_fuzz_kolobok",
 		--Аммуниция--
 		"ammo_9x19_fmj",
 		"ammo_9x19_pbp",
@@ -178,35 +160,31 @@ level_U0 = {
 		"wpn_vintorez",
 		"wpn_svu",
 		"wpn_svd",
-		"wpn_rg-6",
 		"wpn_rpg7",
 		--Прочее--
 		"mutant_psevdodog_tail",
 		"mutant_snork_leg",
-		"medkit_army",
-		"antirad"
+		"medkit_army"
 	},
 
 	--Припять, Радар (сверхценное, реликты)
 	level_C4 = {
 		--Артефакты--
-	 "af_dummy_glassbeads",
-          "af_dummy_pellicle",
-          "af_dummy_battery",
-          "af_dummy_dummy",
-          "af_dummy_spring",
-          "af_fuzz_kolobok",
-          "af_spirit_1",        
-          "af_cry_1",
-          "af_babka_1",
-          "af_pudd_1",
-          "af_dik_1",
-          "af_kol_1",
-          "af_armor_1",
+		"af_dummy_glassbeads",
+        "af_dummy_pellicle",
+        "af_dummy_battery",
+        "af_dummy_dummy",
+        "af_dummy_spring",
+        "af_fuzz_kolobok",
+        "af_spirit_1",        
+        "af_cry_1",
+        "af_babka_1",
+        "af_pudd_1",
+        "af_dik_1",
+        "af_kol_1",
+        "af_armor_1",
 		--Аммуниция--
-		"ammo_9x19_pbp",
-		"ammo_11.43x23_hydro",
-		"ammo_12x76_zhekan", 
+		"ammo_11.43x23_hydro", 
 		"ammo_12x76_dart",
 		"ammo_7.62x54_ap",
  		"ammo_9x39_sp5",
@@ -331,7 +309,7 @@ end
 --' Юзание инициатора (возможность выдать тайник)
 function CTreasure:use(npc)
 	printf("TREASURE USE")
-	local rarets = 60
+	local rarets = 70
 	
 	if amk.is_debug then
 		rarets=0
@@ -515,9 +493,9 @@ function CTreasure:give_item_list(v)
 		if string.find(s, "outfit") ~= nil or string.find(s, "wpn") ~= nil then
 			cnt = 1
 		elseif string.find(s, "addon") ~= nil or string.find(s, "af") ~= nil or string.find(s, "mutant") ~= nil then
-			cnt = math.random(1,2)
+			cnt = math.random(1, 3)
 		else 
-			cnt = math.random(1,5)
+			cnt = math.random(1, 5)
 		end   
 	end
   

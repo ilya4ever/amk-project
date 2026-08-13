@@ -3,10 +3,18 @@
 File:  amk_utils .script
 Created:  23.05.2008
 Copyright:  © 2008 AMK team
-Author:  Refresh
-Version:  1.1.0.0
+Version:  1.1.0.5
 
 --]]
+
+
+--* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+-- *			                         Menu 					                 *
+--* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+RestrictionStock = 1   --Ограничения на вместимость инвентаря
+
+
+
 
 
 --* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -59,20 +67,20 @@ end
 
 --Callback на взятия предмета в инвентарь гг из ящика
 function actor_item_from_box(box, item)
-	if item ~= nil then
-		restriction_stock.restriction_of_stock(item)
-	end
 end
 
 --Callback на взятие предмета в инвентарь гг
 function actor_item_take(obj)
-	if obj ~= nil then
-		restriction_stock.restriction_of_stock(obj)
+	if obj ~= nil and RestrictionStock ~= nil then
+		restriction_stock.restriction_of_stock(obj,0)
 	end
 end
 
 --Callback на потерю предмета из инвенаря гг
 function actor_item_drop(obj)
+	if obj ~= nil and RestrictionStock ~= nil then
+		restriction_stock.restriction_of_stock(obj,1)
+	end
 end
 
 --Callback на получение тасков
@@ -89,10 +97,10 @@ end
 --* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 --Проверка на количество предметов в инвентаре гг
-function inventory_search(_item, n)
+function inventory_search(itemS, n)
 	local  actor = db.actor
 	local  count = 0
-	actor:iterate_inventory(function (dummy, item) if item:section()== _item then count=count+1 end end, nil)
+	actor:iterate_inventory(function (dummy, item) if item:section()== itemS then count=count+1 end end, nil)
 	if count >= n then
 		return true
 	else
@@ -101,9 +109,9 @@ function inventory_search(_item, n)
 end
 
 --Проверка на предмет в инвентаре гг
-function have_a_item(_item)
+function have_a_item(itemS)
     local actor = db.actor
-    if actor ~= nil and actor:object(_item) ~= nil then
+    if actor ~= nil and actor:object(itemS) ~= nil then
 		return true
 	else
 		return false
@@ -111,10 +119,10 @@ function have_a_item(_item)
 end
 
 --Проверка на предмет в инветаре и выдачу инфопоршена
-function have_a_item_info(_item, _info)
+function have_a_item_info(itemS, info)
     local actor = db.actor
-    if actor ~= nil and actor:object(_item) ~= nil and actor:dont_has_info(_info) then
-		actor:give_info_portion(_info)
+    if actor ~= nil and actor:object(itemS) ~= nil and actor:dont_has_info(info) then
+		actor:give_info_portion(info)
 	end
 end
 
@@ -129,9 +137,9 @@ function have_a_info(info_has, not_info_has)
 end
 
 --Проверка денег у гг
-function actor_has_money(_money)
+function actor_has_money(money)
 	local actor = db.actor
-	if actor:money() >= _money then
+	if actor:money() >= money then
 		return true
 	else
 		return false
@@ -143,60 +151,59 @@ end
 --* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 --Трансфер денег между гг и нпс
-function actor_give_money(_npc, _actor, _money, type)
+function actor_give_money(npcObj, actorObj, money, Type)
 	local actor, npc
 	if db.actor and db.actor:id() == npc:id() then
-		actor = _npc
-		npc = _actor
+		actor = npcObj
+		npc = actorObj
 	else
-		actor = _actor
-		npc = _npc
+		actor = actorObj
+		npc = npcObj
 	end
 	
-	if type == "out" then
-		dialogs.relocate_money(npc, _money, "out")
-	elseif type == "in" then 
-		dialogs.relocate_money(npc, _money, "in")
+	if Type == "out" then
+		dialogs.relocate_money(npc, money, "out")
+	elseif Type == "in" then 
+		dialogs.relocate_money(npc, money, "in")
 	end
 end
 
 --Трансфер предмета между гг и нпс
-function actor_give_item(_npc, _actor, _item, _type)
+function actor_give_item(npcObj, actorObj, itemS, Type)
 	local actor, npc
 	if db.actor and db.actor:id() == npc:id() then
-		actor = _npc
-		npc = _actor
+		actor = npcObj
+		npc = actorObj
 	else
-		actor = _actor
-		npc = _npc
+		actor = actorObj
+		npc = npcObj
 	end
 	
-	if _type == "out" then
-		dialogs.relocate_item_section(npc, _item, "out")
-	elseif _type == "in" then 
-		dialogs.relocate_item_section(npc, _item, "in")
+	if 	   Type == "out" then
+		dialogs.relocate_item_section(npc, itemS, "out")
+	elseif Type == "in" then 
+		dialogs.relocate_item_section(npc, itemS, "in")
 	end
 end
 
 --Трансфер предметов между гг и нпс
-function relocate_n_items_section(_victim, _section, _type, _count)
-    if db.actor and _victim then
-		if _type == "in" then
-			for i=1,n do
-                alife():create(_section,     
-				db.actor:position(),
-                db.actor:level_vertex_id(),     
-                db.actor:game_vertex_id(),
-                db.actor:id())
+function relocate_n_items_section(victim, section, Type, count)
+    if db.actor and victim then
+		if Type == "in" then
+			for i=1, n do
+                alife():create(section,
+					db.actor:position(),
+					db.actor:level_vertex_id(),
+					db.actor:game_vertex_id(),
+					db.actor:id())
 			end
-		elseif _type == "out" then
-			db.actor:iterate_inventory(function (dummy,item) if item:section() == _section and _count > 0 then 
-			db.actor:transfer_item(item, _victim) _count = _count - 1 end end, nil)
+		elseif Type == "out" then
+			db.actor:iterate_inventory(function (dummy,item) if item:section() == section and count > 0 then 
+			db.actor:transfer_item(item, victim) count = count - 1 end end, nil)
 		end
-		news_manager.relocate_item(db.actor, _type, _section)
+		news_manager.relocate_item(db.actor, Type, section)
     end
 end
-
 
 
 
