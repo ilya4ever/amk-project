@@ -274,6 +274,8 @@
 
 </specific_character>
 
+<!-- Раненый свободовец -->
+
 <specific_character id="pravo_pri_wounded_freedom" team_default = "1">
 
     <name>Макар</name>
@@ -301,6 +303,93 @@
     #include "gameplay\character_criticals_4.xml"
 
  <start_dialog>pravo_pri_wounded_freedom_intro</start_dialog>
+</specific_character>
+
+<!-- СКВАД СВОБОДЫ ПРИПЯТЬ -->
+
+<specific_character id="pravo_pri_freedom_leader" team_default = "1">
+
+    <name>Ковбой</name>
+    <icon>ui_npc_u_green_stalker_4</icon>
+    <bio>gar_stalker_regular_bio</bio>
+
+    <class>pravo_pri_freedom_leader</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>300</rank>
+    <reputation>0</reputation>
+
+    <money min="2000" max="5000" infinitive="0"/>
+
+    <snd_config>characters_voice\human_01\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_hood_9</visual>
+
+    <supplies>
+        [spawn] \n
+    </supplies>
+
+    #include "gameplay\character_criticals_4.xml"
+
+ <start_dialog>pravo_pri_freedom_leader_intro</start_dialog>
+</specific_character>
+
+<specific_character id="pravo_pri_freedom_1" team_default="1">
+
+    <name>Володя Ганжубас</name>
+    <icon>ui_npc_u_stalker_do_balon_3</icon>
+    <bio>sim_stalker_regular_bio</bio>
+
+    <class>pravo_pri_freedom_1</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>500</rank>
+    <reputation>300</reputation>
+
+    <money min="0" max="0" infinitive="0"/>
+
+    <snd_config>characters_voice\human_01\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_rukzak_2</visual>
+
+   <supplies>
+        [spawn] \n
+    </supplies>
+
+    #include "gameplay\character_criticals_3.xml"
+
+</specific_character>
+
+<specific_character id="pravo_pri_freedom_2" team_default="1">
+
+    <name>Макс Аллигатор</name>
+    <icon>ui_npc_u_stalker_do_balon_3</icon>
+    <bio>sim_stalker_regular_bio</bio>
+
+    <class>pravo_pri_freedom_2</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>500</rank>
+    <reputation>300</reputation>
+
+    <money min="0" max="0" infinitive="0"/>
+
+    <snd_config>characters_voice\human_01\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_hood_91</visual>
+
+    <supplies>
+        [spawn] \n
+    </supplies>
+
+    #include "gameplay\character_criticals_3.xml"
+
 </specific_character>
 </xml>
 

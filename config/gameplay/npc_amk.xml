@@ -49,4 +49,19 @@
     <class>pravo_pri_wounded_freedom</class>
     <specific_character>pravo_pri_wounded_freedom</specific_character>
 </character>
+
+<character id="pravo_pri_freedom_leader">
+    <class>pravo_pri_freedom_leader</class>
+    <specific_character>pravo_pri_freedom_leader</specific_character>
+</character>
+
+<character id="pravo_pri_freedom_1">
+    <class>pravo_pri_freedom_1</class>
+    <specific_character>pravo_pri_freedom_1</specific_character>
+</character>
+
+<character id="pravo_pri_freedom_2">
+    <class>pravo_pri_freedom_2</class>
+    <specific_character>pravo_pri_freedom_2</specific_character>
+</character>
 </xml>

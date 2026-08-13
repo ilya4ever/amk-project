@@ -49,8 +49,17 @@
     </objective>
 
     <objective>
-        <text>Добраться до гастронома и найти свободовцев.</text>
-        <infoportion_complete>pravo_pri_find_freedom_done</infoportion_complete>
+        <text>Добраться до гастронома и поговорить с командиром отряда.</text>
+
+        <map_location_type hint="pravo_pri_freedom_squad_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_pri_freedom_leader</object_story_id>
+
+        <infoportion_complete>
+            pravo_pri_find_freedom_done
+        </infoportion_complete>
     </objective>
 
 </game_task>

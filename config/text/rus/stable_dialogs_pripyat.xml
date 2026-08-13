@@ -124,4 +124,28 @@
 <string id="pravo_pri_wounded_freedom_intro_7">
     <text>Хорошо. Найду твоих и передам, где ты.</text>
 </string>
+
+<string id="pravo_pri_freedom_leader_intro_0">
+    <text>Стоять. Ты кто такой?</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_1">
+    <text>Спокойно. Меня прислал ваш человек. Я нашёл его возле колеса обозрения.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_2">
+    <text>Наш человек? Он жив?</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_3">
+    <text>Жив, но сильно ранен. Говорит, попал в аномалию. ПДА разбит, поэтому связаться с вами он не смог.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_4">
+    <text>Чёрт... Ясно. Хорошо, что ты добрался. Мы за ним сходим.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_5">
+    <text>Он остался возле колеса. Я показал, где именно.</text>
+</string>
 </string_table>
