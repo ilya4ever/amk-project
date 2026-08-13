@@ -23,4 +23,14 @@
 </info_portion>
 
 <info_portion id="pravo_pri_dead_city_wheel_reached"></info_portion>
+
+<info_portion id="pravo_pri_wounded_freedom_talked"></info_portion>
+
+<info_portion id="pravo_pri_wounded_freedom_weapon_given"></info_portion>
+
+<info_portion id="pravo_pri_find_freedom_started">
+    <task>pravo_pri_find_freedom_task</task>
+</info_portion>
+
+<info_portion id="pravo_pri_find_freedom_done"></info_portion>
 </game_information_portions>

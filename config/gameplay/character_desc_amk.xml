@@ -300,7 +300,7 @@
 
     #include "gameplay\character_criticals_4.xml"
 
-<start_dialog>pravo_pri_unknown_intro</start_dialog>
+ <start_dialog>pravo_pri_wounded_freedom_intro</start_dialog>
 </specific_character>
 </xml>
 

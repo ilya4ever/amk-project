@@ -139,3 +139,44 @@ function alexander_finished(first_speaker, second_speaker)
 
     check_intro_finished()
 end
+
+function wounded_freedom_give_weapon(first_speaker, second_speaker)
+
+    if db.actor == nil then
+        return
+    end
+
+    if db.actor:has_info("pravo_pri_wounded_freedom_weapon_given") then
+        return
+    end
+
+    local actor = db.actor
+
+    alife():create(
+        "wpn_walther",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id(),
+        actor:id()
+    )
+
+    alife():create(
+        "ammo_9x19_fmj",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id(),
+        actor:id()
+    )
+
+    alife():create(
+        "ammo_9x19_fmj",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id(),
+        actor:id()
+    )
+
+    actor:give_info_portion(
+        "pravo_pri_wounded_freedom_weapon_given"
+    )
+end

@@ -77,7 +77,51 @@
     <text>У нас здесь секретная операция. Свидетели нам не нужны. Парни, работаем.</text>
 </string>
 
+
+<!-- ======================================================== -->
+<!-- PRAVO STORY - MAIN CHAR THOUGHT KOLECO                         -->
+<!-- ======================================================== -->
+
+
 <string id="pravo_pri_dead_city_thought">
     <text>Мысли: Неужели это и правда Припять?.. Если так, здесь должно быть знаменитое колесо обозрения. Нужно его найти.</text>
+</string>
+
+
+<!-- ======================================================== -->
+<!-- PRAVO STORY - FREEDOM WOUNDED                            -->
+<!-- ======================================================== -->
+
+
+<string id="pravo_pri_wounded_freedom_intro_0">
+    <text>Эй... стой. Ты кто такой?</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_1">
+    <text>Спокойно. Я не из Долга. Что с тобой произошло?</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_2">
+    <text>На разведке в аномалию влетел. Меня приложило крепко, а ПДА окончательно сдох. Связи нет, SOS своим отправить не могу.</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_3">
+    <text>Где твой отряд?</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_4">
+    <text>Мы остановились в гастрономе. Если ребята ещё там, найди их и скажи, что я жив. Они должны меня искать.</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_5">
+    <text>Попробую. Только я здесь почти безоружен.</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_6">
+    <text>Тогда держи. У меня остался пистолет. Мне сейчас от него толку мало, а тебе пригодится.</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_7">
+    <text>Хорошо. Найду твоих и передам, где ты.</text>
 </string>
 </string_table>

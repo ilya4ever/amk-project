@@ -36,3 +36,21 @@
         <infoportion_complete>pravo_pri_dead_city_wheel_reached</infoportion_complete>
     </objective>
 </game_task>
+
+<game_task id="pravo_pri_find_freedom_task">
+
+    <title>Найти отряд Свободы</title>
+
+    <objective>
+        <text>Найти отряд Свободы в гастрономе.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_pri_escape_descr</article>
+        <infoportion_complete>pravo_pri_find_freedom_done</infoportion_complete>
+    </objective>
+
+    <objective>
+        <text>Добраться до гастронома и найти свободовцев.</text>
+        <infoportion_complete>pravo_pri_find_freedom_done</infoportion_complete>
+    </objective>
+
+</game_task>
