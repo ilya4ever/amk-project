@@ -81,7 +81,21 @@
 </article>
 
 <article id="pravo_pri_escape_descr"
-         name="pravo_pri_escape_task"
+         name="pravo_pri_escape_descr"
          article_type="task">
-    <text>Искать</text>
+    <text>Долговцы решили избавиться от свидетелей. Нужно как можно быстрее покинуть район детского сада и оторваться от преследования.</text>
+</article>
+
+
+<article id="pravo_pri_dead_city_descr"
+         name="pravo_pri_dead_city_descr"
+         article_type="task">
+    <text>pravo_pri_dead_city_descr_text</text>
+</article>
+
+
+<article id="pravo_pri_find_freedom_descr"
+         name="pravo_pri_find_freedom_descr"
+         article_type="task">
+    <text>pravo_pri_find_freedom_descr_text</text>
 </article>

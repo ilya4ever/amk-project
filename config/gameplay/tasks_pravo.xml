@@ -27,7 +27,7 @@
     <objective>
         <text>Разобраться, действительно ли это Припять.</text>
         <icon>amk_ui_flame_quest</icon>
-        <article>pravo_pri_escape_descr</article>
+        <article>pravo_pri_dead_city_descr</article>
         <infoportion_complete>pravo_pri_dead_city_wheel_reached</infoportion_complete>
     </objective>
 
@@ -44,7 +44,7 @@
     <objective>
         <text>Найти отряд Свободы в гастрономе.</text>
         <icon>amk_ui_flame_quest</icon>
-        <article>pravo_pri_escape_descr</article>
+        <article>pravo_pri_find_freedom_descr</article>
         <infoportion_complete>pravo_pri_find_freedom_done</infoportion_complete>
     </objective>
 
