@@ -168,6 +168,14 @@ function wounded_freedom_give_weapon(first_speaker, second_speaker)
         actor:id()
     )
 
+      alife():create(
+        "wpn_knife",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id(),
+        actor:id()
+    )
+
     alife():create(
         "ammo_9x19_fmj",
         actor:position(),
