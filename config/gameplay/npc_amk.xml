@@ -44,4 +44,9 @@
     <class>pravo_pri_duty_3</class>
     <specific_character>pravo_pri_duty_3</specific_character>
 </character>
+
+<character id="pravo_pri_wounded_freedom">
+    <class>pravo_pri_wounded_freedom</class>
+    <specific_character>pravo_pri_wounded_freedom</specific_character>
+</character>
 </xml>
