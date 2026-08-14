@@ -74,4 +74,9 @@
     <class>pravo_rad_freedom_camper</class>
     <specific_character>pravo_rad_freedom_camper</specific_character>
 </character>
+
+<character id="pravo_rad_freedom_trader">
+    <class>pravo_rad_freedom_trader</class>
+    <specific_character>pravo_rad_freedom_trader</specific_character>
+</character>
 </xml>
