@@ -106,3 +106,10 @@
          article_type="task">
     <text>Ковбой решил выводить отряд из Припяти. Володя отправился к раненому Макару, а Ковбой и Макс поведут меня к переходу на Радар.</text>
 </article>
+
+
+<article id="pravo_rad_talk_cowboy_descr"
+         name="pravo_rad_talk_cowboy_descr"
+         article_type="task">
+    <text>Мы с Ковбоем и Максом добрались до скрытого лагеря Свободы на Радаре. Нужно поговорить с Ковбоем и узнать, что делать дальше.</text>
+</article>

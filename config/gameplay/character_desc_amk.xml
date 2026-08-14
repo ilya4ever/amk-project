@@ -342,6 +342,7 @@
 
  <start_dialog>pravo_pri_freedom_leader_intro</start_dialog>
  <actor_dialog>pravo_pri_freedom_leader_exit</actor_dialog>
+ <actor_dialog>pravo_rad_cowboy_camp</actor_dialog>
 </specific_character>
 
 <specific_character id="pravo_pri_freedom_1" team_default="1">

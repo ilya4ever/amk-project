@@ -258,7 +258,43 @@
 
         <phrase id="4">
             <text>pravo_pri_freedom_leader_exit_4</text>
+            <next>5</next>
+        </phrase>
+
+        <phrase id="5">
+            <text>pravo_pri_freedom_leader_exit_5</text>
+            <next>6</next>
+        </phrase>
+
+        <phrase id="6">
+            <text>pravo_pri_freedom_leader_exit_6</text>
             <give_info>pravo_pri_exit_dialog_done</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_rad_cowboy_camp">
+
+    <has_info>pravo_rad_talk_cowboy_started</has_info>
+    <dont_has_info>pravo_rad_talk_cowboy_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_rad_cowboy_camp_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_rad_cowboy_camp_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_rad_cowboy_camp_2</text>
+            <give_info>pravo_rad_talk_cowboy_done</give_info>
         </phrase>
 
     </phrase_list>

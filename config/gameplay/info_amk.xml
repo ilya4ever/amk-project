@@ -45,4 +45,9 @@
 <info_portion id="pravo_pri_exit_dialog_done"></info_portion>
 <info_portion id="pravo_pri_leave_done"></info_portion>
 <info_portion id="pravo_pri_leave_failed"></info_portion>
+
+<info_portion id="pravo_rad_talk_cowboy_started">
+    <task>pravo_rad_talk_cowboy_task</task>
+</info_portion>
+<info_portion id="pravo_rad_talk_cowboy_done"></info_portion>
 </game_information_portions>

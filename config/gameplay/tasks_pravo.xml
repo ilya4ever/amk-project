@@ -72,7 +72,7 @@
         <text>Добраться до перехода на Радар вместе с Ковбоем.</text>
         <icon>amk_ui_flame_quest</icon>
         <article>pravo_pri_leave_descr</article>
-        <infoportion_complete>pravo_pri_leave_done</infoportion_complete>
+        <infoportion_complete>pravo_pri_leave_ready</infoportion_complete>
         <infoportion_fail>pravo_pri_leave_failed</infoportion_fail>
     </objective>
 
@@ -85,8 +85,21 @@
 
         <object_story_id>pravo_pri_freedom_leader</object_story_id>
 
-        <infoportion_complete>pravo_pri_leave_done</infoportion_complete>
+        <infoportion_complete>pravo_pri_leave_ready</infoportion_complete>
         <infoportion_fail>pravo_pri_leave_failed</infoportion_fail>
+    </objective>
+
+</game_task>
+
+<game_task id="pravo_rad_talk_cowboy_task">
+
+    <title>Поговорить с Ковбоем</title>
+
+    <objective>
+        <text>Поговорить с Ковбоем в лагере Свободы.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_rad_talk_cowboy_descr</article>
+        <infoportion_complete>pravo_rad_talk_cowboy_done</infoportion_complete>
     </objective>
 
 </game_task>

@@ -174,22 +174,42 @@
 </string>
 
 <string id="pravo_pri_freedom_leader_exit_0">
-    <text>Ну всё, добрались. Переход на Радар прямо впереди.</text>
+    <text>Ну что, дошли?</text>
 </string>
 
 <string id="pravo_pri_freedom_leader_exit_1">
-    <text>Что дальше?</text>
+    <text>Да, добрались. Переход на Радар прямо впереди.</text>
 </string>
 
 <string id="pravo_pri_freedom_leader_exit_2">
-    <text>Наш лагерь стоит в стороне от дорог, и чужим мы путь к нему не показываем. От перехода доведём тебя сами, но дорогу тебе пока видеть нельзя — завяжем глаза.</text>
+    <text>Что дальше?</text>
 </string>
 
 <string id="pravo_pri_freedom_leader_exit_3">
-    <text>И мне после этого не бояться?</text>
+    <text>Наш лагерь стоит в стороне от дорог, и чужим мы путь к нему не показываем. От перехода доведём тебя сами, но дорогу тебе пока видеть нельзя — завяжем глаза.</text>
 </string>
 
 <string id="pravo_pri_freedom_leader_exit_4">
+    <text>И мне после этого не бояться?</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_5">
     <text>Не бойся. Мы с Максом будем рядом, а повязку снимем уже в лагере. Заходи в переход первым.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_6">
+    <text>Ладно. Веди.</text>
+</string>
+
+<string id="pravo_rad_cowboy_camp_0">
+    <text>Ну вот, мы и в лагере.</text>
+</string>
+
+<string id="pravo_rad_cowboy_camp_1">
+    <text>Да, всё, пришли. Теперь иди поговори со старшим — он находится в здании неподалёку.</text>
+</string>
+
+<string id="pravo_rad_cowboy_camp_2">
+    <text>Хорошо, найду его.</text>
 </string>
 </string_table>
