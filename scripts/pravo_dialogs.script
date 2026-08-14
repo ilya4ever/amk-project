@@ -276,6 +276,27 @@ function freedom_leader_give_dog_reward(first_speaker, second_speaker)
     actor:give_info_portion("pravo_rad_dogs_reward_given")
 end
 
+function remove_pripyat_makar_and_volodya(first_speaker, second_speaker)
+
+    local simulator = alife()
+
+    if simulator == nil then
+        return
+    end
+
+    local old_makar = simulator:story_object(839)
+
+    if old_makar ~= nil then
+        simulator:release(old_makar, true)
+    end
+
+    local old_volodya = simulator:story_object(840)
+
+    if old_volodya ~= nil then
+        simulator:release(old_volodya, true)
+    end
+end
+
 function actor_has_rad_herb(first_parameter, second_parameter)
 
     if db.actor == nil then
@@ -285,7 +306,7 @@ function actor_has_rad_herb(first_parameter, second_parameter)
     return db.actor:object("pravo_rad_herb") ~= nil
 end
 
-function freedom_leader_take_rad_herb(first_speaker, second_speaker)
+function makar_take_rad_herb(first_speaker, second_speaker)
 
     if db.actor == nil or second_speaker == nil then
         return

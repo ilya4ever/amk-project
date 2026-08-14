@@ -381,8 +381,80 @@
     <actor_dialog>pravo_rad_freedom_leader_test</actor_dialog>
     <actor_dialog>pravo_rad_freedom_leader_dogs_start</actor_dialog>
     <actor_dialog>pravo_rad_freedom_leader_dogs_report</actor_dialog>
-    <actor_dialog>pravo_rad_freedom_leader_herb_start</actor_dialog>
-    <actor_dialog>pravo_rad_freedom_leader_herb_report</actor_dialog>
+</specific_character>
+
+<specific_character id="pravo_rad_makar" team_default="1">
+
+    <name>Макар</name>
+    <icon>ui_npc_u_green_stalker_4</icon>
+    <bio>gar_stalker_regular_bio</bio>
+
+    <class>pravo_rad_makar</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>300</rank>
+    <reputation>100</reputation>
+
+    <money min="300" max="1000" infinitive="0"/>
+
+    <snd_config>characters_voice\human_01\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_rukzak_2</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_walther \n
+        ammo_9x19_fmj = 1 \n
+        device_torch \n
+        bandage = 2 \n
+        medkit = 1 \n
+    </supplies>
+
+    #include "gameplay\character_criticals_4.xml"
+
+    <actor_dialog>pravo_rad_makar_thanks</actor_dialog>
+    <actor_dialog>pravo_rad_makar_herb_start</actor_dialog>
+    <actor_dialog>pravo_rad_makar_herb_report</actor_dialog>
+</specific_character>
+
+<specific_character id="pravo_rad_volodya" team_default="1">
+
+    <name>Володя Ганжубас</name>
+    <icon>ui_npc_u_stalker_do_balon_3</icon>
+    <bio>sim_stalker_regular_bio</bio>
+
+    <class>pravo_rad_volodya</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>500</rank>
+    <reputation>300</reputation>
+
+    <money min="300" max="1000" infinitive="0"/>
+
+    <snd_config>characters_voice\human_01\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_rukzak_2</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_walther \n
+        ammo_9x19_fmj = 1 \n
+        wpn_lr300 = 1 \n
+        ammo_5.56x45_ss190 = 2 \n
+        device_torch \n
+        bandage = 2 \n
+        medkit = 1 \n
+    </supplies>
+
+    #include "gameplay\character_criticals_3.xml"
+
+    <start_dialog>dm_hello_dialog</start_dialog>
+    <actor_dialog>dm_cool_info_dialog</actor_dialog>
+    <actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
 </specific_character>
 
 <specific_character id="pravo_rad_freedom_camper" team_default="1">

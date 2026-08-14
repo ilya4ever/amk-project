@@ -262,42 +262,62 @@
 </string>
 
 <string id="pravo_rad_freedom_leader_dogs_report_3">
-    <text>Держи автомат и пару магазинов — заслужил. Отдохни, пополни припасы, а потом подходи: найдётся ещё одно дело.</text>
+    <text>Держи автомат и пару магазинов — заслужил. И ещё: пока ты бегал, Володя привёл Макара из Припяти. Они уже в лагере. Макар хотел тебя видеть и лично поблагодарить. Найди его.</text>
 </string>
 
 <string id="pravo_rad_dogs_hint">
     <text>Стая собак</text>
 </string>
 
-<string id="pravo_rad_freedom_leader_herb_start_0">
-    <text>Есть ещё работа?</text>
+<string id="pravo_rad_makar_hint">
+    <text>Макар</text>
 </string>
 
-<string id="pravo_rad_freedom_leader_herb_start_1">
-    <text>Есть. Мы нашли на Радаре одно местечко, где растёт дичка. Трава необычная, может пригодиться лагерю, но место от нас далековато.</text>
+<string id="pravo_rad_makar_thanks_0">
+    <text>Старший сказал, ты хотел меня видеть.</text>
 </string>
 
-<string id="pravo_rad_freedom_leader_herb_start_2">
+<string id="pravo_rad_makar_thanks_1">
+    <text>Хотел. Спасибо, что не прошёл мимо меня в Припяти. Если бы не ты, я бы там и остался. Володя дотащил меня до лагеря, теперь оклемаюсь.</text>
+</string>
+
+<string id="pravo_rad_makar_thanks_2">
+    <text>Главное, что вы оба добрались.</text>
+</string>
+
+<string id="pravo_rad_makar_thanks_3">
+    <text>Я у тебя в долгу. И ещё у меня есть одно дело. Когда будешь готов — спроси.</text>
+</string>
+
+<string id="pravo_rad_makar_herb_start_0">
+    <text>Ты говорил, что есть дело.</text>
+</string>
+
+<string id="pravo_rad_makar_herb_start_1">
+    <text>Есть. Пока Володя вёл меня к лагерю, мы заметили в стороне местечко, где растёт необычная дичка. Сам я сейчас далеко не ходок, а корень может пригодиться нашим ребятам.</text>
+</string>
+
+<string id="pravo_rad_makar_herb_start_2">
     <text>Что именно нужно принести?</text>
 </string>
 
-<string id="pravo_rad_freedom_leader_herb_start_3">
-    <text>Доберись до отмеченного места и выкопай один корень. По виду не ошибёшься. Принесёшь его сюда — посмотрим, на что он годится.</text>
+<string id="pravo_rad_makar_herb_start_3">
+    <text>Доберись до отмеченного места и выкопай один корень. По виду не ошибёшься. Принесёшь его мне — посмотрим, на что он годится.</text>
 </string>
 
-<string id="pravo_rad_freedom_leader_herb_start_4">
+<string id="pravo_rad_makar_herb_start_4">
     <text>Ладно. Найду корень и принесу тебе.</text>
 </string>
 
-<string id="pravo_rad_freedom_leader_herb_report_0">
+<string id="pravo_rad_makar_herb_report_0">
     <text>Вот тот самый корень. Нашёл его в отмеченном месте.</text>
 </string>
 
-<string id="pravo_rad_freedom_leader_herb_report_1">
+<string id="pravo_rad_makar_herb_report_1">
     <text>Да, это он. Хорошо сработано — теперь наши умельцы разберутся, есть ли от него польза.</text>
 </string>
 
-<string id="pravo_rad_freedom_leader_herb_report_2">
+<string id="pravo_rad_makar_herb_report_2">
     <text>Значит, задание выполнено.</text>
 </string>
 

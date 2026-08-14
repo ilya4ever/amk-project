@@ -79,4 +79,14 @@
     <class>pravo_rad_freedom_trader</class>
     <specific_character>pravo_rad_freedom_trader</specific_character>
 </character>
+
+<character id="pravo_rad_makar">
+    <class>pravo_rad_makar</class>
+    <specific_character>pravo_rad_makar</specific_character>
+</character>
+
+<character id="pravo_rad_volodya">
+    <class>pravo_rad_volodya</class>
+    <specific_character>pravo_rad_volodya</specific_character>
+</character>
 </xml>

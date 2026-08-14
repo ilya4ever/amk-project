@@ -129,8 +129,15 @@
 </article>
 
 
+<article id="pravo_rad_talk_makar_descr"
+         name="pravo_rad_talk_makar_descr"
+         article_type="task">
+    <text>Пока я уничтожал собак, Володя привёл раненого Макара из Припяти в лагерь Свободы. Макар хочет лично поблагодарить меня за помощь.</text>
+</article>
+
+
 <article id="pravo_rad_herb_descr"
          name="pravo_rad_herb_descr"
          article_type="task">
-    <text>Свободовцы нашли на Радаре место, где растёт необычная дикая трава. Старший попросил принести один корень для лагеря.</text>
+    <text>По дороге из Припяти Макар и Володя заметили на Радаре место, где растёт необычная дикая трава. Макар попросил принести ему один корень.</text>
 </article>

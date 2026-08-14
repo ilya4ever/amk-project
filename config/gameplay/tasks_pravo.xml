@@ -158,12 +158,31 @@
 
 </game_task>
 
-<game_task id="pravo_rad_herb_task">
+<game_task id="pravo_rad_talk_makar_task">
 
-    <title>Найти траву для лагеря</title>
+    <title>Поговорить с Макаром</title>
 
     <objective>
-        <text>Найти необычную траву на Радаре и принести её Старшему.</text>
+        <text>Найти Макара в лагере и поговорить с ним.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_rad_talk_makar_descr</article>
+
+        <map_location_type hint="pravo_rad_makar_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_makar</object_story_id>
+        <infoportion_complete>pravo_rad_talk_makar_done</infoportion_complete>
+    </objective>
+
+</game_task>
+
+<game_task id="pravo_rad_herb_task">
+
+    <title>Найти траву для Макара</title>
+
+    <objective>
+        <text>Найти необычную траву на Радаре и принести её Макару.</text>
         <icon>amk_ui_flame_quest</icon>
         <article>pravo_rad_herb_descr</article>
         <infoportion_complete>pravo_rad_herb_done</infoportion_complete>
@@ -182,13 +201,13 @@
     </objective>
 
     <objective>
-        <text>Вернуться в лагерь и передать найденную траву Старшему.</text>
+        <text>Вернуться в лагерь и передать найденную траву Макару.</text>
 
-        <map_location_type hint="pravo_rad_freedom_leader_hint">
+        <map_location_type hint="pravo_rad_makar_hint">
             green_location
         </map_location_type>
 
-        <object_story_id>pravo_rad_freedom_leader</object_story_id>
+        <object_story_id>pravo_rad_makar</object_story_id>
         <infoportion_complete>pravo_rad_herb_done</infoportion_complete>
     </objective>
 
