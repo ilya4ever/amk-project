@@ -63,4 +63,12 @@
 <info_portion id="pravo_rad_dog_4_dead"></info_portion>
 <info_portion id="pravo_rad_dogs_killed"></info_portion>
 <info_portion id="pravo_rad_dogs_done"></info_portion>
+<info_portion id="pravo_rad_dosimeter_given"></info_portion>
+<info_portion id="pravo_rad_dogs_reward_given"></info_portion>
+
+<info_portion id="pravo_rad_herb_started">
+    <task>pravo_rad_herb_task</task>
+</info_portion>
+<info_portion id="pravo_rad_herb_found"></info_portion>
+<info_portion id="pravo_rad_herb_done"></info_portion>
 </game_information_portions>

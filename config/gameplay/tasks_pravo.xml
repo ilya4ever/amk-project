@@ -157,3 +157,39 @@
     </objective>
 
 </game_task>
+
+<game_task id="pravo_rad_herb_task">
+
+    <title>Найти траву для лагеря</title>
+
+    <objective>
+        <text>Найти необычную траву на Радаре и принести её Старшему.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_rad_herb_descr</article>
+        <infoportion_complete>pravo_rad_herb_done</infoportion_complete>
+    </objective>
+
+    <objective>
+        <text>Добраться до отмеченного места и забрать корень растения.</text>
+
+        <map_location_type hint="pravo_rad_herb_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_herb_item</object_story_id>
+        <function_complete>pravo_dialogs.actor_has_rad_herb</function_complete>
+        <infoportion_set_complete>pravo_rad_herb_found</infoportion_set_complete>
+    </objective>
+
+    <objective>
+        <text>Вернуться в лагерь и передать найденную траву Старшему.</text>
+
+        <map_location_type hint="pravo_rad_freedom_leader_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_freedom_leader</object_story_id>
+        <infoportion_complete>pravo_rad_herb_done</infoportion_complete>
+    </objective>
+
+</game_task>

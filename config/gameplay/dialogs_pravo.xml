@@ -356,6 +356,7 @@
 
         <phrase id="4">
             <text>pravo_rad_freedom_leader_dogs_start_4</text>
+            <action>pravo_dialogs.freedom_leader_give_dosimeter</action>
             <give_info>pravo_rad_dogs_started</give_info>
         </phrase>
 
@@ -387,7 +388,72 @@
 
         <phrase id="3">
             <text>pravo_rad_freedom_leader_dogs_report_3</text>
+            <action>pravo_dialogs.freedom_leader_give_dog_reward</action>
             <give_info>pravo_rad_dogs_done</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_rad_freedom_leader_herb_start">
+
+    <has_info>pravo_rad_dogs_done</has_info>
+    <dont_has_info>pravo_rad_herb_started</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_rad_freedom_leader_herb_start_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_rad_freedom_leader_herb_start_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_rad_freedom_leader_herb_start_2</text>
+            <next>3</next>
+        </phrase>
+
+        <phrase id="3">
+            <text>pravo_rad_freedom_leader_herb_start_3</text>
+            <next>4</next>
+        </phrase>
+
+        <phrase id="4">
+            <text>pravo_rad_freedom_leader_herb_start_4</text>
+            <give_info>pravo_rad_herb_started</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_rad_freedom_leader_herb_report">
+
+    <precondition>pravo_dialogs.actor_has_rad_herb</precondition>
+    <has_info>pravo_rad_herb_found</has_info>
+    <dont_has_info>pravo_rad_herb_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_rad_freedom_leader_herb_report_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_rad_freedom_leader_herb_report_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_rad_freedom_leader_herb_report_2</text>
+            <action>pravo_dialogs.freedom_leader_take_rad_herb</action>
+            <give_info>pravo_rad_herb_done</give_info>
         </phrase>
 
     </phrase_list>
