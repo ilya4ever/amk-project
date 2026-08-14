@@ -215,8 +215,40 @@
 
         <phrase id="10">
             <text>pravo_pri_freedom_leader_intro_10</text>
+            <action>pravo_dialogs.freedom_leader_give_vodka</action>
+            <next>11</next>
+        </phrase>
+
+        <phrase id="11">
+            <text>pravo_pri_freedom_leader_intro_11</text>
             <give_info>pravo_pri_find_freedom_done</give_info>
             <give_info>pravo_pri_leave_started</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_pri_freedom_leader_exit">
+
+    <has_info>pravo_pri_leave_ready</has_info>
+    <dont_has_info>pravo_pri_exit_dialog_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_pri_freedom_leader_exit_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_pri_freedom_leader_exit_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_pri_freedom_leader_exit_2</text>
+            <give_info>pravo_pri_exit_dialog_done</give_info>
         </phrase>
 
     </phrase_list>

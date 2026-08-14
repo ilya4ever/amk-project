@@ -166,6 +166,22 @@
 </string>
 
 <string id="pravo_pri_freedom_leader_intro_10">
-    <text>Договорились. Держись рядом и не отставай. Выдвигаемся к переходу на Радар.</text>
+    <text>Договорились. Только по дороге местами сильно фонит. Держи бутылку водки: если нахватаешься радиации — выпей, она поможет. И не отставай.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_11">
+    <text>Спасибо. Буду держаться рядом. Выдвигаемся.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_0">
+    <text>Ну всё, добрались. Переход на Радар прямо впереди.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_1">
+    <text>Что дальше?</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_2">
+    <text>Заходи первым. Мы с Максом следом за тобой. На той стороне далеко не уходи.</text>
 </string>
 </string_table>
