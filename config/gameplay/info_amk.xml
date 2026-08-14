@@ -49,5 +49,8 @@
 <info_portion id="pravo_rad_talk_cowboy_started">
     <task>pravo_rad_talk_cowboy_task</task>
 </info_portion>
-<info_portion id="pravo_rad_talk_cowboy_done"></info_portion>
+<info_portion id="pravo_rad_talk_cowboy_done">
+    <task>pravo_rad_talk_leader_task</task>
+</info_portion>
+<info_portion id="pravo_rad_talk_leader_done"></info_portion>
 </game_information_portions>

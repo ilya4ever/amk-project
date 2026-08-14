@@ -300,4 +300,30 @@
     </phrase_list>
 
 </dialog>
+
+<dialog id="pravo_rad_freedom_leader_test">
+
+    <has_info>pravo_rad_talk_cowboy_done</has_info>
+    <dont_has_info>pravo_rad_talk_leader_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_rad_freedom_leader_test_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_rad_freedom_leader_test_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_rad_freedom_leader_test_2</text>
+            <give_info>pravo_rad_talk_leader_done</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
 </game_dialogs>

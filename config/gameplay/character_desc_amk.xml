@@ -345,6 +345,75 @@
  <actor_dialog>pravo_rad_cowboy_camp</actor_dialog>
 </specific_character>
 
+<specific_character id="pravo_rad_freedom_leader" team_default="1">
+
+    <name>Старший</name>
+    <icon>ui_npc_u_stalker_sv_exoskeleton</icon>
+    <bio>gar_stalker_regular_bio</bio>
+
+    <class>pravo_rad_freedom_leader</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>800</rank>
+    <reputation>300</reputation>
+
+    <money min="3000" max="7000" infinitive="0"/>
+
+    <snd_config>characters_voice\human_03\freedom\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_exoskeleton</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_usp \n
+        ammo_11.43x23_hydro = 1 \n
+        wpn_sig550 = 1 \n
+        ammo_5.56x45_ap = 2 \n
+        device_torch \n
+        bandage = 2 \n
+        medkit = 2 \n
+    </supplies>
+
+    #include "gameplay\character_criticals_2.xml"
+
+    <actor_dialog>pravo_rad_freedom_leader_test</actor_dialog>
+</specific_character>
+
+<specific_character id="pravo_rad_freedom_camper" team_default="1">
+
+    <name>GENERATE_NAME_stalker</name>
+    <icon>ui_npc_u_stalker_sv_rukzak_2</icon>
+    <bio>gar_stalker_regular_bio</bio>
+
+    <class>pravo_rad_freedom_camper</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>250</rank>
+    <reputation>100</reputation>
+
+    <money min="300" max="1200" infinitive="0"/>
+
+    <snd_config>characters_voice\human_03\freedom\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_rukzak_2</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_walther \n
+        ammo_9x19_pbp = 1 \n
+        wpn_sig550 = 1 \n
+        ammo_5.56x45_ap = 1 \n
+        device_torch \n
+        bandage = 1 \n
+    </supplies>
+
+    #include "gameplay\character_criticals_4.xml"
+</specific_character>
+
 <specific_character id="pravo_pri_freedom_1" team_default="1">
 
     <name>Володя Ганжубас</name>
