@@ -99,3 +99,10 @@
          article_type="task">
     <text>pravo_pri_find_freedom_descr_text</text>
 </article>
+
+
+<article id="pravo_pri_leave_descr"
+         name="pravo_pri_leave_descr"
+         article_type="task">
+    <text>Ковбой решил выводить отряд из Припяти. Володя отправился к раненому Макару, а Ковбой и Макс поведут меня к переходу на Радар.</text>
+</article>

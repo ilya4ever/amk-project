@@ -63,3 +63,30 @@
     </objective>
 
 </game_task>
+
+<game_task id="pravo_pri_leave_task">
+
+    <title>Путь на Радар</title>
+
+    <objective>
+        <text>Добраться до перехода на Радар вместе с Ковбоем.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_pri_leave_descr</article>
+        <infoportion_complete>pravo_pri_leave_done</infoportion_complete>
+        <infoportion_fail>pravo_pri_leave_failed</infoportion_fail>
+    </objective>
+
+    <objective>
+        <text>Следовать за Ковбоем и Максом к переходу на Радар.</text>
+
+        <map_location_type hint="pravo_pri_freedom_squad_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_pri_freedom_leader</object_story_id>
+
+        <infoportion_complete>pravo_pri_leave_done</infoportion_complete>
+        <infoportion_fail>pravo_pri_leave_failed</infoportion_fail>
+    </objective>
+
+</game_task>

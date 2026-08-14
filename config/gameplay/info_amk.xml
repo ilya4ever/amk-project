@@ -33,4 +33,14 @@
 </info_portion>
 
 <info_portion id="pravo_pri_find_freedom_done"></info_portion>
+
+<info_portion id="pravo_pri_leave_started">
+    <task>pravo_pri_leave_task</task>
+</info_portion>
+
+<info_portion id="pravo_pri_cowboy_at_exit"></info_portion>
+<info_portion id="pravo_pri_max_at_exit"></info_portion>
+<info_portion id="pravo_pri_leave_ready"></info_portion>
+<info_portion id="pravo_pri_leave_done"></info_portion>
+<info_portion id="pravo_pri_leave_failed"></info_portion>
 </game_information_portions>

@@ -190,7 +190,33 @@
 
         <phrase id="5">
             <text>pravo_pri_freedom_leader_intro_5</text>
+            <next>6</next>
+        </phrase>
+
+        <phrase id="6">
+            <text>pravo_pri_freedom_leader_intro_6</text>
+            <next>7</next>
+        </phrase>
+
+        <phrase id="7">
+            <text>pravo_pri_freedom_leader_intro_7</text>
+            <next>8</next>
+        </phrase>
+
+        <phrase id="8">
+            <text>pravo_pri_freedom_leader_intro_8</text>
+            <next>9</next>
+        </phrase>
+
+        <phrase id="9">
+            <text>pravo_pri_freedom_leader_intro_9</text>
+            <next>10</next>
+        </phrase>
+
+        <phrase id="10">
+            <text>pravo_pri_freedom_leader_intro_10</text>
             <give_info>pravo_pri_find_freedom_done</give_info>
+            <give_info>pravo_pri_leave_started</give_info>
         </phrase>
 
     </phrase_list>
