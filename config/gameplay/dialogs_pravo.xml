@@ -248,6 +248,16 @@
 
         <phrase id="2">
             <text>pravo_pri_freedom_leader_exit_2</text>
+            <next>3</next>
+        </phrase>
+
+        <phrase id="3">
+            <text>pravo_pri_freedom_leader_exit_3</text>
+            <next>4</next>
+        </phrase>
+
+        <phrase id="4">
+            <text>pravo_pri_freedom_leader_exit_4</text>
             <give_info>pravo_pri_exit_dialog_done</give_info>
         </phrase>
 

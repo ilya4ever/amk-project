@@ -182,6 +182,14 @@
 </string>
 
 <string id="pravo_pri_freedom_leader_exit_2">
-    <text>Заходи первым. Мы с Максом следом за тобой. На той стороне далеко не уходи.</text>
+    <text>Наш лагерь стоит в стороне от дорог, и чужим мы путь к нему не показываем. От перехода доведём тебя сами, но дорогу тебе пока видеть нельзя — завяжем глаза.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_3">
+    <text>И мне после этого не бояться?</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_4">
+    <text>Не бойся. Мы с Максом будем рядом, а повязку снимем уже в лагере. Заходи в переход первым.</text>
 </string>
 </string_table>
