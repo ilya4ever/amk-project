@@ -53,4 +53,14 @@
     <task>pravo_rad_talk_leader_task</task>
 </info_portion>
 <info_portion id="pravo_rad_talk_leader_done"></info_portion>
+
+<info_portion id="pravo_rad_dogs_started">
+    <task>pravo_rad_dogs_task</task>
+</info_portion>
+<info_portion id="pravo_rad_dog_1_dead"></info_portion>
+<info_portion id="pravo_rad_dog_2_dead"></info_portion>
+<info_portion id="pravo_rad_dog_3_dead"></info_portion>
+<info_portion id="pravo_rad_dog_4_dead"></info_portion>
+<info_portion id="pravo_rad_dogs_killed"></info_portion>
+<info_portion id="pravo_rad_dogs_done"></info_portion>
 </game_information_portions>

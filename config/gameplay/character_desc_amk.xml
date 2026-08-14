@@ -379,6 +379,8 @@
     #include "gameplay\character_criticals_2.xml"
 
     <actor_dialog>pravo_rad_freedom_leader_test</actor_dialog>
+    <actor_dialog>pravo_rad_freedom_leader_dogs_start</actor_dialog>
+    <actor_dialog>pravo_rad_freedom_leader_dogs_report</actor_dialog>
 </specific_character>
 
 <specific_character id="pravo_rad_freedom_camper" team_default="1">

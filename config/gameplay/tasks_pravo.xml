@@ -64,6 +64,41 @@
 
 </game_task>
 
+<game_task id="pravo_rad_dogs_task">
+
+    <title>Зачистить стаю собак</title>
+
+    <objective>
+        <text>Помочь лагерю Свободы и уничтожить стаю собак.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_rad_dogs_descr</article>
+        <infoportion_complete>pravo_rad_dogs_done</infoportion_complete>
+    </objective>
+
+    <objective>
+        <text>Найти и уничтожить четырёх собак возле старой дороги.</text>
+
+        <map_location_type hint="pravo_rad_dogs_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_dogs_quest_spot</object_story_id>
+        <infoportion_complete>pravo_rad_dogs_killed</infoportion_complete>
+    </objective>
+
+    <objective>
+        <text>Вернуться в лагерь и доложить Старшему о выполнении задания.</text>
+
+        <map_location_type hint="pravo_rad_freedom_leader_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_freedom_leader</object_story_id>
+        <infoportion_complete>pravo_rad_dogs_done</infoportion_complete>
+    </objective>
+
+</game_task>
+
 <game_task id="pravo_rad_talk_leader_task">
 
     <title>Поговорить с лидером Свободы</title>

@@ -120,3 +120,10 @@
          article_type="task">
     <text>Ковбой отправил меня к старшему лагеря Свободы. Он находится в одном из зданий неподалёку.</text>
 </article>
+
+
+<article id="pravo_rad_dogs_descr"
+         name="pravo_rad_dogs_descr"
+         article_type="task">
+    <text>Возле лагеря Свободы снова появилась стая слепых собак. Старший поручил мне уничтожить мутантов, пока они не забрели в лагерь.</text>
+</article>
