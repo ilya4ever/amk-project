@@ -101,4 +101,395 @@
 
 </dialog>
 
+<dialog id="pravo_pri_wounded_freedom_intro">
+
+    <has_info>pravo_pri_dead_city_wheel_reached</has_info>
+    <dont_has_info>pravo_pri_wounded_freedom_talked</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_pri_wounded_freedom_intro_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_pri_wounded_freedom_intro_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_pri_wounded_freedom_intro_2</text>
+            <next>3</next>
+        </phrase>
+
+        <phrase id="3">
+            <text>pravo_pri_wounded_freedom_intro_3</text>
+            <next>4</next>
+        </phrase>
+
+        <phrase id="4">
+            <text>pravo_pri_wounded_freedom_intro_4</text>
+            <next>5</next>
+        </phrase>
+
+        <phrase id="5">
+            <text>pravo_pri_wounded_freedom_intro_5</text>
+            <next>6</next>
+        </phrase>
+
+        <phrase id="6">
+            <text>pravo_pri_wounded_freedom_intro_6</text>
+            <next>7</next>
+        </phrase>
+
+        <phrase id="7">
+            <text>pravo_pri_wounded_freedom_intro_7</text>
+
+            <action>pravo_dialogs.wounded_freedom_give_weapon</action>
+
+            <give_info>pravo_pri_wounded_freedom_talked</give_info>
+            <give_info>pravo_pri_find_freedom_started</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_pri_freedom_leader_intro">
+
+    <has_info>pravo_pri_find_freedom_started</has_info>
+    <dont_has_info>pravo_pri_find_freedom_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_pri_freedom_leader_intro_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_pri_freedom_leader_intro_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_pri_freedom_leader_intro_2</text>
+            <next>3</next>
+        </phrase>
+
+        <phrase id="3">
+            <text>pravo_pri_freedom_leader_intro_3</text>
+            <next>4</next>
+        </phrase>
+
+        <phrase id="4">
+            <text>pravo_pri_freedom_leader_intro_4</text>
+            <next>5</next>
+        </phrase>
+
+        <phrase id="5">
+            <text>pravo_pri_freedom_leader_intro_5</text>
+            <next>6</next>
+        </phrase>
+
+        <phrase id="6">
+            <text>pravo_pri_freedom_leader_intro_6</text>
+            <next>7</next>
+        </phrase>
+
+        <phrase id="7">
+            <text>pravo_pri_freedom_leader_intro_7</text>
+            <next>8</next>
+        </phrase>
+
+        <phrase id="8">
+            <text>pravo_pri_freedom_leader_intro_8</text>
+            <next>9</next>
+        </phrase>
+
+        <phrase id="9">
+            <text>pravo_pri_freedom_leader_intro_9</text>
+            <next>10</next>
+        </phrase>
+
+        <phrase id="10">
+            <text>pravo_pri_freedom_leader_intro_10</text>
+            <action>pravo_dialogs.freedom_leader_give_vodka</action>
+            <next>11</next>
+        </phrase>
+
+        <phrase id="11">
+            <text>pravo_pri_freedom_leader_intro_11</text>
+            <give_info>pravo_pri_find_freedom_done</give_info>
+            <give_info>pravo_pri_leave_started</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_pri_freedom_leader_exit">
+
+    <has_info>pravo_pri_leave_ready</has_info>
+    <dont_has_info>pravo_pri_exit_dialog_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_pri_freedom_leader_exit_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_pri_freedom_leader_exit_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_pri_freedom_leader_exit_2</text>
+            <next>3</next>
+        </phrase>
+
+        <phrase id="3">
+            <text>pravo_pri_freedom_leader_exit_3</text>
+            <next>4</next>
+        </phrase>
+
+        <phrase id="4">
+            <text>pravo_pri_freedom_leader_exit_4</text>
+            <next>5</next>
+        </phrase>
+
+        <phrase id="5">
+            <text>pravo_pri_freedom_leader_exit_5</text>
+            <next>6</next>
+        </phrase>
+
+        <phrase id="6">
+            <text>pravo_pri_freedom_leader_exit_6</text>
+            <give_info>pravo_pri_exit_dialog_done</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_rad_cowboy_camp">
+
+    <has_info>pravo_rad_talk_cowboy_started</has_info>
+    <dont_has_info>pravo_rad_talk_cowboy_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_rad_cowboy_camp_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_rad_cowboy_camp_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_rad_cowboy_camp_2</text>
+            <give_info>pravo_rad_talk_cowboy_done</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_rad_freedom_leader_test">
+
+    <has_info>pravo_rad_talk_cowboy_done</has_info>
+    <dont_has_info>pravo_rad_talk_leader_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_rad_freedom_leader_test_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_rad_freedom_leader_test_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_rad_freedom_leader_test_2</text>
+            <give_info>pravo_rad_talk_leader_done</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_rad_freedom_leader_dogs_start">
+
+    <has_info>pravo_rad_talk_leader_done</has_info>
+    <dont_has_info>pravo_rad_dogs_started</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_rad_freedom_leader_dogs_start_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_rad_freedom_leader_dogs_start_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_rad_freedom_leader_dogs_start_2</text>
+            <next>3</next>
+        </phrase>
+
+        <phrase id="3">
+            <text>pravo_rad_freedom_leader_dogs_start_3</text>
+            <next>4</next>
+        </phrase>
+
+        <phrase id="4">
+            <text>pravo_rad_freedom_leader_dogs_start_4</text>
+            <action>pravo_dialogs.freedom_leader_give_dosimeter</action>
+            <give_info>pravo_rad_dogs_started</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_rad_freedom_leader_dogs_report">
+
+    <has_info>pravo_rad_dogs_killed</has_info>
+    <dont_has_info>pravo_rad_dogs_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_rad_freedom_leader_dogs_report_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_rad_freedom_leader_dogs_report_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_rad_freedom_leader_dogs_report_2</text>
+            <next>3</next>
+        </phrase>
+
+        <phrase id="3">
+            <text>pravo_rad_freedom_leader_dogs_report_3</text>
+            <action>pravo_dialogs.freedom_leader_give_dog_reward</action>
+            <action>pravo_dialogs.remove_pripyat_makar_and_volodya</action>
+            <give_info>pravo_rad_dogs_done</give_info>
+            <give_info>pravo_rad_talk_makar_started</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_rad_makar_thanks">
+
+    <has_info>pravo_rad_talk_makar_started</has_info>
+    <dont_has_info>pravo_rad_talk_makar_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_rad_makar_thanks_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_rad_makar_thanks_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_rad_makar_thanks_2</text>
+            <next>3</next>
+        </phrase>
+
+        <phrase id="3">
+            <text>pravo_rad_makar_thanks_3</text>
+            <give_info>pravo_rad_talk_makar_done</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_rad_makar_herb_start">
+
+    <has_info>pravo_rad_talk_makar_done</has_info>
+    <dont_has_info>pravo_rad_herb_started</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_rad_makar_herb_start_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_rad_makar_herb_start_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_rad_makar_herb_start_2</text>
+            <next>3</next>
+        </phrase>
+
+        <phrase id="3">
+            <text>pravo_rad_makar_herb_start_3</text>
+            <next>4</next>
+        </phrase>
+
+        <phrase id="4">
+            <text>pravo_rad_makar_herb_start_4</text>
+            <give_info>pravo_rad_herb_started</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_rad_makar_herb_report">
+
+    <precondition>pravo_dialogs.actor_has_rad_herb</precondition>
+    <has_info>pravo_rad_herb_found</has_info>
+    <dont_has_info>pravo_rad_herb_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_rad_makar_herb_report_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_rad_makar_herb_report_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_rad_makar_herb_report_2</text>
+            <action>pravo_dialogs.makar_take_rad_herb</action>
+            <give_info>pravo_rad_herb_done</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
 </game_dialogs>

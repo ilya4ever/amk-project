@@ -27,7 +27,7 @@
     <objective>
         <text>Разобраться, действительно ли это Припять.</text>
         <icon>amk_ui_flame_quest</icon>
-        <article>pravo_pri_escape_descr</article>
+        <article>pravo_pri_dead_city_descr</article>
         <infoportion_complete>pravo_pri_dead_city_wheel_reached</infoportion_complete>
     </objective>
 
@@ -35,4 +35,180 @@
         <text>Добраться до колеса обозрения.</text>
         <infoportion_complete>pravo_pri_dead_city_wheel_reached</infoportion_complete>
     </objective>
+</game_task>
+
+<game_task id="pravo_pri_find_freedom_task">
+
+    <title>Найти отряд Свободы</title>
+
+    <objective>
+        <text>Найти отряд Свободы в гастрономе.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_pri_find_freedom_descr</article>
+        <infoportion_complete>pravo_pri_find_freedom_done</infoportion_complete>
+    </objective>
+
+    <objective>
+        <text>Добраться до гастронома и поговорить с командиром отряда.</text>
+
+        <map_location_type hint="pravo_pri_freedom_squad_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_pri_freedom_leader</object_story_id>
+
+        <infoportion_complete>
+            pravo_pri_find_freedom_done
+        </infoportion_complete>
+    </objective>
+
+</game_task>
+
+<game_task id="pravo_rad_dogs_task">
+
+    <title>Зачистить стаю собак</title>
+
+    <objective>
+        <text>Помочь лагерю Свободы и уничтожить стаю собак.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_rad_dogs_descr</article>
+        <infoportion_complete>pravo_rad_dogs_done</infoportion_complete>
+    </objective>
+
+    <objective>
+        <text>Найти и уничтожить четырёх собак возле старой дороги.</text>
+
+        <map_location_type hint="pravo_rad_dogs_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_dogs_quest_spot</object_story_id>
+        <infoportion_complete>pravo_rad_dogs_killed</infoportion_complete>
+    </objective>
+
+    <objective>
+        <text>Вернуться в лагерь и доложить Старшему о выполнении задания.</text>
+
+        <map_location_type hint="pravo_rad_freedom_leader_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_freedom_leader</object_story_id>
+        <infoportion_complete>pravo_rad_dogs_done</infoportion_complete>
+    </objective>
+
+</game_task>
+
+<game_task id="pravo_rad_talk_leader_task">
+
+    <title>Поговорить с лидером Свободы</title>
+
+    <objective>
+        <text>Найти старшего в здании и поговорить с ним.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_rad_talk_leader_descr</article>
+
+        <map_location_type hint="pravo_rad_freedom_leader_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_freedom_leader</object_story_id>
+        <infoportion_complete>pravo_rad_talk_leader_done</infoportion_complete>
+    </objective>
+
+</game_task>
+
+<game_task id="pravo_pri_leave_task">
+
+    <title>Путь на Радар</title>
+
+    <objective>
+        <text>Добраться до перехода на Радар вместе с Ковбоем.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_pri_leave_descr</article>
+        <infoportion_complete>pravo_pri_leave_ready</infoportion_complete>
+        <infoportion_fail>pravo_pri_leave_failed</infoportion_fail>
+    </objective>
+
+    <objective>
+        <text>Следовать за Ковбоем и Максом к переходу на Радар.</text>
+
+        <map_location_type hint="pravo_pri_freedom_squad_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_pri_freedom_leader</object_story_id>
+
+        <infoportion_complete>pravo_pri_leave_ready</infoportion_complete>
+        <infoportion_fail>pravo_pri_leave_failed</infoportion_fail>
+    </objective>
+
+</game_task>
+
+<game_task id="pravo_rad_talk_cowboy_task">
+
+    <title>Поговорить с Ковбоем</title>
+
+    <objective>
+        <text>Поговорить с Ковбоем в лагере Свободы.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_rad_talk_cowboy_descr</article>
+        <infoportion_complete>pravo_rad_talk_cowboy_done</infoportion_complete>
+    </objective>
+
+</game_task>
+
+<game_task id="pravo_rad_talk_makar_task">
+
+    <title>Поговорить с Макаром</title>
+
+    <objective>
+        <text>Найти Макара в лагере и поговорить с ним.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_rad_talk_makar_descr</article>
+
+        <map_location_type hint="pravo_rad_makar_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_makar</object_story_id>
+        <infoportion_complete>pravo_rad_talk_makar_done</infoportion_complete>
+    </objective>
+
+</game_task>
+
+<game_task id="pravo_rad_herb_task">
+
+    <title>Найти траву для Макара</title>
+
+    <objective>
+        <text>Найти необычную траву на Радаре и принести её Макару.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_rad_herb_descr</article>
+        <infoportion_complete>pravo_rad_herb_done</infoportion_complete>
+    </objective>
+
+    <objective>
+        <text>Добраться до отмеченного места и забрать корень растения.</text>
+
+        <map_location_type hint="pravo_rad_herb_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_herb_item</object_story_id>
+        <function_complete>pravo_dialogs.actor_has_rad_herb</function_complete>
+        <infoportion_set_complete>pravo_rad_herb_found</infoportion_set_complete>
+    </objective>
+
+    <objective>
+        <text>Вернуться в лагерь и передать найденную траву Макару.</text>
+
+        <map_location_type hint="pravo_rad_makar_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_makar</object_story_id>
+        <infoportion_complete>pravo_rad_herb_done</infoportion_complete>
+    </objective>
+
 </game_task>

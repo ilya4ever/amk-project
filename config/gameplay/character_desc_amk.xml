@@ -274,6 +274,8 @@
 
 </specific_character>
 
+<!-- Раненый свободовец -->
+
 <specific_character id="pravo_pri_wounded_freedom" team_default = "1">
 
     <name>Макар</name>
@@ -300,7 +302,305 @@
 
     #include "gameplay\character_criticals_4.xml"
 
-<start_dialog>pravo_pri_unknown_intro</start_dialog>
+ <start_dialog>pravo_pri_wounded_freedom_intro</start_dialog>
+</specific_character>
+
+<!-- СКВАД СВОБОДЫ ПРИПЯТЬ -->
+
+<specific_character id="pravo_pri_freedom_leader" team_default = "1">
+
+    <name>Ковбой</name>
+    <icon>ui_npc_u_green_stalker_4</icon>
+    <bio>gar_stalker_regular_bio</bio>
+
+    <class>pravo_pri_freedom_leader</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>300</rank>
+    <reputation>0</reputation>
+
+    <money min="2000" max="5000" infinitive="0"/>
+
+    <snd_config>characters_voice\human_01\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_hood_9</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_walther \n
+        ammo_9x19_pbp = 1 \n
+        wpn_sig550 = 1 \n
+        ammo_5.56x45_ap = 2 \n
+        device_torch \n
+        bandage = 2 \n
+        medkit = 1 \n
+    </supplies>
+
+    #include "gameplay\character_criticals_4.xml"
+
+ <start_dialog>pravo_pri_freedom_leader_intro</start_dialog>
+ <actor_dialog>pravo_pri_freedom_leader_exit</actor_dialog>
+ <actor_dialog>pravo_rad_cowboy_camp</actor_dialog>
+</specific_character>
+
+<specific_character id="pravo_rad_freedom_leader" team_default="1">
+
+    <name>Старший</name>
+    <icon>ui_npc_u_stalker_sv_exoskeleton</icon>
+    <bio>gar_stalker_regular_bio</bio>
+
+    <class>pravo_rad_freedom_leader</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>800</rank>
+    <reputation>300</reputation>
+
+    <money min="3000" max="7000" infinitive="0"/>
+
+    <snd_config>characters_voice\human_03\freedom\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_exoskeleton</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_usp \n
+        ammo_11.43x23_hydro = 1 \n
+        wpn_sig550 = 1 \n
+        ammo_5.56x45_ap = 2 \n
+        device_torch \n
+        bandage = 2 \n
+        medkit = 2 \n
+    </supplies>
+
+    #include "gameplay\character_criticals_2.xml"
+
+    <actor_dialog>pravo_rad_freedom_leader_test</actor_dialog>
+    <actor_dialog>pravo_rad_freedom_leader_dogs_start</actor_dialog>
+    <actor_dialog>pravo_rad_freedom_leader_dogs_report</actor_dialog>
+</specific_character>
+
+<specific_character id="pravo_rad_makar" team_default="1">
+
+    <name>Макар</name>
+    <icon>ui_npc_u_green_stalker_4</icon>
+    <bio>gar_stalker_regular_bio</bio>
+
+    <class>pravo_rad_makar</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>300</rank>
+    <reputation>100</reputation>
+
+    <money min="300" max="1000" infinitive="0"/>
+
+    <snd_config>characters_voice\human_01\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_rukzak_2</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_walther \n
+        ammo_9x19_fmj = 1 \n
+        device_torch \n
+        bandage = 2 \n
+        medkit = 1 \n
+    </supplies>
+
+    #include "gameplay\character_criticals_4.xml"
+
+    <actor_dialog>pravo_rad_makar_thanks</actor_dialog>
+    <actor_dialog>pravo_rad_makar_herb_start</actor_dialog>
+    <actor_dialog>pravo_rad_makar_herb_report</actor_dialog>
+</specific_character>
+
+<specific_character id="pravo_rad_volodya" team_default="1">
+
+    <name>Володя Ганжубас</name>
+    <icon>ui_npc_u_stalker_do_balon_3</icon>
+    <bio>sim_stalker_regular_bio</bio>
+
+    <class>pravo_rad_volodya</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>500</rank>
+    <reputation>300</reputation>
+
+    <money min="300" max="1000" infinitive="0"/>
+
+    <snd_config>characters_voice\human_01\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_rukzak_2</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_walther \n
+        ammo_9x19_fmj = 1 \n
+        wpn_lr300 = 1 \n
+        ammo_5.56x45_ss190 = 2 \n
+        device_torch \n
+        bandage = 2 \n
+        medkit = 1 \n
+    </supplies>
+
+    #include "gameplay\character_criticals_3.xml"
+
+    <start_dialog>dm_hello_dialog</start_dialog>
+    <actor_dialog>dm_cool_info_dialog</actor_dialog>
+    <actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+<specific_character id="pravo_rad_freedom_camper" team_default="1">
+
+    <name>GENERATE_NAME_stalker</name>
+    <icon>ui_npc_u_stalker_sv_rukzak_2</icon>
+    <bio>gar_stalker_regular_bio</bio>
+
+    <class>pravo_rad_freedom_camper</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>250</rank>
+    <reputation>100</reputation>
+
+    <money min="300" max="1200" infinitive="0"/>
+
+    <snd_config>characters_voice\human_03\freedom\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_rukzak_2</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_walther \n
+        ammo_9x19_pbp = 1 \n
+        wpn_sig550 = 1 \n
+        ammo_5.56x45_ap = 1 \n
+        device_torch \n
+        bandage = 1 \n
+    </supplies>
+
+    #include "gameplay\character_criticals_4.xml"
+
+    <start_dialog>dm_hello_dialog</start_dialog>
+    <actor_dialog>dm_cool_info_dialog</actor_dialog>
+    <actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+<specific_character id="pravo_rad_freedom_trader" team_default="1">
+
+    <name>Торговец</name>
+    <icon>ui_npc_u_stalker_sv_balon_1</icon>
+    <bio>gar_stalker_regular_bio</bio>
+
+    <class>pravo_rad_freedom_trader</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_freedom_terrain</terrain_sect>
+
+    <rank>500</rank>
+    <reputation>200</reputation>
+
+    <money min="100000" max="100000" infinitive="1"/>
+
+    <snd_config>characters_voice\human_02\freedom\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_balon_1</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_sig220 \n
+        ammo_11.43x23_fmj = 2 \n
+        wpn_sig550 \n
+        ammo_5.56x45_ss190 = 4 \n
+        device_torch \n
+        #include "gameplay\character_items.xml" \n
+        #include "gameplay\character_drugs.xml" \n
+        #include "gameplay\character_food.xml"
+    </supplies>
+
+    #include "gameplay\character_criticals_4.xml"
+
+    <start_dialog>dm_hello_dialog</start_dialog>
+    <actor_dialog>dm_cool_info_dialog</actor_dialog>
+    <actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+<specific_character id="pravo_pri_freedom_1" team_default="1">
+
+    <name>Володя Ганжубас</name>
+    <icon>ui_npc_u_stalker_do_balon_3</icon>
+    <bio>sim_stalker_regular_bio</bio>
+
+    <class>pravo_pri_freedom_1</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>500</rank>
+    <reputation>300</reputation>
+
+    <money min="0" max="0" infinitive="0"/>
+
+    <snd_config>characters_voice\human_01\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_rukzak_2</visual>
+
+   <supplies>
+        [spawn] \n
+        wpn_walther \n
+        ammo_9x19_fmj = 1 \n
+        wpn_lr300 = 1 \n
+        ammo_5.56x45_ss190 = 2 \n
+        device_torch \n
+        bandage = 2 \n
+        medkit = 1 \n
+    </supplies>
+
+    #include "gameplay\character_criticals_3.xml"
+
+</specific_character>
+
+<specific_character id="pravo_pri_freedom_2" team_default="1">
+
+    <name>Макс Аллигатор</name>
+    <icon>ui_npc_u_stalker_do_balon_3</icon>
+    <bio>sim_stalker_regular_bio</bio>
+
+    <class>pravo_pri_freedom_2</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+
+    <rank>500</rank>
+    <reputation>300</reputation>
+
+    <money min="0" max="0" infinitive="0"/>
+
+    <snd_config>characters_voice\human_01\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\svoboda\stalker_sv_hood_91</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_walther \n
+        ammo_9x19_pbp = 1 \n
+        wpn_sig550 = 1 \n
+        ammo_5.56x45_ap = 2 \n
+        device_torch \n
+        bandage = 2 \n
+        medkit = 1 \n
+    </supplies>
+
+    #include "gameplay\character_criticals_3.xml"
+
 </specific_character>
 </xml>
 

@@ -323,6 +323,12 @@ end
 sound_object_by_theme = {}
 --' type = [random|seq|looped]
 function get_sound_object(theme, t_type)
+	-- Радио лагеря Свободы на Радаре. Регистрируем тему здесь,
+	-- чтобы не переопределять целиком базовый sound_theme.script.
+	if theme == "pravo_rad_freedom_radio" and sound_theme.ph_snd_themes[theme] == nil then
+		sound_theme.ph_snd_themes[theme] = {[[pravo\radar\invisible_los_libros_de_la_buena_memoria]]}
+	end
+
 	if sound_theme.ph_snd_themes[theme] == nil then
 		abort("ph_snd_themes for theme %s", tostring(theme))
 		return

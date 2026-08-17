@@ -81,7 +81,63 @@
 </article>
 
 <article id="pravo_pri_escape_descr"
-         name="pravo_pri_escape_task"
+         name="pravo_pri_escape_descr"
          article_type="task">
-    <text>pravo_pri_escape_descr_text</text>
+    <text>Долговцы решили избавиться от свидетелей. Нужно как можно быстрее покинуть район детского сада и оторваться от преследования.</text>
+</article>
+
+
+<article id="pravo_pri_dead_city_descr"
+         name="pravo_pri_dead_city_descr"
+         article_type="task">
+    <text>pravo_pri_dead_city_descr_text</text>
+</article>
+
+
+<article id="pravo_pri_find_freedom_descr"
+         name="pravo_pri_find_freedom_descr"
+         article_type="task">
+    <text>pravo_pri_find_freedom_descr_text</text>
+</article>
+
+
+<article id="pravo_pri_leave_descr"
+         name="pravo_pri_leave_descr"
+         article_type="task">
+    <text>Ковбой решил выводить отряд из Припяти. Володя отправился к раненому Макару, а Ковбой и Макс поведут меня к переходу на Радар.</text>
+</article>
+
+
+<article id="pravo_rad_talk_cowboy_descr"
+         name="pravo_rad_talk_cowboy_descr"
+         article_type="task">
+    <text>Мы с Ковбоем и Максом добрались до скрытого лагеря Свободы на Радаре. Нужно поговорить с Ковбоем и узнать, что делать дальше.</text>
+</article>
+
+
+<article id="pravo_rad_talk_leader_descr"
+         name="pravo_rad_talk_leader_descr"
+         article_type="task">
+    <text>Ковбой отправил меня к старшему лагеря Свободы. Он находится в одном из зданий неподалёку.</text>
+</article>
+
+
+<article id="pravo_rad_dogs_descr"
+         name="pravo_rad_dogs_descr"
+         article_type="task">
+    <text>Возле лагеря Свободы снова появилась стая слепых собак. Старший поручил мне уничтожить мутантов, пока они не забрели в лагерь.</text>
+</article>
+
+
+<article id="pravo_rad_talk_makar_descr"
+         name="pravo_rad_talk_makar_descr"
+         article_type="task">
+    <text>Пока я уничтожал собак, Володя привёл раненого Макара из Припяти в лагерь Свободы. Макар хочет лично поблагодарить меня за помощь.</text>
+</article>
+
+
+<article id="pravo_rad_herb_descr"
+         name="pravo_rad_herb_descr"
+         article_type="task">
+    <text>По дороге из Припяти Макар и Володя заметили на Радаре место, где растёт необычная дикая трава. Макар попросил принести ему один корень.</text>
 </article>

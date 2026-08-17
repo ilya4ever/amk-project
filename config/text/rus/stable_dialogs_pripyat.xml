@@ -77,7 +77,251 @@
     <text>У нас здесь секретная операция. Свидетели нам не нужны. Парни, работаем.</text>
 </string>
 
+
+<!-- ======================================================== -->
+<!-- PRAVO STORY - MAIN CHAR THOUGHT KOLECO                         -->
+<!-- ======================================================== -->
+
+
 <string id="pravo_pri_dead_city_thought">
     <text>Мысли: Неужели это и правда Припять?.. Если так, здесь должно быть знаменитое колесо обозрения. Нужно его найти.</text>
+</string>
+
+
+<!-- ======================================================== -->
+<!-- PRAVO STORY - FREEDOM WOUNDED                            -->
+<!-- ======================================================== -->
+
+
+<string id="pravo_pri_wounded_freedom_intro_0">
+    <text>Эй... стой. Ты кто такой?</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_1">
+    <text>Спокойно. Я не из Долга. Что с тобой произошло?</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_2">
+    <text>На разведке в аномалию влетел. Меня приложило крепко, а ПДА окончательно сдох. Связи нет, SOS своим отправить не могу.</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_3">
+    <text>Где твой отряд?</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_4">
+    <text>Мы остановились в гастрономе. Если ребята ещё там, найди их и скажи, что я жив. Они должны меня искать.</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_5">
+    <text>Попробую. Только я здесь почти безоружен.</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_6">
+    <text>Тогда держи. У меня остался пистолет. Мне сейчас от него толку мало, а тебе пригодится.</text>
+</string>
+
+<string id="pravo_pri_wounded_freedom_intro_7">
+    <text>Хорошо. Найду твоих и передам, где ты.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_0">
+    <text>Стоять. Ты кто такой?</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_1">
+    <text>Спокойно. Меня прислал ваш человек. Я нашёл его возле колеса обозрения.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_2">
+    <text>Наш человек? Он жив?</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_3">
+    <text>Жив, но сильно ранен. Говорит, попал в аномалию. ПДА разбит, поэтому связаться с вами он не смог.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_4">
+    <text>Чёрт... Ясно. Хорошо, что ты добрался. Мы за ним сходим.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_5">
+    <text>Он остался возле колеса. Я показал, где именно.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_6">
+    <text>Значит так. Володя, бери аптечки и дуй к Макару. Найдёшь его — оставайся рядом и прикрой, пока он не сможет идти.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_7">
+    <text>А вы куда собираетесь?</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_8">
+    <text>Мы с Максом пойдём на Радар. У нас там небольшой лагерь: есть припасы, связь и люди. В Припяти оставаться слишком опасно.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_9">
+    <text>Тогда я пойду с вами. Одному мне здесь всё равно не выжить.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_10">
+    <text>Договорились. Только по дороге местами сильно фонит. Держи бутылку водки: если нахватаешься радиации — выпей, она поможет. И не отставай.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_intro_11">
+    <text>Спасибо. Буду держаться рядом. Выдвигаемся.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_0">
+    <text>Ну что, дошли?</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_1">
+    <text>Да, добрались. Переход на Радар прямо впереди.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_2">
+    <text>Что дальше?</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_3">
+    <text>Наш лагерь стоит в стороне от дорог, и чужим мы путь к нему не показываем. От перехода доведём тебя сами, но дорогу тебе пока видеть нельзя — завяжем глаза.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_4">
+    <text>И мне после этого не бояться?</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_5">
+    <text>Не бойся. Мы с Максом будем рядом, а повязку снимем уже в лагере. Заходи в переход первым.</text>
+</string>
+
+<string id="pravo_pri_freedom_leader_exit_6">
+    <text>Ладно. Веди.</text>
+</string>
+
+<string id="pravo_rad_cowboy_camp_0">
+    <text>Ну вот, мы и в лагере.</text>
+</string>
+
+<string id="pravo_rad_cowboy_camp_1">
+    <text>Да, всё, пришли. Теперь иди поговори со старшим — он находится в здании неподалёку.</text>
+</string>
+
+<string id="pravo_rad_cowboy_camp_2">
+    <text>Хорошо, найду его.</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_test_0">
+    <text>Ковбой отправил меня к тебе.</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_test_1">
+    <text>Знаю. Добро пожаловать в лагерь. Пока осмотрись и отдохни — позже поговорим о деле.</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_test_2">
+    <text>Хорошо.</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_hint">
+    <text>Старший лагеря Свободы</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_dogs_start_0">
+    <text>Ты говорил, что позже найдётся дело. Я готов.</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_dogs_start_1">
+    <text>Как раз вовремя. Со стороны старой дороги опять слышен собачий лай. Эти твари время от времени плодятся там, а потом забредают прямо к лагерю.</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_dogs_start_2">
+    <text>Что от меня требуется?</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_dogs_start_3">
+    <text>Прогуляйся туда и зачисти стаю. Заодно посмотрим, способен ли ты выживать на Радаре без няньки. Их там должно быть четыре. И держи дозиметр: здесь радиацию лучше услышать раньше, чем почувствовать.</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_dogs_start_4">
+    <text>Хорошо. Разберусь с ними и вернусь.</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_dogs_report_0">
+    <text>Со стаей покончено. Все четыре собаки мертвы.</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_dogs_report_1">
+    <text>Неплохо. Значит, за себя постоять можешь и лагерь под удар не подставишь.</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_dogs_report_2">
+    <text>Что дальше?</text>
+</string>
+
+<string id="pravo_rad_freedom_leader_dogs_report_3">
+    <text>Держи автомат и пару магазинов — заслужил. И ещё: пока ты бегал, Володя привёл Макара из Припяти. Они уже в лагере. Макар хотел тебя видеть и лично поблагодарить. Найди его.</text>
+</string>
+
+<string id="pravo_rad_dogs_hint">
+    <text>Стая собак</text>
+</string>
+
+<string id="pravo_rad_makar_hint">
+    <text>Макар</text>
+</string>
+
+<string id="pravo_rad_makar_thanks_0">
+    <text>Старший сказал, ты хотел меня видеть.</text>
+</string>
+
+<string id="pravo_rad_makar_thanks_1">
+    <text>Хотел. Спасибо, что не прошёл мимо меня в Припяти. Если бы не ты, я бы там и остался. Володя дотащил меня до лагеря, теперь оклемаюсь.</text>
+</string>
+
+<string id="pravo_rad_makar_thanks_2">
+    <text>Главное, что вы оба добрались.</text>
+</string>
+
+<string id="pravo_rad_makar_thanks_3">
+    <text>Я у тебя в долгу. И ещё у меня есть одно дело. Когда будешь готов — спроси.</text>
+</string>
+
+<string id="pravo_rad_makar_herb_start_0">
+    <text>Ты говорил, что есть дело.</text>
+</string>
+
+<string id="pravo_rad_makar_herb_start_1">
+    <text>Есть. Пока Володя вёл меня к лагерю, мы заметили в стороне местечко, где растёт необычная дичка. Сам я сейчас далеко не ходок, а корень может пригодиться нашим ребятам.</text>
+</string>
+
+<string id="pravo_rad_makar_herb_start_2">
+    <text>Что именно нужно принести?</text>
+</string>
+
+<string id="pravo_rad_makar_herb_start_3">
+    <text>Доберись до отмеченного места и выкопай один корень. По виду не ошибёшься. Принесёшь его мне — посмотрим, на что он годится.</text>
+</string>
+
+<string id="pravo_rad_makar_herb_start_4">
+    <text>Ладно. Найду корень и принесу тебе.</text>
+</string>
+
+<string id="pravo_rad_makar_herb_report_0">
+    <text>Вот тот самый корень. Нашёл его в отмеченном месте.</text>
+</string>
+
+<string id="pravo_rad_makar_herb_report_1">
+    <text>Да, это он. Хорошо сработано — теперь наши умельцы разберутся, есть ли от него польза.</text>
+</string>
+
+<string id="pravo_rad_makar_herb_report_2">
+    <text>Значит, задание выполнено.</text>
+</string>
+
+<string id="pravo_rad_herb_hint">
+    <text>Необычный корень</text>
 </string>
 </string_table>

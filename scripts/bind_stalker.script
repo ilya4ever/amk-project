@@ -43,6 +43,7 @@ function actor_binder:net_spawn(data)
   end
 
   db.add_actor(self.object)
+  pravo_effects.reset()
   
   if self.st.disable_input_time == nil then
     level.enable_input()
@@ -255,6 +256,7 @@ function actor_binder:update(delta)
   object_binder.update(self, delta)
 
   ilya_start.update()
+  pravo_effects.update()
 
   -- DEBUG slowdown
 --  slowdown.update()

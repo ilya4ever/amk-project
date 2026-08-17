@@ -49,4 +49,44 @@
     <class>pravo_pri_wounded_freedom</class>
     <specific_character>pravo_pri_wounded_freedom</specific_character>
 </character>
+
+<character id="pravo_pri_freedom_leader">
+    <class>pravo_pri_freedom_leader</class>
+    <specific_character>pravo_pri_freedom_leader</specific_character>
+</character>
+
+<character id="pravo_pri_freedom_1">
+    <class>pravo_pri_freedom_1</class>
+    <specific_character>pravo_pri_freedom_1</specific_character>
+</character>
+
+<character id="pravo_pri_freedom_2">
+    <class>pravo_pri_freedom_2</class>
+    <specific_character>pravo_pri_freedom_2</specific_character>
+</character>
+
+<character id="pravo_rad_freedom_leader">
+    <class>pravo_rad_freedom_leader</class>
+    <specific_character>pravo_rad_freedom_leader</specific_character>
+</character>
+
+<character id="pravo_rad_freedom_camper">
+    <class>pravo_rad_freedom_camper</class>
+    <specific_character>pravo_rad_freedom_camper</specific_character>
+</character>
+
+<character id="pravo_rad_freedom_trader">
+    <class>pravo_rad_freedom_trader</class>
+    <specific_character>pravo_rad_freedom_trader</specific_character>
+</character>
+
+<character id="pravo_rad_makar">
+    <class>pravo_rad_makar</class>
+    <specific_character>pravo_rad_makar</specific_character>
+</character>
+
+<character id="pravo_rad_volodya">
+    <class>pravo_rad_volodya</class>
+    <specific_character>pravo_rad_volodya</specific_character>
+</character>
 </xml>

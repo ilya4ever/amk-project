@@ -1,0 +1,126 @@
+local herb_story_id = 837
+local herb_section = "pravo_rad_herb"
+
+local effect_start_distance_sqr = 64
+local effect_stop_distance_sqr = 144
+local effect_linger_time = 3000
+local update_interval = 100
+
+local camera_effector_id = 4501
+local postprocess_effector_id = 4502
+
+local next_update_time = 0
+local effect_stop_time = nil
+local effect_is_running = false
+local effect_needs_cleanup = true
+
+local function quest_is_active()
+    return db.actor:has_info("pravo_rad_herb_started")
+       and not db.actor:has_info("pravo_rad_herb_done")
+       and not db.actor:has_info("pravo_rad_herb_controller_done")
+end
+
+local function actor_has_herb()
+    return db.actor:object(herb_section) ~= nil
+end
+
+local function distance_to_herb_sqr(herb)
+    local actor_position = db.actor:position()
+    local herb_position = herb:position()
+    local dx = actor_position.x - herb_position.x
+    local dy = actor_position.y - herb_position.y
+    local dz = actor_position.z - herb_position.z
+
+    return dx * dx + dy * dy + dz * dz
+end
+
+local function remove_herb_effect()
+    if not effect_is_running and not effect_needs_cleanup then
+        return
+    end
+
+    level.remove_cam_effector(camera_effector_id)
+    level.remove_pp_effector(postprocess_effector_id)
+
+    effect_is_running = false
+    effect_needs_cleanup = false
+    effect_stop_time = nil
+end
+
+local function start_herb_effect()
+    if effect_is_running then
+        return
+    end
+
+    -- These are the same camera and postprocess assets used by the controller aura.
+    level.remove_cam_effector(camera_effector_id)
+    level.remove_pp_effector(postprocess_effector_id)
+    level.add_cam_effector("camera_effects\\drunk.anm", camera_effector_id, true, "")
+    level.add_pp_effector("controller_hit.ppe", postprocess_effector_id, true)
+
+    effect_is_running = true
+    effect_needs_cleanup = false
+    effect_stop_time = nil
+end
+
+local function finish_herb_effect()
+    remove_herb_effect()
+    db.actor:give_info_portion("pravo_rad_herb_controller_done")
+end
+
+function reset()
+    next_update_time = 0
+    effect_stop_time = nil
+    effect_is_running = false
+    effect_needs_cleanup = true
+end
+
+function update()
+    if db.actor == nil then
+        return
+    end
+
+    local current_time = time_global()
+    if current_time < next_update_time then
+        return
+    end
+    next_update_time = current_time + update_interval
+
+    if effect_needs_cleanup then
+        remove_herb_effect()
+    end
+
+    if not db.actor:alive() or level.name() ~= "l10_radar" or not quest_is_active() then
+        remove_herb_effect()
+        return
+    end
+
+    if actor_has_herb() then
+        start_herb_effect()
+
+        if effect_stop_time == nil then
+            effect_stop_time = current_time + effect_linger_time
+        elseif current_time >= effect_stop_time then
+            finish_herb_effect()
+        end
+
+        return
+    end
+
+    effect_stop_time = nil
+
+    local herb = level_object_by_sid(herb_story_id)
+    if herb == nil then
+        remove_herb_effect()
+        return
+    end
+
+    local distance_sqr = distance_to_herb_sqr(herb)
+    if effect_is_running then
+        if distance_sqr > effect_stop_distance_sqr then
+            remove_herb_effect()
+        end
+    elseif distance_sqr <= effect_start_distance_sqr then
+        start_herb_effect()
+    end
+end

@@ -23,4 +23,59 @@
 </info_portion>
 
 <info_portion id="pravo_pri_dead_city_wheel_reached"></info_portion>
+
+<info_portion id="pravo_pri_wounded_freedom_talked"></info_portion>
+
+<info_portion id="pravo_pri_wounded_freedom_weapon_given"></info_portion>
+<info_portion id="pravo_pri_freedom_vodka_given"></info_portion>
+
+<info_portion id="pravo_pri_find_freedom_started">
+    <task>pravo_pri_find_freedom_task</task>
+</info_portion>
+
+<info_portion id="pravo_pri_find_freedom_done"></info_portion>
+
+<info_portion id="pravo_pri_leave_started">
+    <task>pravo_pri_leave_task</task>
+</info_portion>
+
+<info_portion id="pravo_pri_cowboy_at_exit"></info_portion>
+<info_portion id="pravo_pri_max_at_exit"></info_portion>
+<info_portion id="pravo_pri_leave_ready"></info_portion>
+<info_portion id="pravo_pri_exit_dialog_done"></info_portion>
+<info_portion id="pravo_pri_leave_done"></info_portion>
+<info_portion id="pravo_pri_leave_failed"></info_portion>
+
+<info_portion id="pravo_rad_talk_cowboy_started">
+    <task>pravo_rad_talk_cowboy_task</task>
+</info_portion>
+<info_portion id="pravo_rad_talk_cowboy_done">
+    <task>pravo_rad_talk_leader_task</task>
+</info_portion>
+<info_portion id="pravo_rad_talk_leader_done"></info_portion>
+
+<info_portion id="pravo_rad_dogs_started">
+    <task>pravo_rad_dogs_task</task>
+</info_portion>
+<info_portion id="pravo_rad_dog_1_dead"></info_portion>
+<info_portion id="pravo_rad_dog_2_dead"></info_portion>
+<info_portion id="pravo_rad_dog_3_dead"></info_portion>
+<info_portion id="pravo_rad_dog_4_dead"></info_portion>
+<info_portion id="pravo_rad_dogs_killed"></info_portion>
+<info_portion id="pravo_rad_dogs_done"></info_portion>
+<info_portion id="pravo_rad_dosimeter_given"></info_portion>
+<info_portion id="pravo_rad_dogs_reward_given"></info_portion>
+
+<info_portion id="pravo_rad_talk_makar_started">
+    <task>pravo_rad_talk_makar_task</task>
+</info_portion>
+<info_portion id="pravo_rad_talk_makar_done"></info_portion>
+
+<info_portion id="pravo_rad_herb_started">
+    <task>pravo_rad_herb_task</task>
+</info_portion>
+<info_portion id="pravo_rad_herb_found"></info_portion>
+<info_portion id="pravo_rad_herb_done"></info_portion>
+<info_portion id="pravo_rad_herb_psy_done"></info_portion>
+<info_portion id="pravo_rad_herb_controller_done"></info_portion>
 </game_information_portions>

@@ -139,3 +139,186 @@ function alexander_finished(first_speaker, second_speaker)
 
     check_intro_finished()
 end
+
+function wounded_freedom_give_weapon(first_speaker, second_speaker)
+
+    if db.actor == nil then
+        return
+    end
+
+    if db.actor:has_info("pravo_pri_wounded_freedom_weapon_given") then
+        return
+    end
+
+    local actor = db.actor
+
+    alife():create(
+        "wpn_walther",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id(),
+        actor:id()
+    )
+
+    alife():create(
+        "ammo_9x19_fmj",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id(),
+        actor:id()
+    )
+
+      alife():create(
+        "wpn_knife",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id(),
+        actor:id()
+    )
+
+    alife():create(
+        "ammo_9x19_fmj",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id(),
+        actor:id()
+    )
+
+    actor:give_info_portion(
+        "pravo_pri_wounded_freedom_weapon_given"
+    )
+end
+
+function freedom_leader_give_vodka(first_speaker, second_speaker)
+
+    if db.actor == nil then
+        return
+    end
+
+    if db.actor:has_info("pravo_pri_freedom_vodka_given") then
+        return
+    end
+
+    local actor = db.actor
+
+    alife():create(
+        "vodka",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id(),
+        actor:id()
+    )
+
+    actor:give_info_portion("pravo_pri_freedom_vodka_given")
+end
+
+function freedom_leader_give_dosimeter(first_speaker, second_speaker)
+
+    if db.actor == nil then
+        return
+    end
+
+    if db.actor:has_info("pravo_rad_dosimeter_given") then
+        return
+    end
+
+    local actor = db.actor
+
+    if actor:object("detector_simple") == nil then
+        alife():create(
+            "detector_simple",
+            actor:position(),
+            actor:level_vertex_id(),
+            actor:game_vertex_id(),
+            actor:id()
+        )
+    end
+
+    actor:give_info_portion("pravo_rad_dosimeter_given")
+end
+
+function freedom_leader_give_dog_reward(first_speaker, second_speaker)
+
+    if db.actor == nil then
+        return
+    end
+
+    if db.actor:has_info("pravo_rad_dogs_reward_given") then
+        return
+    end
+
+    local actor = db.actor
+
+    alife():create(
+        "wpn_lr300",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id(),
+        actor:id()
+    )
+
+    alife():create(
+        "ammo_5.56x45_ss190",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id(),
+        actor:id()
+    )
+
+    alife():create(
+        "ammo_5.56x45_ss190",
+        actor:position(),
+        actor:level_vertex_id(),
+        actor:game_vertex_id(),
+        actor:id()
+    )
+
+    actor:give_info_portion("pravo_rad_dogs_reward_given")
+end
+
+function remove_pripyat_makar_and_volodya(first_speaker, second_speaker)
+
+    local simulator = alife()
+
+    if simulator == nil then
+        return
+    end
+
+    local old_makar = simulator:story_object(839)
+
+    if old_makar ~= nil then
+        simulator:release(old_makar, true)
+    end
+
+    local old_volodya = simulator:story_object(840)
+
+    if old_volodya ~= nil then
+        simulator:release(old_volodya, true)
+    end
+end
+
+function actor_has_rad_herb(first_parameter, second_parameter)
+
+    if db.actor == nil then
+        return false
+    end
+
+    return db.actor:object("pravo_rad_herb") ~= nil
+end
+
+function makar_take_rad_herb(first_speaker, second_speaker)
+
+    if db.actor == nil or second_speaker == nil then
+        return
+    end
+
+    if db.actor:object("pravo_rad_herb") == nil then
+        return
+    end
+
+    dialogs.relocate_item_section(
+        second_speaker,
+        "pravo_rad_herb",
+        "out"
+    )
+end
