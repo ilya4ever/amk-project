@@ -76,4 +76,6 @@
 </info_portion>
 <info_portion id="pravo_rad_herb_found"></info_portion>
 <info_portion id="pravo_rad_herb_done"></info_portion>
+<info_portion id="pravo_rad_herb_psy_done"></info_portion>
+<info_portion id="pravo_rad_herb_controller_done"></info_portion>
 </game_information_portions>
