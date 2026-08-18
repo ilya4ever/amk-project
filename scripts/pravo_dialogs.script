@@ -1,3 +1,144 @@
+local kindergarten_duty_sections = {
+    ["pravo_pri_duty_leader_spawn"] = true,
+    ["pravo_pri_duty_1_spawn"] = true,
+    ["pravo_pri_duty_2_spawn"] = true,
+    ["pravo_pri_duty_3_spawn"] = true
+}
+
+local kindergarten_corpse_definitions = {
+    ["ilya_pri_unknown_spawn"] = {
+        x = 103.66,
+        y = 5.64,
+        z = -9.85,
+        level_vertex_id = 218725,
+        game_vertex_id = 2231,
+        id_variable = "pravo_pri_unknown_corpse_id"
+    },
+    ["ilya_pri_alexander_spawn"] = {
+        x = 103.60,
+        y = 5.64,
+        z = -13.03,
+        level_vertex_id = 218725,
+        game_vertex_id = 2231,
+        id_variable = "pravo_pri_alexander_corpse_id"
+    }
+}
+
+local function kill_kindergarten_story_npc(simulator, server_object)
+    if server_object == nil then
+        return
+    end
+
+    if server_object.alive and not server_object:alive() then
+        return
+    end
+
+    local online_object = level.object_by_id(server_object.id)
+    if online_object ~= nil and online_object:alive() then
+        online_object:kill(online_object)
+    else
+        amk_offline_alife.set_npc_health(server_object, 0)
+    end
+end
+
+local function spawn_kindergarten_corpse(simulator, section, definition)
+    local corpse = simulator:create(
+        section,
+        vector():set(definition.x, definition.y, definition.z),
+        definition.level_vertex_id,
+        definition.game_vertex_id
+    )
+
+    if corpse ~= nil then
+        kill_kindergarten_story_npc(simulator, corpse)
+        amk.save_variable(definition.id_variable, corpse.id)
+    end
+
+    return corpse
+end
+
+function setup_kindergarten_aftermath(first_speaker, second_speaker)
+    if db.actor == nil
+    or db.actor:has_info("pravo_pri_kindergarten_aftermath_done") then
+        return
+    end
+
+    local simulator = alife()
+    if simulator == nil then
+        return
+    end
+
+    local duty_objects = {}
+    local story_objects = {}
+    local story_objects_found = {}
+
+    for object_id = 1, 65534 do
+        local server_object = simulator:object(object_id)
+        if server_object ~= nil then
+            local section = server_object:section_name()
+
+            if kindergarten_duty_sections[section] then
+                table.insert(duty_objects, server_object)
+            elseif kindergarten_corpse_definitions[section] then
+                table.insert(story_objects, server_object)
+                story_objects_found[section] = true
+            end
+        end
+    end
+
+    for _, duty_object in ipairs(duty_objects) do
+        simulator:release(duty_object, true)
+    end
+
+    for _, story_object in ipairs(story_objects) do
+        kill_kindergarten_story_npc(simulator, story_object)
+
+        local definition = kindergarten_corpse_definitions[
+            story_object:section_name()
+        ]
+        amk.save_variable(definition.id_variable, story_object.id)
+    end
+
+    for section, definition in pairs(kindergarten_corpse_definitions) do
+        if not story_objects_found[section] then
+            spawn_kindergarten_corpse(simulator, section, definition)
+        end
+    end
+
+    if not db.actor:has_info("ilya_pri_unknown_spawned") then
+        db.actor:give_info_portion("ilya_pri_unknown_spawned")
+    end
+
+    if not db.actor:has_info("ilya_pri_alexander_spawned") then
+        db.actor:give_info_portion("ilya_pri_alexander_spawned")
+    end
+
+    db.actor:give_info_portion("pravo_pri_kindergarten_aftermath_done")
+end
+
+function ensure_kindergarten_corpses()
+    if db.actor == nil
+    or not db.actor:has_info("pravo_pri_kindergarten_aftermath_done") then
+        return
+    end
+
+    local simulator = alife()
+    if simulator == nil then
+        return
+    end
+
+    for section, definition in pairs(kindergarten_corpse_definitions) do
+        local corpse_id = amk.load_variable(definition.id_variable, 65535)
+        local corpse = simulator:object(corpse_id)
+
+        if corpse == nil or corpse:section_name() ~= section then
+            spawn_kindergarten_corpse(simulator, section, definition)
+        else
+            kill_kindergarten_story_npc(simulator, corpse)
+        end
+    end
+end
+
 function spawn_duty_squad()
 
     if db.actor == nil then

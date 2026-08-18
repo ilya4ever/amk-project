@@ -28,6 +28,7 @@
 
 <info_portion id="pravo_pri_wounded_freedom_weapon_given"></info_portion>
 <info_portion id="pravo_pri_freedom_vodka_given"></info_portion>
+<info_portion id="pravo_pri_kindergarten_aftermath_done"></info_portion>
 
 <info_portion id="pravo_pri_find_freedom_started">
     <task>pravo_pri_find_freedom_task</task>
