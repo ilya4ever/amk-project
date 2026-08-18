@@ -128,6 +128,12 @@
     <text>Возле лагеря Свободы снова появилась стая слепых собак. Старший поручил мне уничтожить мутантов, пока они не забрели в лагерь.</text>
 </article>
 
+<article id="pravo_rad_zombies_descr"
+         name="pravo_rad_zombies_descr"
+         article_type="task">
+    <text>На старом посту Свободы побывал контролёр. Он ушёл, но пятеро свободовцев превратились в зомбированных. Старший попросил найти пост, избавить бывших бойцов от мучений и вернуться с докладом.</text>
+</article>
+
 
 <article id="pravo_rad_talk_makar_descr"
          name="pravo_rad_talk_makar_descr"

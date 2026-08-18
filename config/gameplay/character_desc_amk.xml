@@ -381,6 +381,101 @@
     <actor_dialog>pravo_rad_freedom_leader_test</actor_dialog>
     <actor_dialog>pravo_rad_freedom_leader_dogs_start</actor_dialog>
     <actor_dialog>pravo_rad_freedom_leader_dogs_report</actor_dialog>
+    <actor_dialog>pravo_rad_freedom_leader_zombies_start</actor_dialog>
+    <actor_dialog>pravo_rad_freedom_leader_zombies_report</actor_dialog>
+</specific_character>
+
+<specific_character id="pravo_rad_zombified_freedom_regular" team_default="1">
+
+    <name>GENERATE_NAME_stalker</name>
+    <icon>ui_npc_u_stalker_zombie5</icon>
+    <bio>rad_zombied_general_bio</bio>
+
+    <class>pravo_rad_zombified_freedom_regular</class>
+    <community>zombied</community>
+    <terrain_sect>stalker_zombied_terrain</terrain_sect>
+
+    <rank>360</rank>
+    <reputation>-300</reputation>
+    <panic_threshold>0</panic_threshold>
+
+    <money min="100" max="500" infinitive="0"/>
+
+    <snd_config>characters_voice\human_01\zombied\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\stalker_zombi\stalker_zombie5</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_ak74u \n
+        ammo_5.45x39_fmj = 1 \n
+        bandage \n
+    </supplies>
+
+    #include "gameplay\character_criticals_1.xml"
+</specific_character>
+
+<specific_character id="pravo_rad_zombified_freedom_veteran" team_default="1">
+
+    <name>GENERATE_NAME_stalker</name>
+    <icon>ui_npc_u_stalker_zombie5</icon>
+    <bio>rad_zombied_general_bio</bio>
+
+    <class>pravo_rad_zombified_freedom_veteran</class>
+    <community>zombied</community>
+    <terrain_sect>stalker_zombied_terrain</terrain_sect>
+
+    <rank>480</rank>
+    <reputation>-300</reputation>
+    <panic_threshold>0</panic_threshold>
+
+    <money min="100" max="500" infinitive="0"/>
+
+    <snd_config>characters_voice\human_03\zombied\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\stalker_zombi\stalker_zombie5</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_bm16 \n
+        ammo_12x70_buck = 1 \n
+        bandage \n
+    </supplies>
+
+    #include "gameplay\character_criticals_1.xml"
+</specific_character>
+
+<specific_character id="pravo_rad_zombified_freedom_guard" team_default="1">
+
+    <name>GENERATE_NAME_stalker</name>
+    <icon>ui_npc_u_stalker_zombie5</icon>
+    <bio>rad_zombied_general_bio</bio>
+
+    <class>pravo_rad_zombified_freedom_guard</class>
+    <community>zombied</community>
+    <terrain_sect>stalker_zombied_terrain</terrain_sect>
+
+    <rank>420</rank>
+    <reputation>-300</reputation>
+    <panic_threshold>0</panic_threshold>
+
+    <money min="100" max="500" infinitive="0"/>
+
+    <snd_config>characters_voice\human_02\zombied\</snd_config>
+    <crouch_type>-1</crouch_type>
+
+    <visual>actors\stalker_zombi\stalker_zombie5</visual>
+
+    <supplies>
+        [spawn] \n
+        wpn_mp5 \n
+        ammo_9x19_fmj = 1 \n
+        bandage \n
+    </supplies>
+
+    #include "gameplay\character_criticals_1.xml"
 </specific_character>
 
 <specific_character id="pravo_rad_makar" team_default="1">

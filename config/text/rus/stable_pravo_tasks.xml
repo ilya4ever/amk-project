@@ -56,4 +56,29 @@
     <string id="pravo_rad_artifact_meat_text">
         <text>Нужен «Ломоть мяса». Артефакт не самый приятный, зато заказчик платит хорошо. Принесёшь — отдам 4500 RU.</text>
     </string>
+
+    <string id="pravo_rad_freedom_leader_zombies_start_0">
+        <text>Слушай, может, ещё чем-нибудь помочь?</text>
+    </string>
+    <string id="pravo_rad_freedom_leader_zombies_start_1">
+        <text>Есть одно дело. Раньше у нас был пост у дороги к Припяти. Недавно туда забрёл контролёр. Сам он куда-то ушёл, а пятеро наших остались. Только это уже не наши — он превратил их в зомбированных.</text>
+    </string>
+    <string id="pravo_rad_freedom_leader_zombies_start_2">
+        <text>Хочешь, чтобы я зачистил пост?</text>
+    </string>
+    <string id="pravo_rad_freedom_leader_zombies_start_3">
+        <text>Да. Своих туда посылать тяжело: они знали тех ребят. А ты человек со стороны, рука не дрогнет. Для тебя заодно будет хорошая проверка перед дальней дорогой. Избавь их от мучений и возвращайся.</text>
+    </string>
+    <string id="pravo_rad_freedom_leader_zombies_start_4">
+        <text>Ладно. Показывай, где этот пост.</text>
+    </string>
+    <string id="pravo_rad_freedom_leader_zombies_report_0">
+        <text>На старом посту больше никого не осталось. Все пятеро мертвы.</text>
+    </string>
+    <string id="pravo_rad_freedom_leader_zombies_report_1">
+        <text>Понял... Жалко ребят, но так для них лучше. Спасибо. Ты сделал то, на что у нас самих духу не хватило.</text>
+    </string>
+    <string id="pravo_rad_zombies_hint">
+        <text>Старый пост Свободы</text>
+    </string>
 </string_table>

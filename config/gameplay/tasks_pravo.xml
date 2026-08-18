@@ -99,6 +99,41 @@
 
 </game_task>
 
+<game_task id="pravo_rad_zombies_task">
+
+    <title>Зачистить старый пост Свободы</title>
+
+    <objective>
+        <text>Уничтожить зомбированных свободовцев на старом посту.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_rad_zombies_descr</article>
+        <infoportion_complete>pravo_rad_zombies_done</infoportion_complete>
+    </objective>
+
+    <objective>
+        <text>Найти старый пост и избавить от мучений пятерых зомбированных свободовцев.</text>
+
+        <map_location_type hint="pravo_rad_zombies_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_zombies_quest_spot</object_story_id>
+        <infoportion_complete>pravo_rad_zombies_killed</infoportion_complete>
+    </objective>
+
+    <objective>
+        <text>Вернуться в лагерь и доложить Старшему о зачистке поста.</text>
+
+        <map_location_type hint="pravo_rad_freedom_leader_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>pravo_rad_freedom_leader</object_story_id>
+        <infoportion_complete>pravo_rad_zombies_done</infoportion_complete>
+    </objective>
+
+</game_task>
+
 <game_task id="pravo_rad_talk_leader_task">
 
     <title>Поговорить с лидером Свободы</title>

@@ -67,6 +67,17 @@
 <info_portion id="pravo_rad_dosimeter_given"></info_portion>
 <info_portion id="pravo_rad_dogs_reward_given"></info_portion>
 
+<info_portion id="pravo_rad_zombies_started">
+    <task>pravo_rad_zombies_task</task>
+</info_portion>
+<info_portion id="pravo_rad_zombie_1_dead"></info_portion>
+<info_portion id="pravo_rad_zombie_2_dead"></info_portion>
+<info_portion id="pravo_rad_zombie_3_dead"></info_portion>
+<info_portion id="pravo_rad_zombie_4_dead"></info_portion>
+<info_portion id="pravo_rad_zombie_5_dead"></info_portion>
+<info_portion id="pravo_rad_zombies_killed"></info_portion>
+<info_portion id="pravo_rad_zombies_done"></info_portion>
+
 <info_portion id="pravo_rad_talk_makar_started">
     <task>pravo_rad_talk_makar_task</task>
 </info_portion>
