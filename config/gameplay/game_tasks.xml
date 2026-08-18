@@ -14,6 +14,7 @@
 #include "gameplay\game_tasks_by_vendor.xml"
 #include "gameplay\tasks_flame.xml"
 #include "gameplay\tasks_pravo.xml"
+#include "gameplay\tasks_pravo_random.xml"
 
 	<game_task id="user_task">
 		<title>My map task</title>

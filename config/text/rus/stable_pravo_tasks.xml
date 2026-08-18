@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<string_table>
+    <string id="tm_pravo_rad_trader_list_job">
+        <text>Есть несколько заказов на артефакты. Смотри, что тебе по силам:</text>
+    </string>
+    <string id="tm_pravo_rad_trader_has_no_job">
+        <text>Пока заказов нет. Загляни через сутки.</text>
+    </string>
+    <string id="tm_pravo_rad_trader_job_ask">
+        <text>По какому заказу у тебя новости?</text>
+    </string>
+    <string id="tm_pravo_rad_trader_job_complete">
+        <text>Отлично, то что нужно. Держи оплату.</text>
+    </string>
+    <string id="tm_pravo_rad_trader_job_what">
+        <text>Ну что с артефактом?</text>
+    </string>
+
+    <string id="pravo_rad_artifact_medusa">
+        <text>Добыть артефакт «Медуза»</text>
+    </string>
+    <string id="pravo_rad_artifact_medusa_descr">
+        <text>Торговцу лагеря Свободы на Радаре нужна «Медуза». Принести артефакт и получить 1500 RU.</text>
+    </string>
+    <string id="pravo_rad_artifact_medusa_text">
+        <text>Нужна обычная «Медуза». Такие часто попадаются возле гравитационных аномалий. Притащишь целую — заплачу 1500 RU.</text>
+    </string>
+
+    <string id="pravo_rad_artifact_flower">
+        <text>Добыть артефакт «Каменный цветок»</text>
+    </string>
+    <string id="pravo_rad_artifact_flower_descr">
+        <text>Торговцу лагеря Свободы на Радаре нужен «Каменный цветок». Принести артефакт и получить 3000 RU.</text>
+    </string>
+    <string id="pravo_rad_artifact_flower_text">
+        <text>Есть заказ на «Каменный цветок». Поищи возле гравитационных аномалий и принеси мне. За работу получишь 3000 RU.</text>
+    </string>
+
+    <string id="pravo_rad_artifact_blood">
+        <text>Добыть артефакт «Кровь камня»</text>
+    </string>
+    <string id="pravo_rad_artifact_blood_descr">
+        <text>Торговцу лагеря Свободы на Радаре нужна «Кровь камня». Принести артефакт и получить 2000 RU.</text>
+    </string>
+    <string id="pravo_rad_artifact_blood_text">
+        <text>Нужна «Кровь камня». Встречается возле каруселей и мясорубок. Достанешь — твои 2000 RU.</text>
+    </string>
+
+    <string id="pravo_rad_artifact_meat">
+        <text>Добыть артефакт «Ломоть мяса»</text>
+    </string>
+    <string id="pravo_rad_artifact_meat_descr">
+        <text>Торговцу лагеря Свободы на Радаре нужен «Ломоть мяса». Принести артефакт и получить 4500 RU.</text>
+    </string>
+    <string id="pravo_rad_artifact_meat_text">
+        <text>Нужен «Ломоть мяса». Артефакт не самый приятный, зато заказчик платит хорошо. Принесёшь — отдам 4500 RU.</text>
+    </string>
+</string_table>

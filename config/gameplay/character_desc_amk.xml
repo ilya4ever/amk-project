@@ -531,6 +531,8 @@
     <start_dialog>dm_hello_dialog</start_dialog>
     <actor_dialog>dm_cool_info_dialog</actor_dialog>
     <actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+    <actor_dialog>tm_pravo_rad_trader_dialog</actor_dialog>
+    <actor_dialog>tm_pravo_rad_trader_reward</actor_dialog>
 </specific_character>
 
 <specific_character id="pravo_pri_freedom_1" team_default="1">

@@ -142,6 +142,12 @@ drunk_dolg_find_item
 shustriy_find_item
 ;tasks for Mercenary
 mercenary_kill_stalker
+
+;tasks for Radar Freedom trader
+pravo_rad_artifact_medusa
+pravo_rad_artifact_flower
+pravo_rad_artifact_blood
+pravo_rad_artifact_meat
   
 
 ;-------STORYLINE TASKS-------
@@ -1947,3 +1953,66 @@ phrase_1 = drunk_dolg_reward_phr_1
 
 [ecolog_snork_info]
 info_portion = info_amk_recipt_tears_electra
+
+
+; Artifact orders for the Freedom trader at Radar.
+; All four have the same priority, so the player can choose any available order.
+[pravo_rad_artifact_medusa]
+type = artefact
+community = actor
+text = pravo_rad_artifact_medusa_text
+description = pravo_rad_artifact_medusa_descr
+parent = pravo_rad_trader
+target = af_medusa
+reward_money = 1500
+reward_reputation = +5
+reward_relation = freedom, +10
+reward_rank = 1
+time = 604800
+idle_time = 86400
+prior = 1
+
+[pravo_rad_artifact_flower]
+type = artefact
+community = actor
+text = pravo_rad_artifact_flower_text
+description = pravo_rad_artifact_flower_descr
+parent = pravo_rad_trader
+target = af_cristall_flower
+reward_money = 3000
+reward_reputation = +5
+reward_relation = freedom, +10
+reward_rank = 1
+time = 604800
+idle_time = 86400
+prior = 1
+
+[pravo_rad_artifact_blood]
+type = artefact
+community = actor
+text = pravo_rad_artifact_blood_text
+description = pravo_rad_artifact_blood_descr
+parent = pravo_rad_trader
+target = af_blood
+reward_money = 2000
+reward_reputation = +5
+reward_relation = freedom, +10
+reward_rank = 1
+time = 604800
+idle_time = 86400
+prior = 1
+
+[pravo_rad_artifact_meat]
+type = artefact
+community = actor
+text = pravo_rad_artifact_meat_text
+description = pravo_rad_artifact_meat_descr
+parent = pravo_rad_trader
+target = af_mincer_meat
+reward_money = 4500
+reward_reputation = +5
+reward_relation = freedom, +10
+reward_rank = 1
+time = 604800
+idle_time = 86400
+prior = 1

@@ -1,0 +1,111 @@
+local radar_parent = "pravo_rad_trader"
+local radar_profile = "pravo_rad_freedom_trader"
+local parent_patch_installed = false
+local original_get_parent = nil
+local original_action_give_task = nil
+
+local function give_radar_artifact_task(manager, actor, npc, phrase_id)
+    local task_id = manager.task_id_by_yes_phrase_id[phrase_id]
+    local task_desc = manager.task_info[task_id]
+    local game_task = CGameTask()
+
+    game_task:load(task_desc.complex_type)
+    game_task:set_title(task_desc.type)
+    game_task:get_objective(0):set_article_id(task_desc.description)
+
+    local objective = SGameTaskObjective(game_task, 1)
+    objective:set_description(task_desc.name)
+    objective:add_complete_func("task_manager.task_complete")
+    game_task:add_objective(objective)
+
+    objective = SGameTaskObjective(game_task, 2)
+    objective:set_description("return_for_reward_bring")
+    objective:set_map_hint("return_for_reward_bring")
+    objective:set_map_location("blue_location")
+    objective:set_object_id(npc:id())
+    game_task:add_objective(objective)
+
+    local time = 0
+    if task_desc.time ~= nil then
+        time = task_desc.time * 1000
+    end
+
+    db.actor:give_task(game_task, time, false)
+    task_desc.status = "selected"
+    manager.active_task_by_type[task_desc.complex_type] = task_id
+
+    for _, other_task in pairs(manager.task_info) do
+        if other_task.complex_type == task_desc.complex_type then
+            other_task.enabled = false
+        end
+    end
+end
+
+local function ensure_parent_patch()
+    if parent_patch_installed then
+        return
+    end
+
+    original_get_parent = task_manager.CRandomTask.get_parent
+    original_action_give_task = task_manager.CRandomTask.action_give_task
+
+    function task_manager.CRandomTask:get_parent(npc)
+        if npc ~= nil and npc.profile_name and npc:profile_name() == radar_profile then
+            return radar_parent
+        end
+
+        return original_get_parent(self, npc)
+    end
+
+    function task_manager.CRandomTask:action_give_task(actor, npc, p1, p2)
+        local task_id = self.task_id_by_yes_phrase_id[p2]
+        local task_desc = task_id and self.task_info[task_id]
+
+        if task_desc ~= nil and task_desc.parent == radar_parent then
+            give_radar_artifact_task(self, actor, npc, p2)
+            return
+        end
+
+        original_action_give_task(self, actor, npc, p1, p2)
+    end
+
+    parent_patch_installed = true
+end
+
+function init_task_dialog(dlg)
+    ensure_parent_patch()
+    task_manager.get_random_task():init_task_dialog(dlg, radar_parent)
+end
+
+function init_reward_dialog(dlg)
+    ensure_parent_patch()
+    task_manager.get_random_task():init_reward_dialog(dlg, radar_parent)
+end
+
+function has_active_task(actor, npc)
+    ensure_parent_patch()
+    return task_manager.has_active_vendor_task(actor, npc)
+end
+
+-- The stock failure check looks for a vendor by story id. The Radar trader is
+-- identified by his unique profile instead, so only refusal/timeout is handled here.
+function task_fail(task_id, objective_id)
+    if objective_id ~= 0 then
+        return false
+    end
+
+    local manager = task_manager.get_random_task()
+    local active_id = manager.active_task_by_type[task_id]
+    local task_desc = active_id and manager.task_info[active_id]
+
+    if task_desc == nil or task_desc.parent ~= radar_parent then
+        return false
+    end
+
+    if task_desc.status == "refused" or task_desc.status == "failed" then
+        task_desc.last_task_time = game.get_game_time()
+        return true
+    end
+
+    return false
+end
