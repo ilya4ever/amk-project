@@ -134,6 +134,30 @@
 
 </game_task>
 
+<game_task id="pravo_mil_barrier_task">
+
+    <title>Путь на Армейские склады</title>
+
+    <objective>
+        <text>Добраться до Армейских складов и связаться со Свободой.</text>
+        <icon>amk_ui_flame_quest</icon>
+        <article>pravo_mil_barrier_descr</article>
+        <infoportion_complete>pravo_mil_barrier_talk_done</infoportion_complete>
+    </objective>
+
+    <objective>
+        <text>Найти командира Свободы на Барьере и поговорить с ним.</text>
+
+        <map_location_type hint="pravo_mil_barrier_commander_hint">
+            green_location
+        </map_location_type>
+
+        <object_story_id>Mil_Kap</object_story_id>
+        <infoportion_complete>pravo_mil_barrier_talk_done</infoportion_complete>
+    </objective>
+
+</game_task>
+
 <game_task id="pravo_rad_talk_leader_task">
 
     <title>Поговорить с лидером Свободы</title>

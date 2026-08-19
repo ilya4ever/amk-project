@@ -449,6 +449,38 @@
         <phrase id="1">
             <text>pravo_rad_freedom_leader_zombies_report_1</text>
             <give_info>pravo_rad_zombies_done</give_info>
+            <give_info>pravo_mil_barrier_talk_started</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
+<dialog id="pravo_mil_barrier_commander_intro">
+
+    <has_info>pravo_mil_barrier_talk_started</has_info>
+    <dont_has_info>pravo_mil_barrier_talk_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_mil_barrier_commander_intro_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_mil_barrier_commander_intro_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_mil_barrier_commander_intro_2</text>
+            <next>3</next>
+        </phrase>
+
+        <phrase id="3">
+            <text>pravo_mil_barrier_commander_intro_3</text>
+            <give_info>pravo_mil_barrier_talk_done</give_info>
         </phrase>
 
     </phrase_list>

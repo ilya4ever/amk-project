@@ -78,6 +78,11 @@
 <info_portion id="pravo_rad_zombies_killed"></info_portion>
 <info_portion id="pravo_rad_zombies_done"></info_portion>
 
+<info_portion id="pravo_mil_barrier_talk_started">
+    <task>pravo_mil_barrier_task</task>
+</info_portion>
+<info_portion id="pravo_mil_barrier_talk_done"></info_portion>
+
 <info_portion id="pravo_rad_talk_makar_started">
     <task>pravo_rad_talk_makar_task</task>
 </info_portion>
