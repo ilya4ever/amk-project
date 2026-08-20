@@ -479,7 +479,7 @@
 #include "gameplay\character_criticals_5.xml"
 #include "gameplay\character_dialogs.xml"
 
-		<actor_dialog>mil_freedom_commander_common2</actor_dialog>
+		<actor_dialog>pravo_mil_barrier_commander_intro</actor_dialog>
 	</specific_character>
 <!---------------------------SVOBODA MASTER UGRUMIY----------------------->
 	<specific_character id="mil_Svoboda_master_Ugrumiy" team_default = "1">

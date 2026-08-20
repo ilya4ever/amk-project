@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<game_dialogs>
+    <dialog id="tm_pravo_rad_trader_dialog" priority="-1">
+        <init_func>pravo_task_manager.init_task_dialog</init_func>
+    </dialog>
+
+    <dialog id="tm_pravo_rad_trader_reward" priority="0">
+        <init_func>pravo_task_manager.init_reward_dialog</init_func>
+        <precondition>pravo_task_manager.has_active_task</precondition>
+    </dialog>
+</game_dialogs>

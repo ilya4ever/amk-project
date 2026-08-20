@@ -73,4 +73,11 @@ function update()
     end
 
     spawn_kindergarten_story_npcs()
+
+    if db.actor:has_info("pravo_pri_find_freedom_started")
+    and not db.actor:has_info("pravo_pri_kindergarten_aftermath_done") then
+        pravo_dialogs.setup_kindergarten_aftermath(nil, nil)
+    elseif db.actor:has_info("pravo_pri_kindergarten_aftermath_done") then
+        pravo_dialogs.ensure_kindergarten_corpses()
+    end
 end

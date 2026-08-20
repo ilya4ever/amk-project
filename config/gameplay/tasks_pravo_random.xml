@@ -1,0 +1,9 @@
+<game_task id="artefact_pravo_rad_trader">
+    <title>title</title>
+    <objective>
+        <text>objective</text>
+        <icon>ui_iconsTotal_artefact</icon>
+        <function_complete>task_manager.task_complete</function_complete>
+        <function_fail>pravo_task_manager.task_fail</function_fail>
+    </objective>
+</game_task>

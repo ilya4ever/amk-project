@@ -28,6 +28,7 @@
 
 <info_portion id="pravo_pri_wounded_freedom_weapon_given"></info_portion>
 <info_portion id="pravo_pri_freedom_vodka_given"></info_portion>
+<info_portion id="pravo_pri_kindergarten_aftermath_done"></info_portion>
 
 <info_portion id="pravo_pri_find_freedom_started">
     <task>pravo_pri_find_freedom_task</task>
@@ -65,6 +66,22 @@
 <info_portion id="pravo_rad_dogs_done"></info_portion>
 <info_portion id="pravo_rad_dosimeter_given"></info_portion>
 <info_portion id="pravo_rad_dogs_reward_given"></info_portion>
+
+<info_portion id="pravo_rad_zombies_started">
+    <task>pravo_rad_zombies_task</task>
+</info_portion>
+<info_portion id="pravo_rad_zombie_1_dead"></info_portion>
+<info_portion id="pravo_rad_zombie_2_dead"></info_portion>
+<info_portion id="pravo_rad_zombie_3_dead"></info_portion>
+<info_portion id="pravo_rad_zombie_4_dead"></info_portion>
+<info_portion id="pravo_rad_zombie_5_dead"></info_portion>
+<info_portion id="pravo_rad_zombies_killed"></info_portion>
+<info_portion id="pravo_rad_zombies_done"></info_portion>
+
+<info_portion id="pravo_mil_barrier_talk_started">
+    <task>pravo_mil_barrier_task</task>
+</info_portion>
+<info_portion id="pravo_mil_barrier_talk_done"></info_portion>
 
 <info_portion id="pravo_rad_talk_makar_started">
     <task>pravo_rad_talk_makar_task</task>
