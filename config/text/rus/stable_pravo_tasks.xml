@@ -83,15 +83,18 @@
     </string>
 
     <string id="pravo_mil_barrier_commander_intro_0">
-        <text>Я с Радара. Старший из лагеря Свободы направил меня на вашу главную базу.</text>
+        <text>Стой. Ты откуда и куда направляешься?</text>
     </string>
     <string id="pravo_mil_barrier_commander_intro_1">
-        <text>С Радара? Не каждый оттуда доходит. Что случилось у Старшего?</text>
+        <text>Я с Радара. Старший из лагеря Свободы направил меня на вашу главную базу.</text>
     </string>
     <string id="pravo_mil_barrier_commander_intro_2">
-        <text>Старый пост с зомбированными зачищен. Он велел отметиться у командира Барьера и идти дальше.</text>
+        <text>С Радара? Не каждый оттуда доходит. Что случилось у Старшего?</text>
     </string>
     <string id="pravo_mil_barrier_commander_intro_3">
+        <text>Старый пост с зомбированными зачищен. Он велел отметиться у командира Барьера и идти дальше.</text>
+    </string>
+    <string id="pravo_mil_barrier_commander_intro_4">
         <text>Понял. Всё, пропускаю тебя. Проходи через Барьер, дальше держись основной дороги и иди сразу на базу Свободы. Там поговоришь с руководством.</text>
     </string>
     <string id="pravo_mil_barrier_commander_hint">

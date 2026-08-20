@@ -480,6 +480,11 @@
 
         <phrase id="3">
             <text>pravo_mil_barrier_commander_intro_3</text>
+            <next>4</next>
+        </phrase>
+
+        <phrase id="4">
+            <text>pravo_mil_barrier_commander_intro_4</text>
             <give_info>pravo_mil_barrier_talk_done</give_info>
         </phrase>
 
