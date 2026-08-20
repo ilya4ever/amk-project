@@ -1122,9 +1122,9 @@ end
 
 function blowout_type()
 	local lname=level.name()
-	local t=amk_hideouts.blowout_types[lname]
+	local t=amk_hideouts.blowout_types[lname] or 0
 	if t>1 and amk.load_variable("freeplay",0)==2 then t=0 end
-	return t or 0
+	return t
 end
 
 --'*******************************************************************************
