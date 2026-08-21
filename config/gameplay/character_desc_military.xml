@@ -287,6 +287,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>tm_freedom_dialog</actor_dialog>
 		<actor_dialog>tm_freedom_reward</actor_dialog>
+		<actor_dialog>pravo_mil_lukash_welcome</actor_dialog>
 #include "gameplay\character_dialogs.xml"
 	</specific_character>	
 

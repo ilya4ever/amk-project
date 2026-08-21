@@ -492,6 +492,42 @@
 
 </dialog>
 
+<dialog id="pravo_mil_lukash_welcome">
+
+    <has_info>pravo_mil_barrier_talk_done</has_info>
+    <dont_has_info>pravo_mil_lukash_welcome_done</dont_has_info>
+
+    <phrase_list>
+
+        <phrase id="0">
+            <text>pravo_mil_lukash_welcome_0</text>
+            <next>1</next>
+        </phrase>
+
+        <phrase id="1">
+            <text>pravo_mil_lukash_welcome_1</text>
+            <next>2</next>
+        </phrase>
+
+        <phrase id="2">
+            <text>pravo_mil_lukash_welcome_2</text>
+            <next>3</next>
+        </phrase>
+
+        <phrase id="3">
+            <text>pravo_mil_lukash_welcome_3</text>
+            <next>4</next>
+        </phrase>
+
+        <phrase id="4">
+            <text>pravo_mil_lukash_welcome_4</text>
+            <give_info>pravo_mil_lukash_welcome_done</give_info>
+        </phrase>
+
+    </phrase_list>
+
+</dialog>
+
 <dialog id="pravo_rad_makar_thanks">
 
     <has_info>pravo_rad_talk_makar_started</has_info>
