@@ -327,6 +327,14 @@ function get_sound_object(theme, t_type)
 	-- чтобы не переопределять целиком базовый sound_theme.script.
 	if theme == "pravo_rad_freedom_radio" and sound_theme.ph_snd_themes[theme] == nil then
 		sound_theme.ph_snd_themes[theme] = {[[pravo\radar\invisible_los_libros_de_la_buena_memoria]]}
+	elseif theme == "pravo_mil_freedom_bar_radio" and sound_theme.ph_snd_themes[theme] == nil then
+		sound_theme.ph_snd_themes[theme] = {
+			[[pravo\military_bar\bar_track_01]],
+			[[pravo\military_bar\bar_track_02]],
+			[[pravo\military_bar\bar_track_03]],
+			[[pravo\military_bar\bar_track_04]],
+			[[pravo\military_bar\bar_track_05]]
+		}
 	end
 
 	if sound_theme.ph_snd_themes[theme] == nil then
