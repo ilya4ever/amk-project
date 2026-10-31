@@ -68,6 +68,9 @@ foreach ($file in @('dialog_manager.script', 'task_manager.script')) {
     } else {
         # Generated IDs are also used as keys by the custom trader callbacks.
         $script = $script.Replace('return self.task_phrase_id', 'return tostring(self.task_phrase_id)')
+        # A clean story may omit entire task types or vanilla vendors. Item
+        # registration still runs for every spawn, so missing lists are empty.
+        $script = [regex]::Replace($script, 'pairs\((self\.task_id_by_(?:type|parent)\[[^\]]+\])\)', 'pairs($1 or {})')
     }
     Write-Text1251 (Join-Path $storyScripts $file) $script
 }

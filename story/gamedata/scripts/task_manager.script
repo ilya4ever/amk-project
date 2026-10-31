@@ -251,7 +251,7 @@ function CRandomTask:parent_can_task(actor, npc, p1, p2, p3)
 	local parent = self:get_parent(npc)
 	local avail = false
 	self:task_avail(actor, npc, nil, nil, nil, "reset")
-	for k,v in pairs(self.task_id_by_parent[parent]) do
+	for k,v in pairs(self.task_id_by_parent[parent] or {}) do
 		if self:task_avail(actor, npc, nil, nil, self.task_info[v].init_phrase_id, true) then
 			avail = true
 		end
@@ -523,7 +523,7 @@ end
 --' ¬ыводит список доступных квестов
 function CRandomTask:action_task_show(npc, actor)
 	local parent = self:get_parent(npc)	
-	for k,v in pairs(self.task_id_by_parent[parent]) do		
+	for k,v in pairs(self.task_id_by_parent[parent] or {}) do		
 		if self:task_avail(actor, npc, nil, nil, self.task_info[v].init_phrase_id, false) then
 			local task_texture, task_rect = get_texture_info("ui_icons_task_"..self.task_info[v].type, "ui_iconsTotal_locations")
 			db.actor:give_talk_message(game.translate_string(self.task_info[v].name), task_texture, task_rect,"iconed_trade_info")
@@ -711,7 +711,7 @@ function CRandomTask:init_task_dialog(dlg, parent)
 	phrase_script = phr:GetPhraseScript()
 	phrase_script:AddPrecondition("task_manager.precondition_vendor_cannot_task")
 	
-	for k,v in pairs(self.task_id_by_parent[parent]) do
+	for k,v in pairs(self.task_id_by_parent[parent] or {}) do
 		phr = dlg:AddPhrase(self.task_info[v].name, self.task_info[v].init_phrase_id, 1, -10000)		
 		phrase_script = phr:GetPhraseScript()
 		phrase_script:AddPrecondition("task_manager.precondition_task_avail")
@@ -824,7 +824,7 @@ function CRandomTask:init_reward_dialog(dlg, parent)
 
 	
 	-- —писок возможных квестов трейдера.
-	for k,v in pairs(self.task_id_by_parent[parent]) do
+	for k,v in pairs(self.task_id_by_parent[parent] or {}) do
 		phr = dlg:AddPhrase(self.task_info[v].name, self.task_info[v].init_phrase_id, 2, -10000)
 		phrase_script = phr:GetPhraseScript()		
 		phrase_script:AddPrecondition("task_manager.precondition_active_task")
@@ -843,7 +843,7 @@ end
 function CRandomTask:register_target(obj)
 	if IsStalker(obj) then
 		--' ¬озможно регистрируетс€ цель дл€ квеста "убить сталкера"
-		for k,v in pairs(self.task_id_by_type["kill_stalker"]) do	
+		for k,v in pairs(self.task_id_by_type["kill_stalker"] or {}) do	
 			if obj.alive ~= nil and obj:alive() == true and
 				obj:profile_name() == self.task_info[v].target 
 			then
@@ -857,7 +857,7 @@ function CRandomTask:register_target(obj)
 
 	elseif obj:clsid() == clsid.smart_terrain then
 		--' ¬озможно регистрируетс€ цель дл€ квеста "вынести лагерь"
-		for k,v in pairs(self.task_id_by_type["eliminate_lager"]) do
+		for k,v in pairs(self.task_id_by_type["eliminate_lager"] or {}) do
 			if obj:name() == self.task_info[v].target then
 				if self.task_info[v].target_objects == nil then
 					self.task_info[v].target_objects = {}
@@ -866,7 +866,7 @@ function CRandomTask:register_target(obj)
 			end
 		end
 		--' Ћибо регистрируетс€ цель дл€ квеста "защитить лагерь"
-		for k,v in pairs(self.task_id_by_type["defend_lager"]) do
+		for k,v in pairs(self.task_id_by_type["defend_lager"] or {}) do
 			if obj:name() == self.task_info[v].target then
 				--' ѕроверка что в кастом дате указано от кого защищать
 				local sm_ini = obj:spawn_ini()
@@ -880,7 +880,7 @@ function CRandomTask:register_target(obj)
 
 	else
 		--' ¬озможно регистрируетс€ цель дл€ квеста "найти предмет"
-		for k,v in pairs(self.task_id_by_type["find_item"]) do
+		for k,v in pairs(self.task_id_by_type["find_item"] or {}) do
 			if obj:section_name() == self.task_info[v].target then
 				if self.task_info[v].target_objects == nil then
 					self.task_info[v].target_objects = {}
@@ -894,7 +894,7 @@ end
 function CRandomTask:unregister_target(obj)
 	if IsStalker(obj) then
 		--' ¬озможно регистрируетс€ цель дл€ квеста "убить сталкера"
-		for k,v in pairs(self.task_id_by_type["kill_stalker"]) do	
+		for k,v in pairs(self.task_id_by_type["kill_stalker"] or {}) do	
 			if self.task_info[v].target_objects ~= nil then
 				for kk,vv in pairs(self.task_info[v].target_objects) do
 					if vv == obj.id then
@@ -906,7 +906,7 @@ function CRandomTask:unregister_target(obj)
 	elseif obj:clsid() == clsid.smart_terrain then
 	else
 		--' ¬озможно регистрируетс€ цель дл€ квеста "найти предмет"
-		for k,v in pairs(self.task_id_by_type["find_item"]) do
+		for k,v in pairs(self.task_id_by_type["find_item"] or {}) do
 			if self.task_info[v].target_objects ~= nil then
 				for kk,vv in pairs(self.task_info[v].target_objects) do
 					if vv == obj.id then
