@@ -125,4 +125,5 @@
 
 #include "gameplay\tasks_pravo.xml"
 #include "gameplay\tasks_pravo_trader.xml"
+#include "gameplay\tasks_pravo_military.xml"
 </game_tasks_data>

@@ -81,3 +81,30 @@ $levelTasks = [regex]::Replace($levelTasks, '(?s)local level_scripts\s*=\s*\{.*?
 Write-Text1251 (Join-Path $storyScripts 'level_tasks.script') $levelTasks
 
 Write-Host 'Clean OGSR script hooks prepared.'
+
+# Debug shortcuts live in the pause menu; gameplay function-key bindings stay intact.
+$menu = Read-Text1251 (Join-Path $vanillaScripts 'ui_main_menu.script')
+# OGSR's options window initializes its own controls and owns its menu
+# lifecycle. The SoC caller's UpdateControls method no longer exists, and
+# toggling the owner here also conflicts with OGSR's return-to-menu path.
+$optionsHandler = @'
+function main_menu:OnButton_options_clicked()
+    if self.opt_dlg == nil then
+        self.opt_dlg = ui_mm_opt_main.options_dialog()
+        self.opt_dlg.owner = self
+    end
+    self:GetHolder():start_stop_menu(self.opt_dlg, true)
+    self:Show(false)
+end
+
+'@
+$optionsPattern = '(?s)function main_menu:OnButton_options_clicked\(\).*?(?=function main_menu:OnButton_load_clicked\()'
+if ([regex]::Matches($menu, $optionsPattern).Count -ne 1) { throw 'Cannot find unique options menu handler' }
+$menu = [regex]::Replace($menu, $optionsPattern, $optionsHandler + "`r`n")
+$menu = [regex]::Replace($menu, '(?m)^(\s*_ver:SetText[^\r\n]*)', '$1' + "`r`n`tpravo_debug.attach_panel(self)")
+$menu = $menu.Replace('self.shniaga:SetVisibleMagnifier(f)', "self.shniaga:SetVisibleMagnifier(f)`r`n`tpravo_debug.show_panel(self, f)")
+$menu = $menu.Replace('CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)', "if keyboard_action == ui_events.WINDOW_KEY_PRESSED and pravo_debug.menu_key(dik) then return true end`r`n`tCUIScriptWnd.OnKeyboard(self,dik,keyboard_action)")
+Write-Text1251 (Join-Path $storyScripts 'ui_main_menu.script') $menu
+$debugXml = [IO.File]::ReadAllText((Join-Path $PSScriptRoot 'assets\ui_pravo_debug.xml'), [Text.Encoding]::UTF8)
+New-Item -ItemType Directory -Path (Join-Path $ProjectRoot 'story\gamedata\config\ui') -Force | Out-Null
+Write-Text1251 (Join-Path $ProjectRoot 'story\gamedata\config\ui\ui_pravo_debug.xml') $debugXml

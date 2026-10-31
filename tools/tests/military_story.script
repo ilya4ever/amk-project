@@ -1,0 +1,56 @@
+-- Native OGSR integration test; install as pravo_military_verify.script only
+-- in an isolated QA run with saves backed up, then call run() from actor update.
+local ready_at = 0
+function run()
+    if db.actor == nil or device().precache_frame > 0 then return end
+    local a = db.actor
+    local stage = xr_logic.pstor_retrieve(a, "pravo_verify_mil_stage", 0)
+    local now = time_global()
+    if now < ready_at then return end
+    if stage == 0 then
+        if not a:has_info("pravo_mil_cleanup_v1") then return end
+        assert(a:has_info("pravo_mil_dialogs"))
+        a:give_info_portion("pravo_rad_zombies_done")
+        a:give_info_portion("pravo_mil_barrier_started")
+        assert(a:get_task_state("pravo_mil_barrier_task", 0) == task.in_progress)
+        log1("PRAVO_MIL_VERIFY: Radar dispatch + real PDA task OK")
+        xr_logic.pstor_store(a, "pravo_verify_mil_stage", 1)
+        level.change_level(1775, 389493, vector():set(93.16823,-1.3775,312.61115), vector():set(0,0,0))
+    elseif stage == 1 and level.name() == "l07_military" then
+        local server = alife():story_object(724)
+        assert(server ~= nil, "Barrier commander missing")
+        local npc = level.object_by_id(server.id)
+        if npc == nil then return end
+        assert(pravo_military.is_barrier_commander(a,npc))
+        assert(not pravo_military.is_lukash(a,npc))
+        a:give_info_portion("pravo_mil_barrier_done")
+        a:give_info_portion("pravo_mil_lukash_started")
+        assert(a:get_task_state("pravo_mil_lukash_task", 0) == task.in_progress)
+        xr_logic.pstor_store(a, "pravo_verify_mil_stage", 2)
+        ready_at = now + 1500
+        log1("PRAVO_MIL_VERIFY: Military loaded + real Kap + Lukash task OK")
+    elseif stage == 2 then
+        assert(a:get_task_state("pravo_mil_barrier_task", 0) == task.completed)
+        a:set_actor_position(vector():set(-24.98838,-3.91275,-16.15631))
+        xr_logic.pstor_store(a, "pravo_verify_mil_stage", 3)
+        ready_at = now + 1500
+    elseif stage == 3 then
+        local server = alife():story_object(707)
+        assert(server ~= nil, "Lukash missing")
+        local npc = level.object_by_id(server.id)
+        if npc == nil then return end
+        assert(pravo_military.is_lukash(a,npc))
+        assert(not pravo_military.is_barrier_commander(a,npc))
+        a:give_info_portion("pravo_mil_lukash_done")
+        xr_logic.pstor_store(a, "pravo_verify_mil_stage", 4)
+        ready_at = now + 1500
+        log1("PRAVO_MIL_VERIFY: real Lukash + final conversation flags OK")
+    elseif stage == 4 then
+        assert(a:get_task_state("pravo_mil_lukash_task", 0) == task.completed)
+        log1("PRAVO_MIL_VERIFY: PASS; both tasks completed")
+        xr_logic.pstor_store(a, "pravo_verify_mil_stage", 5)
+        get_console():execute("quit")
+    end
+end
+
+

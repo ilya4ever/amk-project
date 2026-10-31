@@ -18,6 +18,8 @@ end
 
 function init()
     initialized = true
+    pravo_debug.init()
+    pravo_military.init()
     disable_brain_scorcher()
     pravo_effects.reset()
     pravo_dialogs.ensure_pripyat_intro()
@@ -40,6 +42,8 @@ function update()
 
     disable_brain_scorcher()
     pravo_effects.update()
+    pravo_debug.update()
+    pravo_military.update()
 
     if db.actor:has_info("pravo_pri_kindergarten_aftermath_done")
     and level.name() == "l11_pripyat" then

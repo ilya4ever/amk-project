@@ -1,0 +1,18 @@
+[logic]
+active = walker
+
+[walker]
+path_walk = mil_fblockpost_commander_walk
+path_look = mil_fblockpost_commander_look
+def_state_standing = ward
+meet = meet
+
+[meet]
+meet_state = 3|ward@nil
+meet_state_wpn = 3|ward@nil
+victim = 3|actor
+victim_wpn = 3|actor
+use = true
+use_wpn = true
+abuse = false
+trade_enable = false

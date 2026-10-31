@@ -1,0 +1,46 @@
+-- Short, isolated continuation from Radar to Army Warehouses.
+local function matches(first, second, profile)
+    return (first ~= nil and first:profile_name() == profile)
+        or (second ~= nil and second:profile_name() == profile)
+end
+
+function is_radar_leader(first, second)
+    return matches(first, second, "pravo_rad_freedom_leader")
+end
+
+function is_barrier_commander(first, second)
+    return matches(first, second, "mil_Svoboda_blockpost_leader")
+end
+
+function is_lukash(first, second)
+    return matches(first, second, "mil_Svoboda_leader")
+end
+
+local cleanup = nil
+local cleanup_cursor = 0
+function init()
+    cleanup_cursor = 0
+    cleanup = ini_file("pravo_military_cleanup.ltx")
+end
+
+function update()
+    if db.actor == nil then return end
+    -- Actor-level dialogues also support NPCs already serialized in old saves.
+    if not db.actor:has_info("pravo_mil_dialogs") then
+        db.actor:give_info_portion("pravo_mil_dialogs")
+    end
+    if db.actor:has_info("pravo_mil_cleanup_v1") then return end
+    -- Batched ALife cleanup migrates existing saves without killing offline
+    -- inventory-bearing NPCs. OGSR release recursively releases their children.
+    for i=1,512 do
+        local obj = alife():object(cleanup_cursor)
+        if obj ~= nil and cleanup:line_exist("remove", obj:name()) then
+            alife():release(obj, true)
+        end
+        cleanup_cursor = cleanup_cursor + 1
+        if cleanup_cursor >= 65535 then
+            db.actor:give_info_portion("pravo_mil_cleanup_v1")
+            return
+        end
+    end
+end

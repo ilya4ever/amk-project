@@ -50,9 +50,9 @@ if ($system -notmatch [regex]::Escape('#include "misc\pravo_items.ltx"')) {
 if ($system -notmatch [regex]::Escape('#include "creatures\pravo_story_sections.ltx"')) {
     $system = $system.Replace('#include "creatures\spawn_sections.ltx"', "#include `"creatures\spawn_sections.ltx`"`r`n#include `"creatures\pravo_story_sections.ltx`"")
 }
-$system = Add-CsvValue $system 'info_portions' 'files' @('info_pravo')
-$system = Add-CsvValue $system 'encyclopedia' 'files' @('storyline_info_pravo', 'storyline_info_pravo_trader')
-$system = Add-CsvValue $system 'dialogs' 'files' @('dialogs_pravo', 'dialogs_pravo_tasks')
+$system = Add-CsvValue $system 'info_portions' 'files' @('info_pravo', 'info_pravo_military')
+$system = Add-CsvValue $system 'encyclopedia' 'files' @('storyline_info_pravo', 'storyline_info_pravo_trader', 'storyline_info_pravo_military')
+$system = Add-CsvValue $system 'dialogs' 'files' @('dialogs_pravo', 'dialogs_pravo_tasks', 'dialogs_pravo_military')
 # The dream dialogue file is intentionally included inside dialogs_pravo.xml;
 # registering it as a separate top-level document would define both dialogues
 # twice and its fragment has no game_dialogs wrapper.
@@ -63,13 +63,13 @@ Write-Text1251 $systemPath $system
 
 $localizationPath = Join-Path $story 'config\localization.ltx'
 $localization = Read-Text1251 $localizationPath
-$localization = Add-CsvValue $localization 'string_table' 'files' @('stable_pravo_story', 'stable_pravo_tasks')
+$localization = Add-CsvValue $localization 'string_table' 'files' @('stable_pravo_story', 'stable_pravo_tasks', 'stable_pravo_military')
 $localization = Remove-CsvValue $localization 'string_table' 'files' @('stable_pravo_bar_dream')
 Write-Text1251 $localizationPath $localization
 
 $tasksPath = Join-Path $story 'config\gameplay\game_tasks.xml'
 $tasks = Read-Text1251 $tasksPath
-foreach ($include in @('#include "gameplay\tasks_pravo.xml"', '#include "gameplay\tasks_pravo_trader.xml"')) {
+foreach ($include in @('#include "gameplay\tasks_pravo.xml"', '#include "gameplay\tasks_pravo_trader.xml"', '#include "gameplay\tasks_pravo_military.xml"')) {
     if ($tasks -notmatch [regex]::Escape($include)) {
         $tasks = $tasks.Replace('</game_tasks_data>', "$include`r`n</game_tasks_data>")
     }

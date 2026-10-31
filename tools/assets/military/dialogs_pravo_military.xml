@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<game_dialogs>
+  <dialog id="pravo_mil_radar_departure">
+    <precondition>pravo_military.is_radar_leader</precondition>
+    <has_info>pravo_rad_zombies_done</has_info>
+    <dont_has_info>pravo_mil_barrier_started</dont_has_info>
+    <phrase_list>
+      <phrase id="0"><text>pravo_mil_departure_0</text><next>1</next></phrase>
+      <phrase id="1"><text>pravo_mil_radar_report_dispatch</text><next>2</next></phrase>
+      <phrase id="2"><text>pravo_mil_ack</text><give_info>pravo_mil_barrier_started</give_info></phrase>
+    </phrase_list>
+  </dialog>
+  <dialog id="pravo_mil_barrier_intro">
+    <precondition>pravo_military.is_barrier_commander</precondition>
+    <has_info>pravo_mil_barrier_started</has_info>
+    <dont_has_info>pravo_mil_barrier_done</dont_has_info>
+    <phrase_list>
+      <phrase id="0"><text>pravo_mil_barrier_0</text><next>1</next></phrase>
+      <phrase id="1"><text>pravo_mil_barrier_1</text><next>2</next></phrase>
+      <phrase id="2"><text>pravo_mil_ack</text><give_info>pravo_mil_barrier_done</give_info><give_info>pravo_mil_lukash_started</give_info></phrase>
+    </phrase_list>
+  </dialog>
+  <dialog id="pravo_mil_lukash_intro">
+    <precondition>pravo_military.is_lukash</precondition>
+    <has_info>pravo_mil_lukash_started</has_info>
+    <dont_has_info>pravo_mil_lukash_done</dont_has_info>
+    <phrase_list>
+      <phrase id="0"><text>pravo_mil_lukash_0</text><next>1</next></phrase>
+      <phrase id="1"><text>pravo_mil_lukash_1</text><next>2</next></phrase>
+      <phrase id="2"><text>pravo_mil_ack</text><give_info>pravo_mil_lukash_done</give_info></phrase>
+    </phrase_list>
+  </dialog>
+</game_dialogs>

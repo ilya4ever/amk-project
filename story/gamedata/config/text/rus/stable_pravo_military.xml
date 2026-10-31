@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<string_table>
+  <string id="pravo_mil_departure_0"><text>С зомбированными разобрались. Куда мне дальше?</text></string>
+  <string id="pravo_mil_radar_report_dispatch"><text>Хорошая работа. Теперь иди на Армейские склады, там наша главная база. Сначала поговори с Кэпом на Барьере. Он объяснит, как пройти к Лукашу.</text></string>
+  <string id="pravo_mil_ack"><text>Понял, отправляюсь.</text></string>
+  <string id="pravo_mil_barrier_0"><text>Я с Радара. Командир лагеря направил меня к вам.</text></string>
+  <string id="pravo_mil_barrier_1"><text>Понял. Проходи на нашу базу и найди Лукаша в главном здании. Скажи ему, что пришёл с Радара.</text></string>
+  <string id="pravo_mil_lukash_0"><text>Я пришёл с Радара. На Барьере Кэп направил меня к тебе.</text></string>
+  <string id="pravo_mil_lukash_1"><text>Да, Ковбой уже передал. Мы тебя ждали. Добро пожаловать на базу Свободы, пока располагайся.</text></string>
+  <string id="pravo_mil_barrier_title"><text>Поговорить с командиром Барьера</text></string>
+  <string id="pravo_mil_barrier_goal"><text>Перейти с Радара на Армейские склады и поговорить с Кэпом на Барьере.</text></string>
+  <string id="pravo_mil_lukash_title"><text>Поговорить с Лукашем</text></string>
+  <string id="pravo_mil_lukash_goal"><text>Добраться до базы Свободы и сообщить Лукашу, что я пришёл с Радара.</text></string>
+</string_table>

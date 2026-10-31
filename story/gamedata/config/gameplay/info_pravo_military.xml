@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<game_information_portions>
+  <info_portion id="pravo_mil_dialogs">
+    <dialog>pravo_mil_radar_departure</dialog>
+    <dialog>pravo_mil_barrier_intro</dialog>
+    <dialog>pravo_mil_lukash_intro</dialog>
+  </info_portion>
+  <info_portion id="pravo_mil_barrier_started"><task>pravo_mil_barrier_task</task></info_portion>
+  <info_portion id="pravo_mil_barrier_done"/>
+  <info_portion id="pravo_mil_lukash_started"><task>pravo_mil_lukash_task</task></info_portion>
+  <info_portion id="pravo_mil_lukash_done"/>
+  <info_portion id="pravo_mil_cleanup_v1"/>
+</game_information_portions>

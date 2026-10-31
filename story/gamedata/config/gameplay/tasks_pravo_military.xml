@@ -1,0 +1,28 @@
+<game_task id="pravo_mil_barrier_task" prio="3">
+  <title>pravo_mil_barrier_title</title>
+  <objective>
+    <text>pravo_mil_barrier_goal</text><icon>ui_iconsTotal_grouping</icon>
+    <article>pravo_mil_barrier_descr</article>
+    <infoportion_complete>pravo_mil_barrier_done</infoportion_complete>
+  </objective>
+  <objective>
+    <text>pravo_mil_barrier_goal</text>
+    <map_location_type hint="pravo_mil_barrier_title">green_location</map_location_type>
+    <object_story_id>Mil_Kap</object_story_id>
+    <infoportion_complete>pravo_mil_barrier_done</infoportion_complete>
+  </objective>
+</game_task>
+<game_task id="pravo_mil_lukash_task" prio="3">
+  <title>pravo_mil_lukash_title</title>
+  <objective>
+    <text>pravo_mil_lukash_goal</text><icon>ui_iconsTotal_grouping</icon>
+    <article>pravo_mil_lukash_descr</article>
+    <infoportion_complete>pravo_mil_lukash_done</infoportion_complete>
+  </objective>
+  <objective>
+    <text>pravo_mil_lukash_goal</text>
+    <map_location_type hint="pravo_mil_lukash_title">green_location</map_location_type>
+    <object_story_id>Mil_Lukash</object_story_id>
+    <infoportion_complete>pravo_mil_lukash_done</infoportion_complete>
+  </objective>
+</game_task>
