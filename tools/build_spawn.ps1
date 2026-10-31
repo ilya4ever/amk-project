@@ -18,7 +18,8 @@ function Read-Ltx([string]$Path) {
 }
 
 function Write-Ltx([string]$Path, [string]$Text) {
-    [System.IO.File]::WriteAllText($Path, $Text, $cp1251)
+    # ACDC's Perl heredoc reader includes CR in the <<END terminator on Windows.
+    [System.IO.File]::WriteAllText($Path, $Text.Replace("`r`n", "`n"), $cp1251)
 }
 
 function Split-Blocks([string]$Text) {
@@ -45,6 +46,26 @@ function Renumber-Block([string]$Block, [int]$Id) {
 
 function Join-Blocks([object[]]$Blocks) {
     return (($Blocks -join "`r`n`r`n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`r`n`r`n") + "`r`n")
+}
+
+# Neutralize original plot triggers on every level before importing our story.
+# Leave physical restrictors in place because NPC paths can reference them.
+foreach ($file in Get-ChildItem -LiteralPath $output -Filter 'alife_*.ltx') {
+    $blocks = Split-Blocks (Read-Ltx $file.FullName)
+    for ($i = 0; $i -lt $blocks.Count; $i++) {
+        $block = $blocks[$i]
+        if ($block -notmatch '(?m)^section_name\s*=\s*space_restrictor\s*$') { continue }
+        $logic = $block
+        $cfg = [regex]::Match($block, '(?m)^cfg\s*=\s*([^;\r\n]+)')
+        if ($cfg.Success) {
+            $cfgPath = Join-Path $ProjectRoot ('vanilla-reference\config\' + $cfg.Groups[1].Value.Trim())
+            if (Test-Path -LiteralPath $cfgPath) { $logic += Read-Ltx $cfgPath }
+        }
+        if ($logic -match '(?m)^active\s*=\s*sr_(idle|cutscene|sound_act|teleport|timer|tip)(?:\b|@|\d)') {
+            $blocks[$i] = [regex]::Replace($block, '(?ms)^custom_data\s*=\s*<<END\r?\n.*?^END\s*$', "custom_data = <<END`r`n[logic]`r`nactive = nil`r`nEND")
+        }
+    }
+    Write-Ltx $file.FullName (Join-Blocks $blocks)
 }
 
 # Move the vanilla actor to the kindergarten in Pripyat.
@@ -82,7 +103,8 @@ for ($i = 0; $i -lt $pripyatBlocks.Count; $i++) {
 $pripyatBlocks = @($pripyatBlocks | Where-Object {
     $profile = Get-Profile $_
     $name = Get-Name $_
-    -not ($profile -like 'pri_monolith_*' -or
+    -not ($profile -ne '' -or
+        $name -in @('pri_respawn_military', 'pri_respawn_dolg', 'pri_respawn_freedom', 'pri_monolith_respawn_1') -or
         $name -like 'pri_heli*' -or
         $name -like 'pri_ambient_battle_sound_zone*' -or
         $_ -match '(?m)^section_name\s*=\s*helicopter\s*$')

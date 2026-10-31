@@ -2,6 +2,11 @@
 local initialized = false
 local next_aftermath_check = 0
 
+-- Used by disabled vanilla story dialogues; custom dialogs do not use it.
+function vanilla_story_disabled()
+    return false
+end
+
 function init()
     initialized = true
     pravo_effects.reset()

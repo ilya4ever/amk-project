@@ -9,6 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 & (Join-Path $PSScriptRoot 'build_scripts.ps1') -ProjectRoot $ProjectRoot
 & (Join-Path $PSScriptRoot 'build_overlay.ps1') -ProjectRoot $ProjectRoot
+& (Join-Path $PSScriptRoot 'disable_vanilla_story.ps1') -ProjectRoot $ProjectRoot
 & (Join-Path $PSScriptRoot 'build_spawn.ps1') -ProjectRoot $ProjectRoot
 
 $spawnSource = Join-Path $ProjectRoot 'spawn-clean'

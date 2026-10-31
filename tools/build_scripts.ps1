@@ -55,4 +55,26 @@ ph_snd_themes["pravo_rad_freedom_radio"] = {
 }
 Write-Text1251 (Join-Path $storyScripts 'sound_theme.script') $soundTheme
 
+# OGSR uses an empty parent ID for a dialogue root, not SoC's numeric -1.
+# Both generic NPC greetings and the custom trader's random jobs use these.
+foreach ($file in @('dialog_manager.script', 'task_manager.script')) {
+    $script = Read-Text1251 (Join-Path $vanillaScripts $file)
+    $script = $script.Replace(',0,-1,-10000)', ',"0","",-10000)')
+    if ($file -eq 'dialog_manager.script') {
+        # OGSR sends phrase IDs to callbacks as strings. Keep the original
+        # numeric phrase tables and the binary NPC save format compatible.
+        $script = [regex]::Replace($script, '(?m)^(function [^\r\n]*\([^\r\n]*\bp2\b[^\r\n]*\))', '$1' + "`r`n`t" + 'p2 = tonumber(p2)')
+        $script = [regex]::Replace($script, '(?m)^(function [^\r\n]*\([^\r\n]*\bp3\b[^\r\n]*\))', '$1' + "`r`n`t" + 'p3 = tonumber(p3)')
+    } else {
+        # Generated IDs are also used as keys by the custom trader callbacks.
+        $script = $script.Replace('return self.task_phrase_id', 'return tostring(self.task_phrase_id)')
+    }
+    Write-Text1251 (Join-Path $storyScripts $file) $script
+}
+
+# Retain map/transition helpers, but stop the original per-level plot handlers.
+$levelTasks = Read-Text1251 (Join-Path $vanillaScripts 'level_tasks.script')
+$levelTasks = [regex]::Replace($levelTasks, '(?s)local level_scripts\s*=\s*\{.*?\}', 'local level_scripts = {}', 1)
+Write-Text1251 (Join-Path $storyScripts 'level_tasks.script') $levelTasks
+
 Write-Host 'Clean OGSR script hooks prepared.'
