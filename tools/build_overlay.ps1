@@ -63,16 +63,18 @@ Write-Text1251 $systemPath $system
 
 $localizationPath = Join-Path $story 'config\localization.ltx'
 $localization = Read-Text1251 $localizationPath
-$localization = Add-CsvValue $localization 'string_table' 'files' @('stable_pravo_story', 'stable_pravo_tasks', 'stable_pravo_bar_dream')
+$localization = Add-CsvValue $localization 'string_table' 'files' @('stable_pravo_story', 'stable_pravo_tasks')
+$localization = Remove-CsvValue $localization 'string_table' 'files' @('stable_pravo_bar_dream')
 Write-Text1251 $localizationPath $localization
 
 $tasksPath = Join-Path $story 'config\gameplay\game_tasks.xml'
 $tasks = Read-Text1251 $tasksPath
-foreach ($include in @('#include "gameplay\tasks_pravo.xml"', '#include "gameplay\tasks_pravo_bar_dream.xml"')) {
+foreach ($include in @('#include "gameplay\tasks_pravo.xml"')) {
     if ($tasks -notmatch [regex]::Escape($include)) {
         $tasks = $tasks.Replace('</game_tasks_data>', "$include`r`n</game_tasks_data>")
     }
 }
+$tasks = [regex]::Replace($tasks, '(?m)^#include "gameplay\\tasks_pravo_bar_dream.xml"\s*\r?\n?', '')
 Write-Text1251 $tasksPath $tasks
 
 $storyIdsPath = Join-Path $story 'config\game_story_ids.ltx'
@@ -181,46 +183,40 @@ if ($external -match '(?m)^\s*;?\s*waypoints_file\s*=.*$') {
 [System.IO.File]::WriteAllText($externalPath, $external, $utf8NoBom)
 
 foreach ($path in @(
-    (Join-Path $story 'config\gameplay\tasks_pravo.xml'),
-    (Join-Path $story 'config\gameplay\tasks_pravo_bar_dream.xml')
+    (Join-Path $story 'config\gameplay\tasks_pravo.xml')
 )) {
     $xml = Read-Text1251 $path
     $xml = $xml.Replace('amk_ui_flame_quest', 'ui_iconsTotal_grouping')
     Write-Text1251 $path $xml
 }
 
-# Rebuild the three vanilla military files from the clean reference and apply
-# only the plot hooks authored for this mod.  This deliberately avoids all
-# unrelated AMK profile, repair and weapon changes.
-$militaryCharactersPath = Join-Path $story 'config\gameplay\character_desc_military.xml'
-$militaryCharacters = Read-Text1251 (Join-Path $ProjectRoot 'vanilla-reference\config\gameplay\character_desc_military.xml')
-$militaryCharacters = $militaryCharacters.Replace(
-    '<actor_dialog>tm_freedom_reward</actor_dialog>',
-    "<actor_dialog>tm_freedom_reward</actor_dialog>`r`n`t`t<actor_dialog>pravo_mil_lukash_welcome</actor_dialog>"
-)
-$militaryCharacters = $militaryCharacters.Replace(
-    '<actor_dialog>mil_freedom_commander_common2</actor_dialog>',
-    '<actor_dialog>pravo_mil_barrier_commander_intro</actor_dialog>'
-)
-Write-Text1251 $militaryCharactersPath $militaryCharacters
+# Remove every not-yet-ported Army Warehouses entry from the active registries.
+$dialogsPath = Join-Path $story 'config\gameplay\dialogs_pravo.xml'
+$dialogs = Read-Text1251 $dialogsPath
+$dialogs = [regex]::Replace($dialogs, '(?s)\s*<dialog id="pravo_mil_barrier_commander_intro">.*?</dialog>', '')
+$dialogs = [regex]::Replace($dialogs, '(?s)\s*<dialog id="pravo_mil_lukash_welcome">.*?</dialog>', '')
+$dialogs = [regex]::Replace($dialogs, '(?m)^#include "gameplay\\dialogs_pravo_bar_dream.xml"\s*\r?\n?', '')
+$dialogs = $dialogs.Replace('<give_info>pravo_mil_barrier_talk_started</give_info>', '')
+Write-Text1251 $dialogsPath $dialogs
 
-$militaryInfoPath = Join-Path $story 'config\gameplay\info_l10military.xml'
-$militaryInfo = Read-Text1251 (Join-Path $ProjectRoot 'vanilla-reference\config\gameplay\info_l10military.xml')
-$militaryInfo = [regex]::Replace(
-    $militaryInfo,
-    '(?s)<info_portion id="mil_fblockpost_quest">\s*<task>mil_blockpost_job</task>\s*</info_portion>',
-    '<info_portion id="mil_fblockpost_quest"></info_portion>'
-)
-Write-Text1251 $militaryInfoPath $militaryInfo
+$pravoTasksPath = Join-Path $story 'config\gameplay\tasks_pravo.xml'
+$pravoTasks = Read-Text1251 $pravoTasksPath
+$pravoTasks = [regex]::Replace($pravoTasks, '(?s)\s*<game_task id="pravo_mil_barrier_task">.*?</game_task>', '')
+Write-Text1251 $pravoTasksPath $pravoTasks
 
-$freedomGulagPath = Join-Path $story 'config\misc\gulag_mil_freedom1.ltx'
-$freedomGulag = Read-Text1251 (Join-Path $ProjectRoot 'vanilla-reference\config\misc\gulag_mil_freedom1.ltx')
-$leaderMeet = 'meet_dialog = {+pravo_mil_barrier_talk_done -pravo_mil_lukash_welcome_done} pravo_mil_lukash_welcome, mil_leader_start_dialog'
-$freedomGulag = [regex]::Replace($freedomGulag, '(?m)^meet_dialog = mil_leader_start_dialog$', $leaderMeet)
-$freedomGulag = $freedomGulag.Replace(
-    'meet_dialog = mil_cook_dialog',
-    'meet_dialog = {+pravo_mil_dream_returned -pravo_mil_dream_done} pravo_mil_cook_dream_report, {+pravo_mil_lukash_welcome_done -pravo_mil_dream_started} pravo_mil_cook_dream_intro, mil_cook_dialog'
+$pravoInfoPath = Join-Path $story 'config\gameplay\info_pravo.xml'
+$pravoInfo = Read-Text1251 $pravoInfoPath
+$pravoInfo = [regex]::Replace(
+    $pravoInfo,
+    '\s*<info_portion id="pravo_mil_[^"]+"(?:\s*/>|>.*?</info_portion>)',
+    '',
+    [System.Text.RegularExpressions.RegexOptions]::Singleline
 )
-Write-Text1251 $freedomGulagPath $freedomGulag
+Write-Text1251 $pravoInfoPath $pravoInfo
+
+$pravoArticlesPath = Join-Path $story 'config\gameplay\storyline_info_pravo.xml'
+$pravoArticles = Read-Text1251 $pravoArticlesPath
+$pravoArticles = [regex]::Replace($pravoArticles, '(?s)\s*<article id="pravo_mil_[^"]+".*?</article>', '')
+Write-Text1251 $pravoArticlesPath $pravoArticles
 
 Write-Host 'Story overlay master configs updated.'

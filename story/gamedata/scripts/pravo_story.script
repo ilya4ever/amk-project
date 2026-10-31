@@ -5,7 +5,6 @@ local next_aftermath_check = 0
 function init()
     initialized = true
     pravo_effects.reset()
-    pravo_bar_dream.reset()
     pravo_dialogs.ensure_pripyat_intro()
 end
 
@@ -13,7 +12,6 @@ function shutdown()
     initialized = false
     next_aftermath_check = 0
     pravo_effects.reset()
-    pravo_bar_dream.shutdown()
 end
 
 function update()
@@ -26,7 +24,6 @@ function update()
     end
 
     pravo_effects.update()
-    pravo_bar_dream.update()
 
     if db.actor:has_info("pravo_pri_kindergarten_aftermath_done")
     and level.name() == "l11_pripyat" then

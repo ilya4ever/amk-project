@@ -96,30 +96,20 @@ Write-Ltx $radarPath (Join-Blocks $radarBlocks)
 
 # Import only objects authored for this storyline.  AMK's remaining spawn is ignored.
 $nextId = 9000
-foreach ($fileName in @('alife_l11_pripyat.ltx', 'alife_l10_radar.ltx', 'alife_l07_military.ltx')) {
+foreach ($fileName in @('alife_l11_pripyat.ltx', 'alife_l10_radar.ltx')) {
     $sourcePath = Join-Path $current $fileName
     $targetPath = Join-Path $output $fileName
     $custom = @()
     foreach ($block in (Split-Blocks (Read-Ltx $sourcePath))) {
         $name = Get-Name $block
         $isDeadCityChanger = $block -match '(?m)^section_name\s*=\s*level_changer\s*$' -and $block -match '(?m)^dest_level_name\s*=\s*dead_city\s*$'
-        $isBarRadio = $fileName -eq 'alife_l07_military.ltx' -and $block -match 'snd\s*=\s*pravo_mil_freedom_bar_radio'
-        if (($name -like 'pravo_*' -or $isBarRadio) -and -not $isDeadCityChanger) {
+        if (($name -like 'pravo_*') -and -not $isDeadCityChanger) {
             $custom += Renumber-Block $block $nextId
             $nextId++
         }
     }
     if ($custom.Count -gt 0) {
         $targetBlocks = Split-Blocks (Read-Ltx $targetPath)
-        if ($fileName -eq 'alife_l07_military.ltx') {
-            # The story turns this existing radio prop into the Freedom-bar
-            # music source. Replace the stock instance instead of stacking an
-            # identical second physic object at the same coordinates.
-            $targetBlocks = @($targetBlocks | Where-Object {
-                -not ((Get-Name $_) -eq 'mil_physic_object_0000' -and
-                    $_ -match '(?m)^position\s*=\s*-75\.6556396484375,\s*-11\.339225769043,\s*27\.6867733001709\s*$')
-            })
-        }
         $target = (Join-Blocks $targetBlocks).TrimEnd()
         Write-Ltx $targetPath ($target + "`r`n`r`n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;`r`n`r`n" + (Join-Blocks $custom))
     }
@@ -127,7 +117,10 @@ foreach ($fileName in @('alife_l11_pripyat.ltx', 'alife_l10_radar.ltx', 'alife_l
 
 # OGSR can load added patrol paths from a standalone LTX file.
 $pathSections = [ordered]@{}
-foreach ($wayFile in (Get-ChildItem -LiteralPath $current -Filter 'way_*.ltx')) {
+foreach ($wayFile in @(
+    (Get-Item (Join-Path $current 'way_l10_radar.ltx')),
+    (Get-Item (Join-Path $current 'way_l11_pripyat.ltx'))
+)) {
     $text = Read-Ltx $wayFile.FullName
     $matches = [regex]::Matches($text, '(?ms)^\[([^\]]+)\]\s*.*?(?=^\[[^\]]+\]\s*|\z)')
     foreach ($match in $matches) {

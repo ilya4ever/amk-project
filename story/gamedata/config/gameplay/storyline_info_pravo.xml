@@ -24,9 +24,6 @@
   <article id="pravo_rad_zombies_descr" name="pravo_rad_zombies_descr" article_type="task">
     <text>На старом посту Свободы побывал контролёр. Он ушёл, но пятеро свободовцев превратились в зомбированных. Старший попросил найти пост, избавить бывших бойцов от мучений и вернуться с докладом.</text>
   </article>
-  <article id="pravo_mil_barrier_descr" name="pravo_mil_barrier_descr" article_type="task">
-    <text>После зачистки старого поста Старший направил меня на Армейские склады, где находится главная база Свободы. Сначала нужно поговорить с командиром на Барьере.</text>
-  </article>
   <article id="pravo_rad_talk_makar_descr" name="pravo_rad_talk_makar_descr" article_type="task">
     <text>Пока я уничтожал собак, Володя привёл раненого Макара из Припяти в лагерь Свободы. Макар хочет лично поблагодарить меня за помощь.</text>
   </article>

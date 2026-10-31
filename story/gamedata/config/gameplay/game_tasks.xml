@@ -124,5 +124,4 @@
 	</game_task>
 
 #include "gameplay\tasks_pravo.xml"
-#include "gameplay\tasks_pravo_bar_dream.xml"
 </game_tasks_data>

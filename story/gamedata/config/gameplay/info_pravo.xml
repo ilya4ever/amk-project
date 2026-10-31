@@ -57,11 +57,6 @@
   <info_portion id="pravo_rad_zombie_5_dead" />
   <info_portion id="pravo_rad_zombies_killed" />
   <info_portion id="pravo_rad_zombies_done" />
-  <info_portion id="pravo_mil_barrier_talk_started">
-    <task>pravo_mil_barrier_task</task>
-  </info_portion>
-  <info_portion id="pravo_mil_barrier_talk_done" />
-  <info_portion id="pravo_mil_lukash_welcome_done" />
   <info_portion id="pravo_rad_talk_makar_started">
     <task>pravo_rad_talk_makar_task</task>
   </info_portion>
@@ -73,10 +68,4 @@
   <info_portion id="pravo_rad_herb_done" />
   <info_portion id="pravo_rad_herb_psy_done" />
   <info_portion id="pravo_rad_herb_controller_done" />
-  <info_portion id="pravo_mil_dream_started">
-    <task>pravo_mil_bar_dream_task</task>
-  </info_portion>
-  <info_portion id="pravo_mil_dream_all_boars" />
-  <info_portion id="pravo_mil_dream_returned" />
-  <info_portion id="pravo_mil_dream_done" />
 </game_information_portions>

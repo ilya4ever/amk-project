@@ -51,13 +51,6 @@ ph_snd_themes["pravo_rad_freedom_radio"] = {
     [[pravo\radar\invisible_los_libros_de_la_buena_memoria]]
 }
 
-ph_snd_themes["pravo_mil_freedom_bar_radio"] = {
-    [[pravo\military_bar\bar_track_01]],
-    [[pravo\military_bar\bar_track_02]],
-    [[pravo\military_bar\bar_track_03]],
-    [[pravo\military_bar\bar_track_04]],
-    [[pravo\military_bar\bar_track_05]]
-}
 "@
 }
 Write-Text1251 (Join-Path $storyScripts 'sound_theme.script') $soundTheme
