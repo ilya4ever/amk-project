@@ -1,0 +1,399 @@
+-- Optional cook episode. All state belongs to the actor's vanilla saved pstor.
+-- No global weather, time scale, faction relations, invulnerability or input lock.
+local prefix = "pravo_bar_dream_"
+local section = "pravo_mil_dream_boar"
+local cam_id, pp_id, blink_id = 4511, 4512, 4513
+local WAIT, ONSET, DREAM, RECOVERY, REPORT, DONE = 1, 2, 3, 4, 5, 6
+local next_update, last_update = 0, nil
+local effects_running, music = false, nil
+local music_playing, boars_ready, arrival_blink = false, false, false
+local pinned_boars = {}
+local gap_logs, next_gap_log = 0, 0
+local last_action, last_action_time = "none", 0
+-- Quiet clearing, away from the bar and level changers. Existing ground
+-- vertices from mil_courier_walk1_2:p7 and mil_freedom_stukach_walk5:p4.
+-- Patrol names only document coordinates: their original logic is not used.
+local dream_pos = {x = -105.894004821777, y = -18.6970596313477, z = 302.873138427734}
+local boar_vertex, dream_game_vertex = 218846, 1769
+local directions = {{0, 0, 1}, {-1, 0, 0}, {0, 0, -1}}
+local radius_sqr = 22 * 22
+
+local function get(key, default)
+    if db.actor == nil then return default end
+    return xr_logic.pstor_retrieve(db.actor, prefix .. key, default)
+end
+
+local function put(key, value)
+    if db.actor ~= nil then
+        xr_logic.pstor_store(db.actor, prefix .. key, value)
+    end
+end
+
+local function trace(message)
+    -- printf needs an argument in this AMK build; a bare string is discarded.
+    printf("[pravo_bar_dream] %s", tostring(time_global()) .. " " .. message)
+end
+
+local function action(name)
+    last_action, last_action_time = name, time_global()
+    trace(name)
+end
+
+local function observe_update_gap(now, gap, phase)
+    -- This measures spacing BETWEEN actor updates, not execution time of a call.
+    -- Bounded diagnostic only: no ALife scans, files, debug HUD or per-frame log.
+    if gap and gap >= 1000 and gap < 15000 and now >= next_gap_log
+    and gap_logs < 12 and level.name() == "l07_military"
+    and db.actor:alive() and not db.actor:is_talking() then
+        local p = db.actor:position()
+        local recent = now - last_action_time < 5000 and last_action or "none"
+        trace(string.format("actor_update_gap_ms=%d phase=%d pos=%.1f,%.1f,%.1f recent=%s",
+            gap, phase, p.x, p.y, p.z, recent))
+        gap_logs, next_gap_log = gap_logs + 1, now + 10000
+    end
+end
+
+local function at_dream()
+    return vector():set(dream_pos.x, dream_pos.y, dream_pos.z)
+end
+
+local function say(id)
+    news_manager.send_tip(db.actor, "pravo_dream_" .. id, 0, nil, 7000)
+end
+
+local function set_phase(phase)
+    put("phase", phase)
+    put("elapsed", 0)
+end
+
+local function stop_effects()
+    level.remove_cam_effector(cam_id)
+    level.remove_pp_effector(pp_id)
+    level.remove_pp_effector(blink_id)
+    effects_running = false
+    if music then
+        music:stop()
+        music = nil
+    end
+    music_playing = false
+end
+
+local function prepare_music()
+    if music == nil then
+        action("prepare_music")
+        music = xr_sound.get_safe_sound_object([[pravo\military_bar\rabbit_dream]])
+    end
+end
+
+local function start_effects(with_music)
+    if not effects_running then
+        -- Soft mode keeps only a mild colour/blur effect, without camera sway.
+        if not get("soft", false) then
+            level.add_cam_effector("camera_effects\\drunk.anm", cam_id, true, "")
+        end
+        level.add_pp_effector("alcohol.ppe", pp_id, true)
+        level.set_pp_effector_factor(pp_id, get("soft", false) and 0.12 or 0.3)
+        effects_running = true
+    end
+    if with_music and not music_playing then
+        prepare_music()
+        music:play(db.actor, 0, sound_object.s2d)
+        music_playing = true
+    end
+end
+
+local function pin_boar_online(obj)
+    if pinned_boars[obj.id] then return end
+    -- Same persistent per-object override used by xr_gulag.setup_job_online.
+    -- Also repairs old mid-dream saves whose embedded custom_data lacks [spawner].
+    obj.job_online_condlist = nil
+    obj.job_online = true
+    obj.check_distance = false
+    obj.day_night_switch = false
+    alife():set_switch_online(obj.id, true)
+    alife():set_switch_offline(obj.id, false)
+    pinned_boars[obj.id] = true
+end
+
+local function owned_boar(index)
+    local obj = alife():object(get("boar_" .. index, 65535))
+    -- Object IDs may be recycled after a corpse disappears.
+    if obj and obj:section_name() == section then return obj end
+    return nil
+end
+
+local function cleanup_boars()
+    for i = 1, 3 do
+        local obj = owned_boar(i)
+        if obj then alife():release(obj, true) end
+        put("boar_" .. i, 65535)
+    end
+    pinned_boars, boars_ready = {}, false
+end
+
+local function return_to_bar()
+    if get("return_pending", false) and level.name() == "l07_military" then
+        action("teleport_to_bar")
+        db.actor:set_actor_position(vector():set(get("return_x", -76.5),
+            get("return_y", -11.38), get("return_z", 22.05)))
+        db.actor:set_actor_direction(get("return_yaw", 0))
+        put("return_pending", false)
+    end
+end
+
+local function wake_up(reason)
+    action("wake_" .. reason)
+    cleanup_boars()
+    stop_effects()
+    put("ending", reason)
+    -- Return on the next update, after cleanup and the blink have had a frame.
+    set_phase(RECOVERY)
+    if level.name() == "l07_military" then
+        level.add_pp_effector("teleport.ppe", blink_id, false)
+        say("wake_" .. reason)
+    end
+end
+
+local function start_episode(soft)
+    if db.actor == nil or not db.actor:alive() or level.name() ~= "l07_military"
+    or not db.actor:has_info("pravo_mil_lukash_welcome_done")
+    or db.actor:has_info("pravo_mil_dream_started") then return end
+    local pos = db.actor:position()
+    put("return_x", pos.x)
+    put("return_y", pos.y)
+    put("return_z", pos.z)
+    put("return_yaw", db.actor:direction():getH())
+    put("return_pending", false)
+    put("soft", soft)
+    put("hunt_started", false)
+    put("warmup_elapsed", 0)
+    boars_ready, arrival_blink, pinned_boars = false, false, {}
+    for i = 1, 3 do
+        put("boar_" .. i, 65535)
+        put("dead_" .. i, false)
+    end
+    set_phase(WAIT)
+    db.actor:give_info_portion("pravo_mil_dream_started")
+    action("accepted")
+end
+
+function accept()
+    start_episode(false)
+end
+
+function accept_soft()
+    start_episode(true)
+end
+
+local function enter_dream()
+    -- Only engine-resolved ground vertices are used, never guessed coordinates.
+    local positions, vertices = {}, {}
+    for i, dir in ipairs(directions) do
+        local vid = level.vertex_in_direction(boar_vertex,
+            vector():set(dir[1], dir[2], dir[3]), 6)
+        if vid == nil or vid == 4294967295 then
+            wake_up("interrupted")
+            return
+        end
+        local pos = level.vertex_position(vid)
+        if pos == nil or pos:distance_to_sqr(at_dream()) > radius_sqr then
+            wake_up("interrupted")
+            return
+        end
+        for j = 1, i - 1 do
+            if pos:distance_to_sqr(positions[j]) < 4 then
+                wake_up("interrupted")
+                return
+            end
+        end
+        vertices[i], positions[i] = vid, pos
+        put("spawn_vertex_" .. i, vid)
+    end
+
+    put("return_pending", true)
+    put("warmup_elapsed", 0)
+    boars_ready = false
+    action("teleport_to_clearing")
+    db.actor:set_actor_position(at_dream())
+    db.actor:set_actor_direction(-2.21)
+    set_phase(DREAM)
+end
+
+local function prepare_boars(dt)
+    local waited = get("warmup_elapsed", 0) + dt
+    put("warmup_elapsed", waited)
+    if waited < 1000 then return false end -- Let actor/ALife position settle first.
+    if waited >= 12000 then
+        trace("online_timeout; aborting scene")
+        wake_up("interrupted")
+        return false
+    end
+
+    for i = 1, 3 do
+        local id = get("boar_" .. i, 65535)
+        local obj = owned_boar(i)
+        if obj == nil then
+            -- Never respawn a previously created/dead boar or delete a reused ID.
+            if id ~= 65535 or get("hunt_started", false) then
+                trace("missing_boar index=" .. i .. " id=" .. id)
+                wake_up("interrupted")
+                return false
+            end
+            local vid = get("spawn_vertex_" .. i, nil)
+            if vid == nil then
+                trace("missing_spawn_vertex index=" .. i)
+                wake_up("interrupted")
+                return false
+            end
+            local pos = level.vertex_position(vid)
+            action("create_boar_" .. i)
+            obj = alife():create(section, pos, vid, dream_game_vertex)
+            if obj == nil then
+                wake_up("interrupted")
+                return false
+            end
+            put("boar_" .. i, obj.id)
+            pin_boar_online(obj)
+            trace("created index=" .. i .. " id=" .. obj.id .. " lvid=" .. vid)
+            return false -- At most one creation per update.
+        end
+        if obj:alive() then
+            pin_boar_online(obj)
+            if level.object_by_id(obj.id) == nil then return false end
+        end
+    end
+    boars_ready = true
+    put("warmup_elapsed", 0)
+    if not get("hunt_started", false) then
+        put("hunt_started", true)
+        put("elapsed", 0)
+        say("tickets")
+    end
+    action("boars_ready")
+    return true
+end
+
+local function count_boars()
+    local killed = 0
+    for i = 1, 3 do
+        local dead = get("dead_" .. i, false)
+        if not dead then
+            local obj = owned_boar(i)
+            -- Disappeared ALife objects are NOT silently credited as kills.
+            local online = obj and level.object_by_id(obj.id)
+            if obj and ((online and not online:alive()) or
+                (not online and not obj:alive())) then
+                dead = true
+                put("dead_" .. i, true)
+                say("passenger_" .. i)
+            end
+        end
+        if dead then killed = killed + 1 end
+    end
+    return killed
+end
+
+function finish_report()
+    if db.actor == nil or not db.actor:has_info("pravo_mil_dream_returned")
+    or db.actor:has_info("pravo_mil_dream_done") then return end
+    -- Book the reward first so reopening the dialogue cannot farm supplies.
+    db.actor:give_info_portion("pravo_mil_dream_done")
+    set_phase(DONE)
+    for _, item in ipairs({"bread", "kolbasa", "energy_drink"}) do
+        alife():create(item, db.actor:position(), db.actor:level_vertex_id(),
+            db.actor:game_vertex_id(), db.actor:id())
+    end
+end
+
+function shutdown()
+    -- Called before db.del_actor. Keep saved stage/IDs to resume a mid-scene save.
+    stop_effects()
+    next_update, last_update = 0, nil
+    boars_ready, arrival_blink, pinned_boars = false, false, {}
+    gap_logs, next_gap_log = 0, 0
+    last_action, last_action_time = "none", 0
+end
+
+function reset()
+    shutdown()
+end
+
+function update()
+    if db.actor == nil then return end
+    local now = time_global()
+    if now < next_update then return end
+    next_update = now + 250
+    local gap = last_update and now - last_update or nil
+    local dt = gap and math.min(math.max(gap, 0), 1000) or 0
+    last_update = now
+    local phase = get("phase", 0)
+    observe_update_gap(now, gap, phase)
+    if phase == 0 or phase == DONE then return end
+
+    if not db.actor:alive() then
+        stop_effects()
+        return
+    end
+    if phase >= RECOVERY then
+        return_to_bar()
+    end
+    if phase == REPORT then return end
+
+    if level.name() ~= "l07_military" then
+        if phase < RECOVERY then wake_up("interrupted") end
+        return
+    end
+    if db.actor:is_talking() then return end
+    if phase < RECOVERY and db.actor.health < 0.3 then
+        wake_up("interrupted")
+        return
+    end
+
+    local elapsed = get("elapsed", 0) + ((phase == DREAM and not boars_ready) and 0 or dt)
+    put("elapsed", elapsed)
+    if phase == WAIT then
+        start_effects(false)
+        say("onset")
+        set_phase(ONSET)
+    elseif phase == ONSET then
+        start_effects(false)
+        if elapsed >= 2000 then prepare_music() end
+        if elapsed >= 3000 and not arrival_blink then
+            level.add_pp_effector("teleport.ppe", blink_id, false)
+            arrival_blink = true
+        end
+        if elapsed >= 3500 then
+            enter_dream()
+        end
+    elseif phase == DREAM then
+        start_effects(true)
+        if not boars_ready then
+            if db.actor:position():distance_to_sqr(at_dream()) > radius_sqr then
+                wake_up("escaped")
+                return
+            end
+            prepare_boars(dt)
+            return
+        end
+        local killed = count_boars()
+        if killed == 3 then
+            db.actor:give_info_portion("pravo_mil_dream_all_boars")
+            wake_up("clear")
+        elseif elapsed >= 90000 then
+            wake_up("timeout")
+        elseif db.actor:position():distance_to_sqr(at_dream()) > radius_sqr then
+            wake_up("escaped")
+        elseif elapsed >= 18000 and not get("memory_shown", false) then
+            put("memory_shown", true)
+            say("memory")
+        elseif elapsed >= 40000 and not get("joke_shown", false) then
+            put("joke_shown", true)
+            say("inspector")
+        end
+    elseif phase == RECOVERY and elapsed >= 3000 then
+        stop_effects()
+        db.actor:give_info_portion("pravo_mil_dream_returned")
+        set_phase(REPORT)
+        say("report")
+    end
+end

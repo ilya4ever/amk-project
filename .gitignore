@@ -1,0 +1,20 @@
+# Downloaded/runtime dependencies
+/engine/
+/game/
+/vanilla-reference/
+/spawn-vanilla/
+/spawn-current/
+/spawn-verify/
+/spawn-clean/
+/*.7z
+/sections.ini
+
+# Local engine output and saves
+/_appdata_/
+*.log
+
+# Windows/editor noise
+Thumbs.db
+Desktop.ini
+*.bak
+*.tmp

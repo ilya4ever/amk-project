@@ -1,0 +1,173 @@
+-- Dialogue callbacks for the clean OGSR port.  This file deliberately uses
+-- only vanilla/OGSR APIs; the AMK variable store and AMK offline health hacks
+-- are not part of the new project.
+
+local intro = {
+    unknown = {
+        section = "ilya_pri_unknown_spawn",
+        key = "pravo_intro_unknown_id",
+        position = {103.66, 5.64, -9.85},
+        level_vertex = 218725,
+        game_vertex = 2231
+    },
+    alexander = {
+        section = "ilya_pri_alexander_spawn",
+        key = "pravo_intro_alexander_id",
+        position = {103.60, 5.64, -13.03},
+        level_vertex = 218725,
+        game_vertex = 2231
+    }
+}
+
+local duty = {
+    {"pravo_pri_duty_leader_spawn", 102.95188903809, -0.92949116230011, -26.490100860596, 213633, 2234},
+    {"pravo_pri_duty_1_spawn",      103.26148223877, -0.94035828113556, -30.219137191772, 214322, 2234},
+    {"pravo_pri_duty_2_spawn",       94.766174316406, -2.3414041996002, -32.325805664063, 205430, 2144},
+    {"pravo_pri_duty_3_spawn",       94.29621887207,  -2.2847623825073, -22.432395935059, 205444, 2144}
+}
+
+local function server_object(key, section)
+    if db.actor == nil then return nil end
+    local id = xr_logic.pstor_retrieve(db.actor, key, 65535)
+    local obj = alife():object(id)
+    if obj ~= nil and obj:section_name() == section then
+        return obj
+    end
+    return nil
+end
+
+local function spawn_intro(definition)
+    local obj = alife():create(definition.section,
+        vector():set(definition.position[1], definition.position[2], definition.position[3]),
+        definition.level_vertex, definition.game_vertex)
+    if obj ~= nil then
+        xr_logic.pstor_store(db.actor, definition.key, obj.id)
+    end
+    return obj
+end
+
+function ensure_pripyat_intro()
+    if db.actor == nil or level.name() ~= "l11_pripyat"
+    or db.actor:has_info("pravo_pri_kindergarten_aftermath_done") then
+        return
+    end
+    for _, definition in pairs(intro) do
+        if server_object(definition.key, definition.section) == nil then
+            spawn_intro(definition)
+        end
+    end
+end
+
+function spawn_duty_squad()
+    if db.actor == nil or db.actor:has_info("pravo_pri_duty_spawned") then
+        return
+    end
+    for index, data in ipairs(duty) do
+        local obj = alife():create(data[1], vector():set(data[2], data[3], data[4]), data[5], data[6])
+        if obj ~= nil then
+            xr_logic.pstor_store(db.actor, "pravo_duty_" .. index .. "_id", obj.id)
+        end
+    end
+    db.actor:give_info_portion("pravo_pri_duty_spawned")
+end
+
+local function check_intro_finished()
+    if db.actor:has_info("pravo_pri_unknown_talked")
+    and db.actor:has_info("pravo_pri_alexander_talked")
+    and not db.actor:has_info("pravo_pri_intro_done") then
+        db.actor:give_info_portion("pravo_pri_intro_done")
+        spawn_duty_squad()
+    end
+end
+
+function unknown_finished(first_speaker, second_speaker)
+    if db.actor == nil then return end
+    db.actor:give_info_portion("pravo_pri_unknown_talked")
+    check_intro_finished()
+end
+
+function alexander_finished(first_speaker, second_speaker)
+    if db.actor == nil then return end
+    db.actor:give_info_portion("pravo_pri_alexander_talked")
+    check_intro_finished()
+end
+
+local function give_item(section, count)
+    if db.actor == nil then return end
+    for i = 1, (count or 1) do
+        alife():create(section, db.actor:position(), db.actor:level_vertex_id(),
+            db.actor:game_vertex_id(), db.actor:id())
+    end
+end
+
+function wounded_freedom_give_weapon(first_speaker, second_speaker)
+    if db.actor == nil or db.actor:has_info("pravo_pri_wounded_freedom_weapon_given") then return end
+    give_item("wpn_walther")
+    give_item("ammo_9x19_fmj", 2)
+    give_item("wpn_knife")
+    db.actor:give_info_portion("pravo_pri_wounded_freedom_weapon_given")
+end
+
+function freedom_leader_give_vodka(first_speaker, second_speaker)
+    if db.actor == nil or db.actor:has_info("pravo_pri_freedom_vodka_given") then return end
+    give_item("vodka")
+    db.actor:give_info_portion("pravo_pri_freedom_vodka_given")
+end
+
+function freedom_leader_give_dosimeter(first_speaker, second_speaker)
+    if db.actor == nil or db.actor:has_info("pravo_rad_dosimeter_given") then return end
+    if db.actor:object("detector_simple") == nil then give_item("detector_simple") end
+    db.actor:give_info_portion("pravo_rad_dosimeter_given")
+end
+
+local function release_duty()
+    for index, data in ipairs(duty) do
+        local id = xr_logic.pstor_retrieve(db.actor, "pravo_duty_" .. index .. "_id", 65535)
+        local obj = alife():object(id)
+        if obj ~= nil and obj:section_name() == data[1] then
+            alife():release(obj, true)
+        end
+        xr_logic.pstor_store(db.actor, "pravo_duty_" .. index .. "_id", 65535)
+    end
+end
+
+function setup_kindergarten_aftermath(first_speaker, second_speaker)
+    if db.actor == nil or db.actor:has_info("pravo_pri_kindergarten_aftermath_done") then return end
+    release_duty()
+    db.actor:give_info_portion("pravo_pri_kindergarten_aftermath_done")
+end
+
+function ensure_kindergarten_corpses()
+    if db.actor == nil or not db.actor:has_info("pravo_pri_kindergarten_aftermath_done") then return end
+    for _, definition in pairs(intro) do
+        local server = server_object(definition.key, definition.section)
+        if server == nil then server = spawn_intro(definition) end
+        if server ~= nil then
+            local online = level.object_by_id(server.id)
+            if online ~= nil and online:alive() then online:kill(online) end
+        end
+    end
+end
+
+function freedom_leader_give_dog_reward(first_speaker, second_speaker)
+    if db.actor == nil or db.actor:has_info("pravo_rad_dogs_reward_given") then return end
+    give_item("wpn_lr300")
+    give_item("ammo_5.56x45_ss190", 2)
+    db.actor:give_info_portion("pravo_rad_dogs_reward_given")
+    setup_kindergarten_aftermath(first_speaker, second_speaker)
+end
+
+-- The Pripyat versions can remain in their level after the party reaches
+-- Radar.  Not forcing an offline kill avoids the vanilla ALife children
+-- assertion that the old AMK implementation could trigger.
+function remove_pripyat_makar_and_volodya(first_speaker, second_speaker)
+end
+
+function actor_has_rad_herb(first_parameter, second_parameter)
+    return db.actor ~= nil and db.actor:object("pravo_rad_herb") ~= nil
+end
+
+function makar_take_rad_herb(first_speaker, second_speaker)
+    if db.actor == nil or second_speaker == nil or db.actor:object("pravo_rad_herb") == nil then return end
+    dialogs.relocate_item_section(second_speaker, "pravo_rad_herb", "out")
+end

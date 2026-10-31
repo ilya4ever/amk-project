@@ -1,0 +1,47 @@
+<dialog id="pravo_mil_cook_dream_intro">
+    <has_info>pravo_mil_lukash_welcome_done</has_info>
+    <dont_has_info>pravo_mil_dream_started</dont_has_info>
+    <!-- This is an NPC-started meet_dialog. Even steps belong to the cook. -->
+    <phrase_list>
+        <phrase id="0"><text>pravo_dream_intro_0</text><next>1</next></phrase>
+        <phrase id="1"><text>pravo_dream_intro_1</text><next>2</next></phrase>
+        <phrase id="2"><text>pravo_dream_intro_2</text><next>3</next></phrase>
+        <phrase id="3"><text>pravo_dream_intro_3</text><next>4</next></phrase>
+        <phrase id="4"><text>pravo_dream_intro_4</text><next>5</next><next>7</next><next>9</next></phrase>
+        <phrase id="5"><text>pravo_dream_intro_5</text><next>6</next></phrase>
+        <phrase id="6">
+            <text>pravo_dream_intro_6</text>
+            <action>pravo_bar_dream.accept</action>
+            <action>dialogs.break_dialog</action>
+        </phrase>
+        <phrase id="7"><text>pravo_dream_intro_7</text><next>8</next></phrase>
+        <phrase id="8">
+            <text>pravo_dream_intro_6</text>
+            <action>pravo_bar_dream.accept_soft</action>
+            <action>dialogs.break_dialog</action>
+        </phrase>
+        <phrase id="9"><text>pravo_dream_intro_9</text><next>10</next></phrase>
+        <phrase id="10"><text>pravo_dream_intro_10</text></phrase>
+    </phrase_list>
+</dialog>
+
+<dialog id="pravo_mil_cook_dream_report">
+    <has_info>pravo_mil_dream_returned</has_info>
+    <dont_has_info>pravo_mil_dream_done</dont_has_info>
+    <phrase_list>
+        <phrase id="0"><text>pravo_dream_report_0</text><next>1</next><next>11</next></phrase>
+        <phrase id="1">
+            <has_info>pravo_mil_dream_all_boars</has_info>
+            <text>pravo_dream_report_clear</text><next>2</next>
+        </phrase>
+        <phrase id="11">
+            <dont_has_info>pravo_mil_dream_all_boars</dont_has_info>
+            <text>pravo_dream_report_other</text><next>2</next>
+        </phrase>
+        <phrase id="2"><text>pravo_dream_report_2</text><next>3</next></phrase>
+        <phrase id="3"><text>pravo_dream_report_3</text><next>4</next></phrase>
+        <phrase id="4"><text>pravo_dream_report_4</text><next>5</next></phrase>
+        <phrase id="5"><text>pravo_dream_report_5</text><next>6</next></phrase>
+        <phrase id="6"><text>pravo_dream_report_6</text><action>pravo_bar_dream.finish_report</action></phrase>
+    </phrase_list>
+</dialog>
