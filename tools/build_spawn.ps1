@@ -56,6 +56,10 @@ for ($i = 0; $i -lt $actorBlocks.Count; $i++) {
         $actorBlocks[$i] = [regex]::Replace($actorBlocks[$i], '(?m)^direction\s*=.*$', 'direction = 0, 0, 0', 1)
         $actorBlocks[$i] = [regex]::Replace($actorBlocks[$i], '(?m)^game_vertex_id\s*=.*$', 'game_vertex_id = 2232', 1)
         $actorBlocks[$i] = [regex]::Replace($actorBlocks[$i], '(?m)^level_vertex_id\s*=.*$', 'level_vertex_id = 214948', 1)
+        # The actor has a second serialized position in the update packet.
+        # Leaving the vanilla Cordon coordinates here makes the engine create
+        # him at (-246, -24, -134) while Pripyat is loaded — below the map.
+        $actorBlocks[$i] = [regex]::Replace($actorBlocks[$i], '(?m)^upd:position\s*=.*$', 'upd:position = 112.25, 5.64, -31.82', 1)
         # Vanilla all.spawn stores the starting detector as a bare inventory line,
         # not as a key/value pair.  The dosimeter is a later quest reward here.
         $actorBlocks[$i] = [regex]::Replace($actorBlocks[$i], '(?m)^\s*detector_simple\s*(?:=.*)?\r?\n?', '')
