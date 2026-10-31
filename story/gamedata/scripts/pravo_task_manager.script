@@ -24,6 +24,7 @@ local function give_radar_artifact_task(manager, actor, npc, phrase_id)
     objective:set_object_id(npc:id())
     game_task:add_objective(objective)
 
+    xr_logic.pstor_store(db.actor, "pravo_rad_artifact_giver_id", npc:id())
     db.actor:give_task(game_task, (task_desc.time or 0) * 1000, false)
     task_desc.status = "selected"
     manager.active_task_by_type[task_desc.complex_type] = task_id
@@ -71,4 +72,25 @@ end
 function has_active_task(actor, npc)
     ensure_parent_patch()
     return task_manager.has_active_vendor_task(actor, npc)
+end
+
+function task_fail(task_id, objective_index)
+    if objective_index ~= 0 or db.actor == nil then return false end
+    local manager = task_manager.get_random_task()
+    local selected = manager.active_task_by_type[task_id]
+    local data = selected and manager.task_info[selected]
+    if data == nil then return false end
+
+    -- The custom trader has no vanilla story_by_parent entry. Use the actual
+    -- ALife ID, saved in actor pstor, so this works after reloading as well.
+    local giver_id = xr_logic.pstor_retrieve(db.actor, "pravo_rad_artifact_giver_id")
+    local giver = giver_id and alife():object(giver_id)
+    local giver_dead = giver_id ~= nil and
+        (giver == nil or (giver.alive ~= nil and not giver:alive()))
+    if giver_dead or data.status == "refused" or data.status == "failed" then
+        data.status = "failed"
+        data.last_task_time = game.get_game_time()
+        return true
+    end
+    return false
 end

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<articles>
+    <article id="pravo_rad_artifact_medusa_descr" name="pravo_rad_artifact_medusa" article_type="task">
+        <text>pravo_rad_artifact_medusa_descr</text>
+    </article>
+    <article id="pravo_rad_artifact_flower_descr" name="pravo_rad_artifact_flower" article_type="task">
+        <text>pravo_rad_artifact_flower_descr</text>
+    </article>
+    <article id="pravo_rad_artifact_blood_descr" name="pravo_rad_artifact_blood" article_type="task">
+        <text>pravo_rad_artifact_blood_descr</text>
+    </article>
+    <article id="pravo_rad_artifact_meat_descr" name="pravo_rad_artifact_meat" article_type="task">
+        <text>pravo_rad_artifact_meat_descr</text>
+    </article>
+</articles>

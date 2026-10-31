@@ -51,7 +51,7 @@ if ($system -notmatch [regex]::Escape('#include "creatures\pravo_story_sections.
     $system = $system.Replace('#include "creatures\spawn_sections.ltx"', "#include `"creatures\spawn_sections.ltx`"`r`n#include `"creatures\pravo_story_sections.ltx`"")
 }
 $system = Add-CsvValue $system 'info_portions' 'files' @('info_pravo')
-$system = Add-CsvValue $system 'encyclopedia' 'files' @('storyline_info_pravo')
+$system = Add-CsvValue $system 'encyclopedia' 'files' @('storyline_info_pravo', 'storyline_info_pravo_trader')
 $system = Add-CsvValue $system 'dialogs' 'files' @('dialogs_pravo', 'dialogs_pravo_tasks')
 # The dream dialogue file is intentionally included inside dialogs_pravo.xml;
 # registering it as a separate top-level document would define both dialogues
