@@ -69,7 +69,7 @@ Write-Text1251 $localizationPath $localization
 
 $tasksPath = Join-Path $story 'config\gameplay\game_tasks.xml'
 $tasks = Read-Text1251 $tasksPath
-foreach ($include in @('#include "gameplay\tasks_pravo.xml"')) {
+foreach ($include in @('#include "gameplay\tasks_pravo.xml"', '#include "gameplay\tasks_pravo_trader.xml"')) {
     if ($tasks -notmatch [regex]::Escape($include)) {
         $tasks = $tasks.Replace('</game_tasks_data>', "$include`r`n</game_tasks_data>")
     }

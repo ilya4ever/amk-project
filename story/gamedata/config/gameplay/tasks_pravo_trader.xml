@@ -1,0 +1,12 @@
+<!-- Shared PDA task template for the Radar trader's repeatable artefact jobs.
+     The two item-search/return objectives are appended by pravo_task_manager.
+     Keep the task ID identical to task_manager's type .. '_' .. parent. -->
+<game_task id="artefact_pravo_rad_trader" prio="1">
+    <title>artefact</title>
+    <objective>
+        <text>artefact</text>
+        <icon>ui_iconsTotal_artefact</icon>
+        <function_complete>task_manager.task_complete</function_complete>
+        <function_fail>task_manager.task_fail</function_fail>
+    </objective>
+</game_task>
