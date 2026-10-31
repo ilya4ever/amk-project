@@ -82,7 +82,10 @@ for ($i = 0; $i -lt $pripyatBlocks.Count; $i++) {
 $pripyatBlocks = @($pripyatBlocks | Where-Object {
     $profile = Get-Profile $_
     $name = Get-Name $_
-    -not ($profile -like 'pri_monolith_*' -or $name -like 'pri_heli*' -or $_ -match '(?m)^section_name\s*=\s*helicopter\s*$')
+    -not ($profile -like 'pri_monolith_*' -or
+        $name -like 'pri_heli*' -or
+        $name -like 'pri_ambient_battle_sound_zone*' -or
+        $_ -match '(?m)^section_name\s*=\s*helicopter\s*$')
 })
 Write-Ltx $pripyatPath (Join-Blocks $pripyatBlocks)
 
@@ -127,11 +130,21 @@ foreach ($wayFile in @(
 )) {
     $text = Read-Ltx $wayFile.FullName
     $matches = [regex]::Matches($text, '(?ms)^\[([^\]]+)\]\s*.*?(?=^\[[^\]]+\]\s*|\z)')
+    $customForLevel = @()
     foreach ($match in $matches) {
         $section = $match.Groups[1].Value.Trim()
         if ($section -like 'pravo_*') {
             $pathSections[$section] = $match.Value.TrimEnd()
+            $customForLevel += $match.Value.TrimEnd()
         }
+    }
+    if ($customForLevel.Count -gt 0) {
+        # Put the paths into all.spawn itself.  This is required by vanilla
+        # walker logic and avoids relying solely on OGSR's optional external
+        # waypoint loader during the dialogue-triggered scheme switch.
+        $targetWay = Join-Path $output $wayFile.Name
+        $targetText = (Read-Ltx $targetWay).TrimEnd()
+        Write-Ltx $targetWay ($targetText + "`r`n`r`n" + ($customForLevel -join "`r`n`r`n") + "`r`n")
     }
 }
 $wayOut = Join-Path $ProjectRoot 'story\gamedata\config\pravo_waypoints.ltx'

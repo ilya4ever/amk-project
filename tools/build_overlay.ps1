@@ -173,6 +173,7 @@ Write-Text1251 $taskManagerPath $taskManager
 
 $externalPath = Join-Path $story 'config\external.ltx'
 $external = [System.IO.File]::ReadAllText($externalPath)
+$external = [regex]::Replace($external, '(?m)^\s*;\s*\[engine_custom_spawn\]\s*$', '[engine_custom_spawn]')
 if ($external -match '(?m)^\s*;?\s*waypoints_file\s*=.*$') {
     $external = [regex]::Replace($external, '(?m)^\s*;?\s*waypoints_file\s*=.*$', 'waypoints_file = pravo_waypoints.ltx')
 } elseif ($external -match '(?m)^\[engine_custom_spawn\]\s*$') {
