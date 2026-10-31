@@ -114,6 +114,14 @@ Write-Ltx $pripyatPath (Join-Blocks $pripyatBlocks)
 # Radar: remove the vanilla faction battle and scripted helicopter.
 $radarPath = Join-Path $output 'alife_l10_radar.ltx'
 $radarBlocks = Split-Blocks (Read-Ltx $radarPath)
+# The original Brain Scorcher is already inactive in this story. Neutralize
+# both its damaging fields and its negative-intensity shelter in new games.
+for ($i = 0; $i -lt $radarBlocks.Count; $i++) {
+    if ($radarBlocks[$i] -match '(?m)^section_name\s*=\s*space_restrictor\s*$' -and
+        $radarBlocks[$i] -match '(?m)^active\s*=\s*sr_psy_antenna(?:\b|@)') {
+        $radarBlocks[$i] = [regex]::Replace($radarBlocks[$i], '(?ms)^custom_data\s*=\s*<<END\r?\n.*?^END\s*$', "custom_data = <<END`r`n[logic]`r`nactive = nil`r`nEND")
+    }
+}
 $radarBlocks = @($radarBlocks | Where-Object {
     $profile = Get-Profile $_
     $name = Get-Name $_

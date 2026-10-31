@@ -7,8 +7,18 @@ function vanilla_story_disabled()
     return false
 end
 
+local function disable_brain_scorcher()
+    -- Existing saves retain their original restrictor logic. Its normal
+    -- shutdown condition also removes the zone's damage, sounds and PPE.
+    if db.actor ~= nil and level.name() == "l10_radar"
+    and not db.actor:has_info("bar_deactivate_radar_done") then
+        db.actor:give_info_portion("bar_deactivate_radar_done")
+    end
+end
+
 function init()
     initialized = true
+    disable_brain_scorcher()
     pravo_effects.reset()
     pravo_dialogs.ensure_pripyat_intro()
 end
@@ -28,6 +38,7 @@ function update()
         init()
     end
 
+    disable_brain_scorcher()
     pravo_effects.update()
 
     if db.actor:has_info("pravo_pri_kindergarten_aftermath_done")
