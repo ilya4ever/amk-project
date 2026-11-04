@@ -1,0 +1,83 @@
+
+function spawn_kindergarten_story_npcs()
+
+    if db.actor == nil then
+        return
+    end
+
+    -- Мы должны уже находиться в районе нашего старта в Припяти
+    if db.actor:game_vertex_id() ~= 2232 then
+        return
+    end
+
+
+    -- ========================================================
+    -- НЕИЗВЕСТНЫЙ
+    -- ========================================================
+
+    if not db.actor:has_info("ilya_pri_unknown_spawned") then
+
+        local npc = alife():create(
+            "ilya_pri_unknown_spawn",
+            vector():set(
+                103.66,
+                5.64,
+                -9.85
+            ),
+            218725,
+            2231
+        )
+
+        if npc ~= nil then
+            db.actor:give_info_portion(
+                "ilya_pri_unknown_spawned"
+            )
+        end
+    end
+
+
+    -- ========================================================
+    -- АЛЕКСАНДР
+    -- ========================================================
+
+    if not db.actor:has_info("ilya_pri_alexander_spawned") then
+
+        local npc = alife():create(
+            "ilya_pri_alexander_spawn",
+            vector():set(
+                103.60,
+                5.64,
+                -13.03
+            ),
+            218725,
+            2231
+        )
+
+        if npc ~= nil then
+            db.actor:give_info_portion(
+                "ilya_pri_alexander_spawned"
+            )
+        end
+    end
+end
+
+function update()
+
+    if db.actor == nil then
+        return
+    end
+
+    -- Стартовая сцена теперь напрямую в Припяти
+    if level.name() ~= "l11_pripyat" then
+        return
+    end
+
+    spawn_kindergarten_story_npcs()
+
+    if db.actor:has_info("pravo_pri_find_freedom_started")
+    and not db.actor:has_info("pravo_pri_kindergarten_aftermath_done") then
+        pravo_dialogs.setup_kindergarten_aftermath(nil, nil)
+    elseif db.actor:has_info("pravo_pri_kindergarten_aftermath_done") then
+        pravo_dialogs.ensure_kindergarten_corpses()
+    end
+end

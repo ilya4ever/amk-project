@@ -1,0 +1,64 @@
+[1mdiff --git a/config/gameplay/character_desc_escape.xml b/config/gameplay/character_desc_escape.xml[m
+[1mindex 196537a..0285fea 100644[m
+[1m--- a/config/gameplay/character_desc_escape.xml[m
+[1m+++ b/config/gameplay/character_desc_escape.xml[m
+[36m@@ -66,6 +66,7 @@[m
+ 		<actor_dialog>tm_wolf_reward</actor_dialog>[m
+ 		<actor_dialog>escape_lager_volk_story</actor_dialog>[m
+ 		<actor_dialog>escape_lager_volk_story2</actor_dialog>[m
+[32m+[m		[32m<actor_dialog>ilya_wolf_test</actor_dialog>[m
+ 	</specific_character>[m
+ <!---------------------------------------esc_fanat----------------------------------------------------->	[m
+ 	<specific_character id="esc_fanat" team_default = "1">[m
+[1mdiff --git a/config/gameplay/dialogs_escape.xml b/config/gameplay/dialogs_escape.xml[m
+[1mindex 73a6df4..6f08538 100644[m
+[1m--- a/config/gameplay/dialogs_escape.xml[m
+[1m+++ b/config/gameplay/dialogs_escape.xml[m
+[36m@@ -1883,4 +1883,25 @@[m
+             </phrase>[m
+         </phrase_list>[m
+     </dialog>[m
+[32m+[m
+[32m+[m[32m<dialog id="ilya_wolf_test">[m
+[32m+[m[32m    <phrase_list>[m
+[32m+[m
+[32m+[m[32m        <phrase id="0">[m
+[32m+[m[32m            <text>ilya_wolf_test_0</text>[m
+[32m+[m[32m            <next>1</next>[m
+[32m+[m[32m        </phrase>[m
+[32m+[m
+[32m+[m[32m        <phrase id="1">[m
+[32m+[m[32m            <text>ilya_wolf_test_1</text>[m
+[32m+[m[32m            <next>2</next>[m
+[32m+[m[32m        </phrase>[m
+[32m+[m
+[32m+[m[32m        <phrase id="2">[m
+[32m+[m[32m            <text>ilya_wolf_test_2</text>[m
+[32m+[m[32m        </phrase>[m
+[32m+[m
+[32m+[m[32m    </phrase_list>[m
+[32m+[m[32m</dialog>[m
+[32m+[m
+ </game_dialogs>[m
+[1mdiff --git a/config/text/rus/stable_dialogs_escape.xml b/config/text/rus/stable_dialogs_escape.xml[m
+[1mindex 937903a..a645ac6 100644[m
+[1m--- a/config/text/rus/stable_dialogs_escape.xml[m
+[1m+++ b/config/text/rus/stable_dialogs_escape.xml[m
+[36m@@ -969,4 +969,16 @@[m
+ 	<string id="escape_shustryi_story2_5">[m
+ 		<text>Да ладно тебе... Разошёлся... Прямо как мамка моя покойная.</text>[m
+ 	</string>[m
+[32m+[m
+[32m+[m[32m  <string id="ilya_wolf_test_0">[m
+[32m+[m[32m    <text>Волк, можно вопрос?</text>[m
+[32m+[m[32m</string>[m
+[32m+[m
+[32m+[m[32m<string id="ilya_wolf_test_1">[m
+[32m+[m[32m    <text>Ну, спрашивай.</text>[m
+[32m+[m[32m</string>[m
+[32m+[m
+[32m+[m[32m<string id="ilya_wolf_test_2">[m
+[32m+[m[32m    <text>Да так, хотел проверить, работает ли мой новый диалог.</text>[m
+[32m+[m[32m</string>[m
+ </string_table>[m
+\ No newline at end of file[m

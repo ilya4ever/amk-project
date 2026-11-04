@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<string_table>
+    <string id="tm_pravo_rad_trader_list_job">
+        <text>Есть несколько заказов на артефакты. Смотри, что тебе по силам:</text>
+    </string>
+    <string id="tm_pravo_rad_trader_has_no_job">
+        <text>Пока заказов нет. Загляни через сутки.</text>
+    </string>
+    <string id="tm_pravo_rad_trader_job_ask">
+        <text>По какому заказу у тебя новости?</text>
+    </string>
+    <string id="tm_pravo_rad_trader_job_complete">
+        <text>Отлично, то что нужно. Держи оплату.</text>
+    </string>
+    <string id="tm_pravo_rad_trader_job_what">
+        <text>Ну что с артефактом?</text>
+    </string>
+
+    <string id="pravo_rad_artifact_medusa">
+        <text>Добыть артефакт «Медуза»</text>
+    </string>
+    <string id="pravo_rad_artifact_medusa_descr">
+        <text>Торговцу лагеря Свободы на Радаре нужна «Медуза». Принести артефакт и получить 1500 RU.</text>
+    </string>
+    <string id="pravo_rad_artifact_medusa_text">
+        <text>Нужна обычная «Медуза». Такие часто попадаются возле гравитационных аномалий. Притащишь целую — заплачу 1500 RU.</text>
+    </string>
+
+    <string id="pravo_rad_artifact_flower">
+        <text>Добыть артефакт «Каменный цветок»</text>
+    </string>
+    <string id="pravo_rad_artifact_flower_descr">
+        <text>Торговцу лагеря Свободы на Радаре нужен «Каменный цветок». Принести артефакт и получить 3000 RU.</text>
+    </string>
+    <string id="pravo_rad_artifact_flower_text">
+        <text>Есть заказ на «Каменный цветок». Поищи возле гравитационных аномалий и принеси мне. За работу получишь 3000 RU.</text>
+    </string>
+
+    <string id="pravo_rad_artifact_blood">
+        <text>Добыть артефакт «Кровь камня»</text>
+    </string>
+    <string id="pravo_rad_artifact_blood_descr">
+        <text>Торговцу лагеря Свободы на Радаре нужна «Кровь камня». Принести артефакт и получить 2000 RU.</text>
+    </string>
+    <string id="pravo_rad_artifact_blood_text">
+        <text>Нужна «Кровь камня». Встречается возле каруселей и мясорубок. Достанешь — твои 2000 RU.</text>
+    </string>
+
+    <string id="pravo_rad_artifact_meat">
+        <text>Добыть артефакт «Ломоть мяса»</text>
+    </string>
+    <string id="pravo_rad_artifact_meat_descr">
+        <text>Торговцу лагеря Свободы на Радаре нужен «Ломоть мяса». Принести артефакт и получить 4500 RU.</text>
+    </string>
+    <string id="pravo_rad_artifact_meat_text">
+        <text>Нужен «Ломоть мяса». Артефакт не самый приятный, зато заказчик платит хорошо. Принесёшь — отдам 4500 RU.</text>
+    </string>
+
+    <string id="pravo_rad_freedom_leader_zombies_start_0">
+        <text>Слушай, может, ещё чем-нибудь помочь?</text>
+    </string>
+    <string id="pravo_rad_freedom_leader_zombies_start_1">
+        <text>Есть одно дело. Раньше у нас был пост у дороги к Припяти. Недавно туда забрёл контролёр. Сам он куда-то ушёл, а пятеро наших остались. Только это уже не наши — он превратил их в зомбированных.</text>
+    </string>
+    <string id="pravo_rad_freedom_leader_zombies_start_2">
+        <text>Хочешь, чтобы я зачистил пост?</text>
+    </string>
+    <string id="pravo_rad_freedom_leader_zombies_start_3">
+        <text>Да. Своих туда посылать тяжело: они знали тех ребят. А ты человек со стороны, рука не дрогнет. Для тебя заодно будет хорошая проверка перед дальней дорогой. Избавь их от мучений и возвращайся.</text>
+    </string>
+    <string id="pravo_rad_freedom_leader_zombies_start_4">
+        <text>Ладно. Показывай, где этот пост.</text>
+    </string>
+    <string id="pravo_rad_freedom_leader_zombies_report_0">
+        <text>На старом посту больше никого не осталось. Все пятеро мертвы.</text>
+    </string>
+    <string id="pravo_rad_freedom_leader_zombies_report_1">
+        <text>Понял... Жалко ребят, но так для них лучше. Спасибо. Ты сделал то, на что у нас самих духу не хватило. Теперь отправляйся на Армейские склады — там находится наша главная база. На Барьере найди командира и скажи, что пришёл от меня. Он объяснит, куда идти дальше.</text>
+    </string>
+    <string id="pravo_rad_zombies_hint">
+        <text>Старый пост Свободы</text>
+    </string>
+
+    <string id="pravo_mil_barrier_commander_intro_0">
+        <text>Стой. Ты откуда и куда направляешься?</text>
+    </string>
+    <string id="pravo_mil_barrier_commander_intro_1">
+        <text>Я с Радара. Старший из лагеря Свободы направил меня на вашу главную базу.</text>
+    </string>
+    <string id="pravo_mil_barrier_commander_intro_2">
+        <text>С Радара? Не каждый оттуда доходит. Что случилось у Старшего?</text>
+    </string>
+    <string id="pravo_mil_barrier_commander_intro_3">
+        <text>Старый пост с зомбированными зачищен. Он велел отметиться у командира Барьера и идти дальше.</text>
+    </string>
+    <string id="pravo_mil_barrier_commander_intro_4">
+        <text>Понял. Всё, пропускаю тебя. Проходи через Барьер, дальше держись основной дороги и иди сразу на базу Свободы. Там поговоришь с руководством.</text>
+    </string>
+    <string id="pravo_mil_barrier_commander_hint">
+        <text>Командир Барьера</text>
+    </string>
+</string_table>

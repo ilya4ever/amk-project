@@ -1,0 +1,155 @@
+<article id="mil_actor_main_quest" name = "Military main task" group="Diary">
+	<texture x="50" y="150" width="50" height="50">ui\ui_icons_task</texture>
+    <text>mil_actor_main_quest</text>
+</article>
+
+<article id="mil_crazy_flash_info" name="Crazy stalker flash" group="Diary" article_type="info">
+	<texture x="500" y="150" width="100" height="100">ui\ui_icon_photo</texture>
+    <text>mil_crazy_flash_info</text>
+</article>
+
+<article id="mil_flash_ugrumy" name="Ugrumy flash" group="Diary" article_type="info">
+	<texture x="500" y="150" width="100" height="100">ui\ui_icon_photo</texture>
+    <text>mil_flash_ugrumy_descr</text>
+</article>
+    
+<article id="mil_courier_doc" name="Courier document" group="Diary" article_type="info">
+	<texture x="500" y="150" width="100" height="100">ui\ui_icon_photo</texture>
+    <text>mil_courier_doc_descr</text>
+</article>
+
+<article id="mil_flash_bandit" name="Bandit flash" group="Diary" article_type="info">
+	<texture x="500" y="150" width="100" height="100">ui\ui_icon_photo</texture>
+    <text>mil_flash_bandit_descr</text>
+</article>
+
+<article id="mil_flash_max" name="Max flash" group="Diary" article_type="info">
+	<texture x="500" y="150" width="100" height="100">ui\ui_icon_photo</texture>
+    <text>mil_flash_max_descr</text>
+</article>
+
+<article id="mil_dolg_kill_sniper" name="dolg_kill_sniper" group="Diary" article_type="info">
+	<texture x="500" y="150" width="100" height="100">ui\ui_icon_photo</texture>
+    <text>mil_dolg_kill_sniper_descr</text>
+</article>
+
+<article id="mil_dolg_kill_lukash" name="mil_dolg_kill_lukash" group="Diary" article_type="info">
+	<texture x="500" y="150" width="100" height="100">ui\ui_icon_photo</texture>
+    <text>mil_dolg_kill_lukash_descr</text>
+</article>
+
+<article id="mil_mad_flash_job" name="mil_mad_flash_job" group="Diary" article_type="info">
+	<texture x="500" y="150" width="100" height="100">ui\ui_icon_photo</texture>
+    <text>mil_mad_flash_job_descr</text>
+</article>
+
+<article id="mil_lukash_job_descr" name="mil_lukash_job_descr" group="mil_lukash_job/0" article_type="task">	
+    <text>mil_lukash_job_descr</text>
+</article>
+
+<article id="mil_courier_job_descr" name="mil_courier_job_descr" group="mil_courier_job/0" article_type="task">
+    <text>mil_courier_job_descr</text>
+</article>
+
+<article id="mil_blockpost_job_descr" name="mil_blockpost_job" group="mil_blockpost_job/0" article_type="task">
+    <text>mil_blockpost_job_descr</text>
+</article>
+
+<article id="mil_freedom_rg6_task_descr" name="mil_freedom_rg6_task" group="mil_freedom_rg6_task/0" article_type="task">
+    <text>mil_freedom_rg6_task_descr</text>
+</article>
+
+
+<article id="mil_hunters_task_descr" name="mil_hunters_task_descr" group="Diary" article_type="info">
+	<texture x="500" y="150" width="100" height="100">ui\ui_icon_photo</texture>
+    <text>mil_hunters_task_descr</text>
+</article>
+
+<article id="mil_go_to_miser_descr" name="mil_go_to_miser_descr" group="Diary" article_type="info">
+	<texture x="500" y="150" width="100" height="100">ui\ui_icon_photo</texture>
+    <text>mil_go_to_miser_descr</text>
+</article>
+
+
+<article id="mil_hunters_task_descr2" name="mil_hunters_task_descr" group="Diary" article_type="info">
+	<texture x="500" y="150" width="100" height="100">ui\ui_icon_photo</texture>
+    <text>mil_hunters_task_descr</text>
+</article>
+
+<article id="mil_screw_flamethrower_descr" name = "mil_screw_flamethrower_descr" article_type="task">
+    <text>mil_screw_flamethrower_text</text>
+</article>
+
+<article id="pravo_pri_escape_descr"
+         name="pravo_pri_escape_descr"
+         article_type="task">
+    <text>Долговцы решили избавиться от свидетелей. Нужно как можно быстрее покинуть район детского сада и оторваться от преследования.</text>
+</article>
+
+
+<article id="pravo_pri_dead_city_descr"
+         name="pravo_pri_dead_city_descr"
+         article_type="task">
+    <text>pravo_pri_dead_city_descr_text</text>
+</article>
+
+
+<article id="pravo_pri_find_freedom_descr"
+         name="pravo_pri_find_freedom_descr"
+         article_type="task">
+    <text>pravo_pri_find_freedom_descr_text</text>
+</article>
+
+
+<article id="pravo_pri_leave_descr"
+         name="pravo_pri_leave_descr"
+         article_type="task">
+    <text>Ковбой решил выводить отряд из Припяти. Володя отправился к раненому Макару, а Ковбой и Макс поведут меня к переходу на Радар.</text>
+</article>
+
+
+<article id="pravo_rad_talk_cowboy_descr"
+         name="pravo_rad_talk_cowboy_descr"
+         article_type="task">
+    <text>Мы с Ковбоем и Максом добрались до скрытого лагеря Свободы на Радаре. Нужно поговорить с Ковбоем и узнать, что делать дальше.</text>
+</article>
+
+
+<article id="pravo_rad_talk_leader_descr"
+         name="pravo_rad_talk_leader_descr"
+         article_type="task">
+    <text>Ковбой отправил меня к старшему лагеря Свободы. Он находится в одном из зданий неподалёку.</text>
+</article>
+
+
+<article id="pravo_rad_dogs_descr"
+         name="pravo_rad_dogs_descr"
+         article_type="task">
+    <text>Возле лагеря Свободы снова появилась стая слепых собак. Старший поручил мне уничтожить мутантов, пока они не забрели в лагерь.</text>
+</article>
+
+<article id="pravo_rad_zombies_descr"
+         name="pravo_rad_zombies_descr"
+         article_type="task">
+    <text>На старом посту Свободы побывал контролёр. Он ушёл, но пятеро свободовцев превратились в зомбированных. Старший попросил найти пост, избавить бывших бойцов от мучений и вернуться с докладом.</text>
+</article>
+
+<article id="pravo_mil_barrier_descr"
+         name="pravo_mil_barrier_descr"
+         article_type="task">
+    <text>После зачистки старого поста Старший направил меня на Армейские склады, где находится главная база Свободы. Сначала нужно поговорить с командиром на Барьере.</text>
+</article>
+
+
+<article id="pravo_rad_talk_makar_descr"
+         name="pravo_rad_talk_makar_descr"
+         article_type="task">
+    <text>Пока я уничтожал собак, Володя привёл раненого Макара из Припяти в лагерь Свободы. Макар хочет лично поблагодарить меня за помощь.</text>
+</article>
+
+
+<article id="pravo_rad_herb_descr"
+         name="pravo_rad_herb_descr"
+         article_type="task">
+    <text>По дороге из Припяти Макар и Володя заметили на Радаре место, где растёт необычная дикая трава. Макар попросил принести ему один корень.</text>
+</article>
