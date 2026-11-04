@@ -8,6 +8,7 @@
 /spawn-clean/
 /*.7z
 /sections.ini
+/build-deadcity/
 
 # Local engine output and saves
 /_appdata_/
@@ -18,3 +19,8 @@ Thumbs.db
 Desktop.ini
 *.bak
 *.tmp
+__pycache__/
+*.py[cod]
+
+# Staged SDK compile output
+/level-builds/

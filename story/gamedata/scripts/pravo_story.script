@@ -1,34 +1,25 @@
 -- Clean OGSR entry point for the custom story.  No AMK globals are used here.
 local initialized = false
-local next_aftermath_check = 0
 
 -- Used by disabled vanilla story dialogues; custom dialogs do not use it.
 function vanilla_story_disabled()
     return false
 end
 
-local function disable_brain_scorcher()
-    -- Existing saves retain their original restrictor logic. Its normal
-    -- shutdown condition also removes the zone's damage, sounds and PPE.
-    if db.actor ~= nil and level.name() == "l10_radar"
-    and not db.actor:has_info("bar_deactivate_radar_done") then
-        db.actor:give_info_portion("bar_deactivate_radar_done")
-    end
-end
-
 function init()
     initialized = true
-    pravo_debug.init()
-    pravo_military.init()
-    disable_brain_scorcher()
+    -- Native god mode only: no menu, teleportation or condition polling.
+    get_console():execute("g_god on")
     pravo_effects.reset()
-    pravo_dialogs.ensure_pripyat_intro()
+    pravo_coords.reset()
+    pravo_mil_gift.reset()
 end
 
 function shutdown()
     initialized = false
-    next_aftermath_check = 0
     pravo_effects.reset()
+    pravo_coords.reset()
+    pravo_mil_gift.reset()
 end
 
 function update()
@@ -40,17 +31,7 @@ function update()
         init()
     end
 
-    disable_brain_scorcher()
     pravo_effects.update()
-    pravo_debug.update()
-    pravo_military.update()
-
-    if db.actor:has_info("pravo_pri_kindergarten_aftermath_done")
-    and level.name() == "l11_pripyat" then
-        local now = time_global()
-        if now >= next_aftermath_check then
-            next_aftermath_check = now + 1000
-            pravo_dialogs.ensure_kindergarten_corpses()
-        end
-    end
+    pravo_coords.update()
+    pravo_mil_gift.update()
 end

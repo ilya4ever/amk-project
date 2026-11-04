@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<xml>
+  <specific_character id="pravo_mil_bar_freedom_1" team_default="1">
+    <name>GENERATE_NAME_stalker</name>
+    <icon>ui_npc_u_stalker_sv_rukzak_1_1</icon>
+    <bio>mil_Svoboda_regular_bio</bio>
+    <class>pravo_mil_bar_freedom_1</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_freedom_terrain</terrain_sect>
+    <rank>350</rank><reputation>50</reputation>
+    <money min="700" max="1200" infinitive="0"/>
+    <snd_config>characters_voice\human_01\freedom\</snd_config>
+    <crouch_type>-1</crouch_type>
+    <visual>actors\svoboda\stalker_sv_rukzak_1_1</visual>
+    <supplies>[spawn] \n wpn_ak74 \n ammo_5.45x39_fmj = 2 \n device_torch \n medkit \n bread</supplies>
+    #include "gameplay\character_criticals_4.xml"
+    #include "gameplay\character_dialogs.xml"
+  </specific_character>
+  <specific_character id="pravo_mil_bar_freedom_2" team_default="1">
+    <name>GENERATE_NAME_stalker</name>
+    <icon>ui_npc_u_stalker_sv_hood_9</icon>
+    <bio>mil_Svoboda_regular_bio</bio>
+    <class>pravo_mil_bar_freedom_2</class>
+    <community>freedom</community>
+    <terrain_sect>stalker_freedom_terrain</terrain_sect>
+    <rank>400</rank><reputation>60</reputation>
+    <money min="700" max="1200" infinitive="0"/>
+    <snd_config>characters_voice\human_02\freedom\</snd_config>
+    <crouch_type>-1</crouch_type>
+    <visual>actors\svoboda\stalker_sv_hood_9</visual>
+    <supplies>[spawn] \n wpn_ak74 \n ammo_5.45x39_fmj = 2 \n device_torch \n bandage \n kolbasa</supplies>
+    #include "gameplay\character_criticals_4.xml"
+    #include "gameplay\character_dialogs.xml"
+  </specific_character>
+  <specific_character id="pravo_mil_bar_traitor" team_default="1">
+    <name>Предатель</name>
+    <icon>ui_npc_u_stalker_neytral_balon_1</icon>
+    <bio>sim_stalker_regular_bio</bio>
+    <class>pravo_mil_bar_traitor</class>
+    <community>stalker</community>
+    <terrain_sect>stalker_terrain</terrain_sect>
+    <rank>350</rank><reputation>0</reputation>
+    <money min="1000" max="1000" infinitive="0"/>
+    <snd_config>characters_voice\human_01\stalker\</snd_config>
+    <crouch_type>-1</crouch_type>
+    <visual>actors\neytral\stalker_neytral_balon_1</visual>
+    <supplies>[spawn] \n wpn_pm \n ammo_9x18_fmj = 2 \n device_torch \n medkit</supplies>
+    #include "gameplay\character_criticals_4.xml"
+    #include "gameplay\character_dialogs.xml"
+  <actor_dialog>pravo_mil_gift_offer</actor_dialog>
+  </specific_character>
+</xml>

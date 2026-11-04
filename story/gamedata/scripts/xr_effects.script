@@ -2113,3 +2113,7 @@ function pravo_dead_city_thought(actor, npc)
         news_manager.send_tip(db.actor, "pravo_pri_dead_city_thought", nil, nil, 9000)
     end
 end
+
+function pravo_pri_escape_aftermath(actor, npc)
+    pravo_dialogs.setup_kindergarten_aftermath(actor, npc)
+end

@@ -1,0 +1,123 @@
+-- Temporary automated QA hook, never shipped in the playable controller.
+local ready_at=0
+local initial_wait_done=false
+local tick_seen=false
+local function online(sid)
+    local obj=alife():story_object(sid)
+    return obj and level.object_by_id(obj.id)
+end
+local function camp_npcs()
+    local result={}
+    for id in pairs(db.storage) do
+        local server=alife():object(id)
+        if server and string.find(server:name(),"^pravo_rad_freedom_camper_[123]$") then
+            local npc=level.object_by_id(id)
+            if npc then result[#result+1]=npc end
+        end
+    end
+    return result
+end
+function run()
+    if not tick_seen then tick_seen=true;log1("PRAVO_NEWGAME_QA: first update precache="..device().precache_frame.." time="..time_global()) end
+    if db.actor and level.name()=="l10_radar" and xr_logic.pstor_retrieve(db.actor,"pravo_newgame_qa_stage",0)==5 then
+        local id=xr_logic.pstor_retrieve(db.actor,"pravo_newgame_fire_test_id",65535)
+        local npc=level.object_by_id(id)
+        if npc and npc:alive() then npc:set_npc_position(vector():set(59.7,-4.1,-47.3),true) end
+    end
+    if not db.actor or device().precache_frame>0 or time_global()<ready_at then return end
+    local a=db.actor
+    local stage=xr_logic.pstor_retrieve(a,"pravo_newgame_qa_stage",0)
+    if stage==0 then
+        if not initial_wait_done then initial_wait_done=true;ready_at=time_global()+2000;return end
+        assert(level.name()=="l11_pripyat")
+        assert(online(6510) and online(6511),"Intro NPCs missing from all.spawn")
+        assert(online(6510):alive() and online(6511):alive())
+        assert(not online(6512),"Duty appeared before intro")
+        assert(not online(6516),"Corpse appeared before aftermath")
+        pravo_dialogs.unknown_finished(a,online(6510))
+        pravo_dialogs.alexander_finished(a,online(6511))
+        assert(a:has_info("pravo_pri_intro_done"))
+        xr_logic.pstor_store(a,"pravo_newgame_qa_stage",1)
+        ready_at=time_global()+4000
+    elseif stage==1 then
+        for sid=6512,6515 do assert(online(sid),"Conditional Duty missing: "..sid) end
+        log1("PRAVO_NEWGAME_QA: intro and conditional Duty from all.spawn OK")
+        a:give_info_portion("pravo_pri_escape_started")
+        xr_logic.pstor_store(a,"pravo_newgame_qa_stage",11)
+        ready_at=time_global()+400
+    elseif stage==11 then
+        -- Cross the real escape restrictor boundary; do not invoke the effect
+        -- directly, so the test covers the all.spawn on_actor_outside hook.
+        a:set_actor_position(vector():set(110.45354,-0.42856,227.25682))
+        xr_logic.pstor_store(a,"pravo_newgame_qa_stage",12)
+        ready_at=time_global()+2500
+    elseif stage==12 then
+        assert(a:has_info("pravo_pri_escape_done"),"Escape trigger did not complete the quest")
+        assert(a:get_task_state("pravo_pri_escape_task",0)==task.completed,"Escape PDA task not complete")
+        assert(a:has_info("pravo_pri_kindergarten_aftermath_done"),"Escape did not trigger kindergarten aftermath")
+        assert(not a:has_info("pravo_rad_dogs_done"),"Test accidentally advanced Radar job")
+        log1("PRAVO_NEWGAME_QA: real escape boundary completed the quest and triggered aftermath before Radar")
+        a:set_actor_position(vector():set(112.25,5.64,-31.82))
+        xr_logic.pstor_store(a,"pravo_newgame_qa_stage",2)
+        ready_at=time_global()+4000
+    elseif stage==2 then
+        for sid=6510,6515 do assert(not alife():story_object(sid),"Old kindergarten actor still exists") end
+        for sid=6516,6517 do
+            assert(online(sid) and not online(sid):alive(),"Conditional corpse missing/alive: "..sid)
+        end
+        log1("PRAVO_NEWGAME_QA: conditional all.spawn corpses and event-only cleanup OK")
+        a:give_info_portion("pravo_pri_exit_dialog_done")
+        a:give_info_portion("pravo_rad_dogs_done")
+        xr_logic.pstor_store(a,"pravo_newgame_qa_stage",3)
+        level.change_level(1994,20969,vector():set(32.52555,-1.02075,-65.37897),vector():set(0,0,0))
+    elseif stage==3 and level.name()=="l10_radar" then
+        xr_logic.pstor_store(a,"pravo_newgame_qa_stage",4)
+        ready_at=time_global()+4000
+    elseif stage==4 then
+        local residents=camp_npcs()
+        assert(#residents==3,"Camp residents missing or died before protection")
+        for _,npc in ipairs(residents) do
+            assert(npc:alive() and npc:section()=="stalker")
+            xr_logic.pstor_store(a,"pravo_newgame_health_"..npc:id(),npc.health)
+        end
+        xr_logic.pstor_store(a,"pravo_newgame_fire_test_id",residents[1]:id())
+        local trader=online(6521)
+        assert(trader,"Trader missing stable story ID")
+        local manager=task_manager.get_random_task()
+        assert(manager:get_parent(trader)=="pravo_rad_trader")
+        manager.task_id_by_yes_phrase_id["qa"]="pravo_rad_artifact_medusa"
+        manager:action_give_task(a,trader,"0","qa")
+        assert(a:get_task_state("artefact_pravo_rad_trader",0)==task.in_progress,"Native vendor quest not issued")
+        log1("PRAVO_NEWGAME_QA: native Radar trader task issued by stable story ID")
+        xr_logic.pstor_store(a,"pravo_newgame_qa_stage",5)
+        ready_at=time_global()+6000
+    elseif stage==5 then
+        for _,npc in ipairs(camp_npcs()) do
+            assert(npc:alive() and math.abs(npc.health-xr_logic.pstor_retrieve(a,"pravo_newgame_health_"..npc:id(),-1))<0.001,
+                   "Safe campfire still damages residents")
+        end
+        log1("PRAVO_NEWGAME_QA: NPC survived six seconds inside actual campfire without health loss or immortality")
+        xr_logic.pstor_store(a,"pravo_newgame_qa_stage",6)
+        level.change_level(1595,236286,vector():set(-76.4,-11.25,26.5),vector():set(0,0,0))
+    elseif stage==6 and level.name()=="l07_military" then
+        xr_logic.pstor_store(a,"pravo_newgame_qa_stage",7)
+        ready_at=time_global()+4000
+    elseif stage==7 then
+        for sid=6518,6520 do assert(online(sid) and online(sid):alive(),"Bar visitor missing from all.spawn") end
+        local cook=online(728)
+        assert(cook and cook:position().z>37,"Cook not at kitchen spawn point")
+        assert(alife():story_object(728):smart_terrain_id()==65535,"Cook captured by vanilla smart job")
+        assert(db.storage[cook:id()].active_section=="remark@kitchen")
+        assert(not pravo_military.is_lukash(a,online(728)))
+        log1("PRAVO_NEWGAME_QA: bar visitors and kitchen cook directly from all.spawn OK")
+        xr_logic.pstor_store(a,"pravo_newgame_qa_stage",8)
+        get_console():execute("save pravo_newgame_qa")
+        ready_at=time_global()+1000
+    elseif stage==8 then
+        for sid=6518,6520 do assert(online(sid),"Persistent all.spawn visitor missing after load") end
+        assert(online(728) and online(728):position().z>37,"Cook spawn position lost")
+        assert(a:get_task_state("artefact_pravo_rad_trader",0)==task.in_progress,"Native vendor quest lost")
+        log1("PRAVO_NEWGAME_QA: PASS; new-game world, native quests and persistent spawned actors OK")
+        get_console():execute("quit")
+    end
+end

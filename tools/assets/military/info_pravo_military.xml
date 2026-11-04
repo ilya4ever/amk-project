@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <game_information_portions>
-  <info_portion id="pravo_mil_dialogs">
-    <dialog>pravo_mil_radar_departure</dialog>
-    <dialog>pravo_mil_barrier_intro</dialog>
-    <dialog>pravo_mil_lukash_intro</dialog>
-  </info_portion>
   <info_portion id="pravo_mil_barrier_started"><task>pravo_mil_barrier_task</task></info_portion>
   <info_portion id="pravo_mil_barrier_done"/>
   <info_portion id="pravo_mil_lukash_started"><task>pravo_mil_lukash_task</task></info_portion>
   <info_portion id="pravo_mil_lukash_done"/>
-  <info_portion id="pravo_mil_cleanup_v1"/>
+  <info_portion id="pravo_mil_gift_accepted"><task>pravo_mil_gift_task</task></info_portion>
+  <info_portion id="pravo_mil_gift_entered"></info_portion>
+  <info_portion id="pravo_mil_gift_ambush_started"></info_portion>
+  <info_portion id="pravo_mil_gift_ambush_spawned"></info_portion>
+  <info_portion id="pravo_mil_gift_all_dead"></info_portion>
+  <info_portion id="pravo_mil_gift_pda_found"><article>pravo_mil_gift_evidence</article><task>pravo_mil_gift_return_task</task></info_portion>
+  <info_portion id="pravo_mil_gift_done"></info_portion>
+  <info_portion id="pravo_mil_gift_guard_1_dead"></info_portion>
+  <info_portion id="pravo_mil_gift_guard_2_dead"></info_portion>
+  <info_portion id="pravo_mil_gift_guard_3_dead"></info_portion>
 </game_information_portions>

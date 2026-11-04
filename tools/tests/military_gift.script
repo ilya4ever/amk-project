@@ -1,0 +1,101 @@
+-- Native integration probe. Installed temporarily by run_military_gift_qa.ps1.
+local ready = 0
+local function online(sid)
+    local obj = alife():story_object(sid)
+    return obj and level.object_by_id(obj.id)
+end
+local function stage(value, delay)
+    xr_logic.pstor_store(db.actor, "gift_qa_stage", value)
+    ready = time_global() + (delay or 1500)
+end
+local function reload_once(name)
+    local path = getFS():update_path("$app_data_root$", name .. ".requested")
+    local file = io.open(path, "r")
+    if file then file:close(); return false end
+    file = assert(io.open(path, "w")); file:write("reload"); file:close()
+    get_console():execute("load " .. name)
+    return true
+end
+function run()
+    if not db.actor or device().precache_frame > 0 or time_global() < ready then return end
+    local a = db.actor
+    local current = xr_logic.pstor_retrieve(a, "gift_qa_stage", 0)
+    if current == 0 then
+        pravo_dialogs.setup_kindergarten_aftermath(a)
+        stage(1, 2000)
+        level.change_level(1595,236286,vector():set(-76.4,-11.25,26.5),vector():set(0,0,0))
+    elseif current == 1 and level.name() == "l07_military" then
+        assert(online(6520), "Existing traitor missing from bar")
+        assert(pravo_mil_gift.is_traitor(a, online(6520)), "Traitor dialogue precondition failed")
+        assert(pravo_mil_gift.is_traitor(online(6520), a), "NPC-first dialogue precondition failed")
+        assert(not pravo_mil_gift.is_traitor(online(6518), a), "Other bar visitor matched traitor")
+        assert(pravo_military.is_lukash(a, online(707)), "Lukash dialogue precondition failed")
+        a:give_info_portion("pravo_mil_lukash_done")
+        assert(not a:has_info("pravo_mil_gift_accepted"), "Intro issued the gift quest")
+        log1("GIFT_QA: existing bar NPC and Lukash profiles OK")
+        stage(2, 2500)
+        a:set_actor_position(vector():set(-296.806,-18.027,291.181))
+    elseif current == 2 then
+        assert(not a:has_info("pravo_mil_gift_entered"), "Attic triggered before accepting")
+        for sid=6531,6533 do assert(not online(sid), "Guard online before quest") end
+        log1("GIFT_QA: real attic restrictor inert before acceptance")
+        a:set_actor_position(vector():set(-296.806,-22.0,291.181))
+        pravo_mil_gift.accept(a)
+        assert(a:get_task_state("pravo_mil_gift_task",0) == task.in_progress, "Gift task not granted")
+        stage(3, 2500)
+    elseif current == 3 then
+        assert(not a:has_info("pravo_mil_gift_entered"), "First floor triggered attic restrictor")
+        log1("GIFT_QA: first floor does not trigger; native task granted")
+        a:set_actor_position(vector():set(-296.806,-18.027,291.181))
+        stage(4, 5000)
+    elseif current == 4 then
+        log1("GIFT_QA: attic position="..a:position().x..","..a:position().y..","..a:position().z.." entered="..tostring(a:has_info("pravo_mil_gift_entered")).." started="..tostring(a:has_info("pravo_mil_gift_ambush_started")))
+        assert(a:has_info("pravo_mil_gift_entered"), "Actual attic restrictor not triggered")
+        assert(a:has_info("pravo_mil_gift_ambush_spawned"), "Occluded ambush failed to come online")
+        for sid=6531,6533 do
+            local npc=assert(online(sid), "One of 3 guards missing")
+            assert(npc:alive() and npc:relation(a)==game_object.enemy, "Guard not personally hostile")
+        end
+        assert(online(6531):object("pravo_mil_duty_pda"), "Leader missing PDA before death")
+        assert(not online(6532):object("pravo_mil_duty_pda") and not online(6533):object("pravo_mil_duty_pda"), "Duplicate PDA")
+        assert(not alife():story_object(6520), "Traitor not removed after ambush")
+        log1("GIFT_QA: actual restrictor -> exactly 3 hostile guards, unique leader PDA, original traitor removed")
+        stage(5, 1200)
+        get_console():execute("save gift_qa_ambush")
+    elseif current == 5 then
+        if reload_once("gift_qa_ambush") then ready=time_global()+4000; return end
+        for sid=6531,6533 do assert(online(sid) and online(sid):alive(), "Guard lost after reloading ambush") end
+        assert(not alife():story_object(6520), "Traitor returned after reload")
+        assert(online(6531):object("pravo_mil_duty_pda"), "PDA lost after reload")
+        log1("GIFT_QA: real save/load preserved ambush and traitor absence")
+        for sid=6531,6533 do online(sid):kill(a) end
+        stage(6, 2000)
+    elseif current == 6 then
+        assert(a:has_info("pravo_mil_gift_all_dead"), "Quest stuck after all three deaths")
+        local leader=assert(online(6531), "Leader corpse missing")
+        local pda=assert(leader:object("pravo_mil_duty_pda"), "Native death manager deleted evidence")
+        leader:transfer_item(pda,a)
+        log1("GIFT_QA: native deaths advanced loot objective; PDA survived death and was looted")
+        stage(7, 1500)
+    elseif current == 7 then
+        assert(a:has_info("pravo_mil_gift_pda_found"), "PDA pickup not observed")
+        assert(a:get_task_state("pravo_mil_gift_task",0)==task.completed, "Gift task not completed")
+        assert(a:get_task_state("pravo_mil_gift_return_task",0)==task.in_progress, "Return task not granted")
+        stage(8, 1200)
+        get_console():execute("save gift_qa_evidence")
+    elseif current == 8 then
+        if reload_once("gift_qa_evidence") then ready=time_global()+4000; return end
+        assert(a:object("pravo_mil_duty_pda"), "Evidence not preserved after save/load")
+        for sid=6531,6533 do assert(not online(sid) or not online(sid):alive(), "Guard respawned") end
+        assert(not alife():story_object(6520), "Traitor respawned")
+        pravo_mil_gift.finish(a)
+        pravo_mil_gift.finish(a)
+        stage(9, 1500)
+    elseif current == 9 then
+        assert(a:has_info("pravo_mil_gift_done"), "Completion not recorded")
+        assert(a:get_task_state("pravo_mil_gift_return_task",0)==task.completed, "Return task not completed")
+        assert(a:object("pravo_mil_duty_pda"), "Completion consumed PDA")
+        log1("GIFT_QA: PASS - native trigger, hostility, deaths, loot, two actual save/load cycles and completion")
+        get_console():execute("quit")
+    end
+end

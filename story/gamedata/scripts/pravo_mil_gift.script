@@ -1,0 +1,98 @@
+-- Military betrayal: all actors are authored once in all.spawn.
+-- Info portions are the save-game state; no runtime NPC creation/respawn.
+local next_check = 0
+local guards = {6531, 6532, 6533}
+local function has(flag) return db.actor:has_info("pravo_mil_gift_" .. flag) end
+local function give(flag) db.actor:give_info_portion("pravo_mil_gift_" .. flag) end
+local function online(sid)
+    local server = alife():story_object(sid)
+    return server and level.object_by_id(server.id)
+end
+
+function is_traitor(first, second)
+    -- OGSR may pass the NPC first. Distinct game_object wrappers have no __eq.
+    local matches = (first ~= nil and first:profile_name() == "pravo_mil_bar_traitor")
+        or (second ~= nil and second:profile_name() == "pravo_mil_bar_traitor")
+    -- Old saves do not contain the new authored restrictor and gunmen.
+    return matches and alife():story_object(6530) ~= nil
+end
+
+function accept()
+    if not has("accepted") then give("accepted") end
+end
+
+function enter_attic()
+    if has("accepted") and not has("entered") then give("entered") end
+end
+
+function finish()
+    if has("pda_found") and not has("done") then give("done") end
+end
+
+function reset() next_check = 0 end
+
+local function concealed()
+    local eye = vector():set(db.actor:position())
+    eye.y = eye.y + 1.7
+    local camera = device().cam_pos
+    for _, sid in ipairs(guards) do
+        local server = alife():story_object(sid)
+        if not server then return false end
+        for _, origin in ipairs({eye, camera}) do
+            for _, height in ipairs({0.4, 1.1, 1.8}) do
+                local target = vector():set(server.position)
+                target.y = target.y + height
+                local direction = vector():set(target):sub(origin)
+                local distance = direction:magnitude()
+                if distance < 2 then return false end
+                direction:normalize()
+                local ray = level.ray_query(origin, direction, distance, rq_target.rqtStatic, db.actor)
+                if not ray.result or ray.range >= distance - 0.3 then return false end
+            end
+        end
+    end
+    return true
+end
+
+function update()
+    if db.actor == nil or not has("accepted") or has("done") then return end
+    if time_global() < next_check then return end
+    next_check = time_global() + 250
+    if not has("ambush_started") then
+        if level.name() == "l07_military" and has("entered") and concealed() then
+            give("ambush_started")
+        end
+        return
+    end
+
+    local all_present, all_dead = true, true
+    for index, sid in ipairs(guards) do
+        local server = alife():story_object(sid)
+        local npc = online(sid)
+        if npc and npc:alive() then
+            -- Personal hostility; faction-wide relations are never changed.
+            npc:set_relation(game_object.enemy, db.actor)
+        end
+        if not has("guard_" .. index .. "_dead") then
+            if server and not server:alive() then
+                give("guard_" .. index .. "_dead")
+            else
+                all_dead = false
+            end
+        end
+        if npc == nil and not has("guard_" .. index .. "_dead") then all_present = false end
+    end
+
+    if all_present and not has("ambush_spawned") then
+        give("ambush_spawned")
+        -- Release the original bar NPC only after the ambush is online.
+        -- His all.spawn condition also prevents a return after save/load.
+        local traitor = alife():story_object(6520)
+        if traitor then alife():release(traitor, true) end
+        news_manager.send_tip(db.actor, "pravo_mil_gift_ambush_tip", nil, nil, 8000)
+    end
+    if all_dead and not has("all_dead") then give("all_dead") end
+    if has("all_dead") and not has("pda_found") and db.actor:object("pravo_mil_duty_pda") then
+        give("pda_found")
+    end
+end

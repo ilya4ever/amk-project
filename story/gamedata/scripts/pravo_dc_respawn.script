@@ -1,0 +1,131 @@
+-- Dead City only: native se_respawn ownership/creation, native mob_home AI.
+-- Persist the cooldown missing from SoC's respawner; never create in sight.
+-- OGSR's CSE wrapper must directly inherit its exported C++ class. A second
+-- Lua inheritance layer loses the wrapper's owner during Spawn_Write.
+class "dc_respawn" (cse_alife_smart_zone)
+
+function dc_respawn:__init(section) super(section)
+    self.spawned_obj = {}
+    self.sectSpawnProps = {}
+    self.proxy_initialized = false
+    self.dc_initialized = false
+    self.dc_due = nil
+    self.dc_cursor = 0
+end
+
+function dc_respawn:STATE_Write(packet)
+    se_respawn.se_respawn.STATE_Write(self, packet)
+    packet:w_u8(self.dc_initialized and 1 or 0)
+    utils.w_CTime(packet, self.dc_due)
+    packet:w_u8(self.dc_cursor)
+end
+
+function dc_respawn:STATE_Read(packet, size)
+    local start = packet:r_tell()
+    se_respawn.se_respawn.STATE_Read(self, packet, size)
+    -- Authored all.spawn contains only the native empty ownership list.
+    -- A saved game contains the additional state written above.
+    if not editor() and packet:r_tell() - start < size - 2 then
+        self.dc_initialized = packet:r_u8() == 1
+        local due = utils.r_CTime(packet)
+        self.dc_due = due ~= game.CTime() and due or nil
+        self.dc_cursor = packet:r_u8()
+    end
+end
+
+-- Delegate the native lifecycle and ownership callbacks, without changing
+-- the game's normal respawner class or introducing an actor-update system.
+dc_respawn.update = se_respawn.se_respawn.update
+dc_respawn.remove_spawned = se_respawn.se_respawn.remove_spawned
+
+function dc_respawn:on_register()
+    se_respawn.se_respawn.on_register(self)
+    local ini = self:spawn_ini()
+    self.dc_path = ini:r_string("respawn", "path_spawn")
+    self.dc_pack = ini:r_u32("respawn", "pack_id")
+    self.dc_next_check = 0
+end
+
+function dc_respawn:update_online()
+    -- Observe deaths while nearby, but only create after the safety check.
+    self:execute()
+end
+
+function dc_respawn:prune()
+    local removed = 0
+    for i = #self.spawned_obj, 1, -1 do
+        local id = self.spawned_obj[i]
+        local obj = level.object_by_id(id) or alife():object(id)
+        if obj == nil or not obj:alive() then
+            table.remove(self.spawned_obj, i)
+            removed = removed + 1
+        end
+    end
+    return removed
+end
+
+function dc_respawn:safe_to_spawn()
+    if db.actor == nil then return false end
+    local actor = db.actor
+    local actor_level = game_graph():vertex(actor:game_vertex_id()):level_id()
+    local home_level = game_graph():vertex(self.m_game_vertex_id):level_id()
+    if actor_level ~= home_level then return true end
+    -- Include the entire territory, not just the individual spawn point.
+    if actor:position():distance_to(self.position) < 220 then return false end
+    local eye = vector():set(actor:position())
+    eye.y = eye.y + 1.7
+    local path = patrol(self.dc_path)
+    for i = 0, path:count() - 1 do
+        local target = vector():set(path:point(i))
+        target.y = target.y + 1.2
+        local direction = vector():set(target):sub(eye)
+        local distance = direction:magnitude()
+        direction:normalize()
+        local ray = level.ray_query(eye, direction, distance, rq_target.rqtStatic, actor)
+        if not ray.result or ray.range >= distance - 2 then return false end
+    end
+    return true
+end
+
+function dc_respawn:create(prob)
+    -- Reuse native section selection, alife creation and ownership accounting.
+    local path = patrol(self.dc_path)
+    local index = self.dc_cursor % path:count()
+    local old_pos = vector():set(self.position)
+    local old_lv, old_gv = self.m_level_vertex_id, self.m_game_vertex_id
+    self.position = path:point(index)
+    self.m_level_vertex_id = path:level_vertex_id(index)
+    self.m_game_vertex_id = path:game_vertex_id(index)
+    local created = se_respawn.se_respawn.create(self, prob)
+    self.position = old_pos
+    self.m_level_vertex_id, self.m_game_vertex_id = old_lv, old_gv
+    if created then
+        self.dc_cursor = (self.dc_cursor + 1) % path:count()
+        local obj = alife():object(self.spawned_obj[#self.spawned_obj])
+        obj.squad, obj.group = self.dc_pack, self.dc_pack
+    end
+    return created
+end
+
+function dc_respawn:execute()
+    if editor() or self.dc_path == nil then return end
+    local real_now = time_global()
+    if real_now < self.dc_next_check then return end
+    self.dc_next_check = real_now + 5000
+    local losses = self:prune()
+    if #self.spawned_obj >= self.max_count then
+        self.dc_due = nil
+        return
+    end
+    local now = game.get_game_time()
+    if self.dc_initialized and (self.dc_due == nil or losses > 0) then
+        local delay = game.CTime()
+        delay:setHMSms(0, 0, 0, math.random(self.idle_spawn_min, self.idle_spawn_max) * 1000)
+        self.dc_due = now + delay
+    end
+    if self.dc_initialized and now < self.dc_due then return end
+    if not self:safe_to_spawn() then return end
+    se_respawn.se_respawn.spawn(self)
+    self.dc_initialized = true
+    if #self.spawned_obj >= self.max_count then self.dc_due = nil end
+end

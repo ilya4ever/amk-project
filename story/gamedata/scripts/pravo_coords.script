@@ -1,0 +1,108 @@
+-- Placement helper. Read the rendered camera, including demo_record free flight.
+-- Do not call demo_record_get_position: the native function dereferences a null
+-- effector when free flight is not active.
+local enabled = false
+local previous_toggle, previous_save = false, false
+local next_refresh = 0
+local sequence = 0
+local last_saved = ""
+local hud_id = "pravo_coords"
+
+local function down(key)
+    local value = key_state(key)
+    -- DirectInput returns 0x80 for ordinary keys (not 1); Lua treats 0 as true.
+    return value == true or (type(value) == "number" and value ~= 0)
+end
+
+local function xyz(pos)
+    return string.format("%.3f, %.3f, %.3f", pos.x, pos.y, pos.z)
+end
+
+local function snapshot()
+    local dev = device()
+    local pos = vector():set(dev.cam_pos)
+    local dir = vector():set(dev.cam_dir)
+    local point
+    local hit = level.ray_query(pos, dir, 500, rq_target.rqtStatic, db.actor)
+    if hit and hit.result then
+        point = vector():set(pos.x + dir.x * hit.range,
+            pos.y + dir.y * hit.range, pos.z + dir.z * hit.range)
+    end
+    return {level = level.name(), camera = pos, direction = dir,
+        heading = dir:getH(), point = point}
+end
+
+local function remove_hud()
+    local hud = get_hud()
+    if hud and hud:GetCustomStatic(hud_id) then hud:RemoveCustomStatic(hud_id) end
+end
+
+local function render(data)
+    local hud = get_hud()
+    if not hud then return end
+    local item = hud:GetCustomStatic(hud_id) or hud:AddCustomStatic(hud_id, true)
+    local aim = data.point and xyz(data.point) or "NO SURFACE (camera will be saved)"
+    item:wnd():SetText(string.format(
+        "NPC POINTS | G: hide | H: save | %s\\nCAMERA: %s\\nAIM (point at floor): %s\\nHEADING: %.4f rad | %s",
+        data.level, xyz(data.camera), aim, data.heading, last_saved))
+end
+
+function toggle()
+    enabled = not enabled
+    next_refresh = 0
+    if not enabled then remove_hud() end
+end
+
+function capture()
+    if not db.actor then return end
+    sequence = sequence + 1
+    local data = snapshot()
+    local id = os.date("%Y%m%d_%H%M%S") .. "_" .. tostring(sequence)
+    local point = data.point or data.camera
+    local record = string.format(
+        "[point_%s]\r\nlevel = %s\r\nposition = %s\r\nposition_source = %s\r\n" ..
+        "camera_position = %s\r\ncamera_direction = %s\r\nheading = %.6f\r\n\r\n",
+        id, data.level, xyz(point), data.point and "aim_static" or "camera",
+        xyz(data.camera), xyz(data.direction), data.heading)
+    log1("[NPC_POINT]\n" .. record)
+    local ok, err = pcall(function()
+        local path = getFS():update_path("$app_data_root$", "pravo_npc_points.txt")
+        local file, message = io.open(path, "ab")
+        if not file then error(message or "cannot open points file") end
+        local written, write_error = file:write(record)
+        local closed, close_error = file:close()
+        if not written then error(write_error or "cannot write point") end
+        if not closed then error(close_error or "cannot close points file") end
+    end)
+    last_saved = (ok and "SAVED: " or "LOG ONLY: ") .. id
+    if not ok then log1("[NPC_POINT] File write failed: " .. tostring(err)) end
+    if enabled then render(data) end
+    return record
+end
+
+function reset()
+    enabled = false
+    previous_toggle, previous_save = false, false
+    next_refresh = 0
+    last_saved = ""
+    remove_hud()
+end
+
+function update()
+    if not db.actor then return end
+    local toggle_down = down(DIK_keys.DIK_G)
+    local save_down = down(DIK_keys.DIK_H)
+    local toggle_pressed = toggle_down and not previous_toggle
+    local save_pressed = save_down and not previous_save
+    previous_toggle, previous_save = toggle_down, save_down
+    -- Polling remains available while demo_record owns the input receiver.
+    if get_console().visible or device():is_paused() then return end
+    if toggle_pressed then toggle() end
+    if not enabled then return end
+    if save_pressed then capture() end
+    local now = time_global()
+    if now >= next_refresh then
+        render(snapshot())
+        next_refresh = now + 100
+    end
+end

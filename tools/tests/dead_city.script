@@ -1,0 +1,46 @@
+-- Temporary integration probe, called only by an isolated runtime QA hook.
+local ready_at = 0
+function run()
+    if db.actor == nil or device().precache_frame > 0 then return end
+    local a = db.actor
+    local now = time_global()
+    if now < ready_at then return end
+    local stage = xr_logic.pstor_retrieve(a, "pravo_dc_qa_stage", 0)
+    if stage == 0 then
+        assert(level.name() == "l11_pripyat", "New game no longer starts in Pripyat")
+        assert(a:position().y > -10, "Actor below Pripyat")
+        log1("PRAVO_DC_QA: new game in Pripyat OK")
+        xr_logic.pstor_store(a, "pravo_dc_qa_stage", 1)
+        level.change_level(1847,15702,vector():set(-335.68677,-13.3197,386.88901),vector():set(0,0,0))
+    elseif stage == 1 and level.name() == "l07_military" then
+        assert(alife():story_object(6500) ~= nil, "Military entrance missing")
+        log1("PRAVO_DC_QA: Military loads, entrance exists")
+        xr_logic.pstor_store(a, "pravo_dc_qa_stage", 2)
+        ready_at = now + 2500
+    elseif stage == 2 then
+        xr_logic.pstor_store(a, "pravo_dc_qa_stage", 3)
+        local target=alife():story_object(6500)
+        level.change_level(target.dest_game_vertex_id,target.dest_level_vertex_id,target.dest_position,target.dest_direction)
+    elseif stage == 3 and level.name() == "dead_city" then
+        assert(a:alive(), "Actor dead on arrival")
+        assert(alife():story_object(6501) ~= nil, "Return transition missing")
+        log1("PRAVO_DC_QA: Dead City loads, renderer and return entrance OK")
+        xr_logic.pstor_store(a, "pravo_dc_qa_stage", 4)
+        ready_at = now + 5000
+    elseif stage == 4 then
+        assert(a:position().y > -10, "Actor fell below Dead City")
+        log1("PRAVO_DC_QA: stable five seconds on Dead City, taking screenshot")
+        level.send_event_key_press(DIK_keys.DIK_F12)
+        level.send_event_key_release(DIK_keys.DIK_F12)
+        xr_logic.pstor_store(a, "pravo_dc_qa_stage", 5)
+        ready_at = now + 2000
+    elseif stage == 5 then
+        xr_logic.pstor_store(a, "pravo_dc_qa_stage", 6)
+        level.change_level(1847,15702,vector():set(-335.68677,-13.3197,386.88901),vector():set(0,0,0))
+    elseif stage == 6 and level.name() == "l07_military" then
+        assert(a:alive(), "Actor dead after return")
+        log1("PRAVO_DC_QA: PASS, round trip Pripyat -> Military -> Dead City -> Military")
+        xr_logic.pstor_store(a, "pravo_dc_qa_stage", 7)
+        get_console():execute("quit")
+    end
+end

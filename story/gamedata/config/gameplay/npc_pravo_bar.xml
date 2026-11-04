@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<xml>
+  <character id="pravo_mil_bar_freedom_1"><class>pravo_mil_bar_freedom_1</class><specific_character>pravo_mil_bar_freedom_1</specific_character></character>
+  <character id="pravo_mil_bar_freedom_2"><class>pravo_mil_bar_freedom_2</class><specific_character>pravo_mil_bar_freedom_2</specific_character></character>
+  <character id="pravo_mil_bar_traitor"><class>pravo_mil_bar_traitor</class><specific_character>pravo_mil_bar_traitor</specific_character></character>
+<character id="pravo_mil_gift_guard_1"><class>pravo_mil_gift_guard_1</class><specific_character>pravo_mil_gift_guard_1</specific_character></character>
+<character id="pravo_mil_gift_guard_2"><class>pravo_mil_gift_guard_2</class><specific_character>pravo_mil_gift_guard_2</specific_character></character>
+<character id="pravo_mil_gift_guard_3"><class>pravo_mil_gift_guard_3</class><specific_character>pravo_mil_gift_guard_3</specific_character></character>
+</xml>

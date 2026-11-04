@@ -1,0 +1,86 @@
+-- Temporary native-engine regression: press the actual Use key on a corpse.
+local stage, pack, next_at, deadline = 0, 1, 0, 0
+local target_id, controllers = nil, {}
+local names = {"zombie_north_yard","zombie_centre_yard","zombie_south_street"}
+
+local function use()
+    level.send_event_key_press(DIK_keys.DIK_F)
+    level.send_event_key_release(DIK_keys.DIK_F)
+end
+
+local function step()
+    if not db.actor or device().precache_frame>0 then return end
+    local a,now=db.actor,time_global()
+    if now<next_at then return end
+    if stage==0 then
+        assert(level.name()=="dead_city","QA save must be in Dead City")
+        for id=0,65534 do
+            local obj=alife():object(id)
+            if obj then
+                for i,name in ipairs(names) do
+                    if obj:name()=="pravo_dc_population_"..name then controllers[i]=obj end
+                end
+            end
+        end
+        assert(#controllers==3,"Zombie controllers missing")
+        stage=1
+    elseif stage==1 then
+        local c=controllers[pack]
+        a:set_actor_position(patrol(c.dc_path):point(0))
+        stage=2
+        next_at=now+3000
+    elseif stage==2 then
+        local c=controllers[pack]
+        for _,id in ipairs(c.spawned_obj) do
+            local npc=level.object_by_id(id)
+            if npc and npc:alive() then target_id=id; npc:kill(a); break end
+        end
+        assert(target_id,"No online zombie to test")
+        log1("DC_LOOT_QA: killed "..names[pack].." by actor")
+        stage=3
+        next_at=now+3000
+        deadline=now+20000
+    elseif stage==3 then
+        local npc=assert(level.object_by_id(target_id))
+        assert(not npc:alive(),"Target not dead")
+        local point=npc:bone_position("bip01_spine")
+        local pos=vector():set(point); pos.y=npc:position().y; pos.z=pos.z-.8
+        a:set_actor_position(pos)
+        local direction=vector():set(point):sub(device().cam_pos):normalize()
+        a:set_camera_direction(direction)
+        local looked=level.get_target_obj()
+        if looked and looked:id()==target_id and level.get_target_dist()<1.9 then
+            log1("DC_LOOT_QA: use on target "..target_id.." distance="..level.get_target_dist())
+            use()
+            stage=4
+            next_at=now+800
+        end
+        assert(now<deadline,"Could not aim at corpse with native camera")
+    elseif stage==4 then
+        local target=level.get_car_body_target()
+        if not (target and target:id()==target_id and level.get_car_body_wnd():IsShown()) then
+            assert(now<deadline,"Loot window did not target the zombie")
+            stage=3
+            return
+        end
+        log1("DC_LOOT_QA: PASS F opened corpse inventory: "..names[pack])
+        use()
+        target_id=nil
+        pack=pack+1
+        if pack<=#names then
+            stage=1
+            next_at=now+500
+        else
+            log1("DC_LOOT_QA: ALL_PASS all three zombie sections")
+            get_console():execute("quit")
+        end
+    end
+end
+
+function run()
+    local ok,error=pcall(step)
+    if not ok then
+        log1("DC_LOOT_QA: FAIL "..tostring(error))
+        get_console():execute("quit")
+    end
+end

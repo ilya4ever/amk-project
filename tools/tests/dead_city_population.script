@@ -1,0 +1,221 @@
+-- Integration probe; installed temporarily only in the QA runtime.
+local controllers, ready_at, began, starts, inspection = nil, 0, 0, {}, 1
+local names = {"boar_west", "boar_northwest", "dog_southwest", "dog_north", "dog_east",
+               "zombie_north_yard", "zombie_centre_yard", "zombie_south_street"}
+local caps = {2,3,4,4,4,5,5,5}
+
+local function find_controllers()
+    local by_name = {}
+    for id = 0, 65534 do
+        local obj = alife():object(id)
+        if obj and string.find(obj:name(), "^pravo_dc_population_") then by_name[obj:name()] = obj end
+    end
+    local list = {}
+    for i, name in ipairs(names) do
+        list[i] = assert(by_name["pravo_dc_population_"..name], "Controller missing: "..name)
+    end
+    return list
+end
+
+local function full()
+    local total = 0
+    for i, obj in ipairs(controllers) do
+        obj:prune()
+        if #obj.spawned_obj ~= caps[i] then return false end
+        total = total + #obj.spawned_obj
+    end
+    assert(total == 32, "Population cap changed")
+    return true
+end
+
+local function stamp(t)
+    if t == nil then return "none" end
+    return t:dateToString(game.CTime.DateToYear).." "..t:timeToString(game.CTime.TimeToMilisecs)
+end
+
+local function step()
+    if db.actor == nil or device().precache_frame > 0 then return end
+    local a, now = db.actor, time_global()
+    if began == 0 then began = now end
+    if now < ready_at then return end
+    if controllers == nil then controllers = find_controllers() end
+    local stage = xr_logic.pstor_retrieve(a, "dc_population_qa", 0)
+    if stage == 0 then
+        if not full() then
+            assert(now - began < 45000, "Native offline updates did not populate habitats")
+            return
+        end
+        log1("DC_POP_QA: initial offline population 32/32, all eight controllers active")
+        xr_logic.pstor_store(a,"dc_population_qa",1)
+        level.change_level(3571,366506,vector():set(8.4,1.15,22.4),vector():set(0,0,0))
+        ready_at = now + 10000
+    elseif stage == 1 and level.name() == "dead_city" then
+        local c = controllers[8]
+        for _, id in ipairs(c.spawned_obj) do
+            local npc = assert(level.object_by_id(id),"Zombie did not switch online")
+            assert(IsMonster(npc) and not IsStalker(npc),"Not a mutant zombie")
+            assert(npc:accessible(npc:level_vertex_id()),"Inaccessible zombie node")
+            starts[id] = vector():set(npc:position())
+        end
+        assert(not c:safe_to_spawn(),"Spawn near actor was allowed")
+        log1("DC_POP_QA: true CZombie online, all positions accessible, nearby spawning blocked")
+        xr_logic.pstor_store(a,"dc_population_qa",2)
+        ready_at = now + 12000
+    elseif stage == 2 then
+        local moved, c = 0, controllers[8]
+        for _, id in ipairs(c.spawned_obj) do
+            local npc = assert(level.object_by_id(id))
+            if npc:position():distance_to(starts[id]) > .3 then moved = moved + 1 end
+            npc:kill(npc)
+        end
+        assert(moved > 0,"Zombie AI did not move")
+        log1("DC_POP_QA: zombie movement observed; killed five online zombies")
+        xr_logic.pstor_store(a,"dc_population_qa",3)
+        ready_at = now + 7000
+    elseif stage == 3 then
+        local c = controllers[8]
+        c:prune()
+        assert(#c.spawned_obj == 0 and c.dc_due ~= nil,"Cooldown missing after deaths")
+        local seconds = c.dc_due:diffSec(game.get_game_time())
+        assert(seconds > 21000 and seconds <= 43200,"Cooldown outside 6-12 game hours: "..seconds)
+        xr_logic.pstor_store(a,"dc_population_due",stamp(c.dc_due))
+        xr_logic.pstor_store(a,"dc_population_qa",4)
+        get_console():execute("save pravo_dc_population_qa")
+        log1("DC_POP_QA: cooldown "..seconds.." seconds; saved for restart/load verification")
+        ready_at = now + 2500
+    elseif stage == 4 then
+        log1("DC_POP_QA: PHASE1_PASS")
+        get_console():execute("quit")
+    elseif stage == 5 then
+        local c = controllers[8]
+        assert(stamp(c.dc_due)==xr_logic.pstor_retrieve(a,"dc_population_due",""),"Cooldown changed on load")
+        assert(#c.spawned_obj==0,"Mutants reappeared early after load")
+        level.advance_game_time(5*3600*1000)
+        c.dc_next_check = 0
+        c:execute()
+        assert(#c.spawned_obj==0,"Respawn before six hours")
+        level.advance_game_time(8*3600*1000)
+        c.dc_next_check = 0
+        c:execute()
+        assert(#c.spawned_obj==0,"Respawn appeared next to actor after deadline")
+        log1("DC_POP_QA: saved deadline preserved; no early spawn and no nearby spawn after 13h")
+        xr_logic.pstor_store(a,"dc_population_qa",6)
+        level.change_level(1847,15702,vector():set(-335.68677,-13.3197,386.88901),vector():set(0,0,0))
+        ready_at=now+10000
+    elseif stage == 6 and level.name()=="l07_military" then
+        if not full() then
+            if now - began < 45000 then return end
+            for i,c in ipairs(controllers) do
+                log1("DC_POP_QA: count "..names[i].."="..#c.spawned_obj.." due="..stamp(c.dc_due))
+            end
+            assert(false,"Habitat did not refill off-level after deadline")
+        end
+        local ids={}
+        for _,c in ipairs(controllers) do for _,id in ipairs(c.spawned_obj) do
+            assert(not ids[id],"Duplicate owned mutant")
+            ids[id]=true
+        end end
+        log1("DC_POP_QA: 32/32 after off-level respawn, no duplicate ownership")
+        xr_logic.pstor_store(a,"dc_population_qa",7)
+        level.change_level(3571,366506,vector():set(8.4,1.15,22.4),vector():set(0,0,0))
+        ready_at=now+10000
+    elseif stage == 7 and level.name()=="dead_city" then
+        assert(full(),"Population changed on return")
+        assert(a:alive(),"Actor failed round trip")
+        log1("DC_POP_QA: PHASE2_PASS saved cooldown, accelerated 13h, leave/return and cap")
+        if short then get_console():execute("quit"); return end
+        xr_logic.pstor_store(a,"dc_population_qa",8)
+    elseif stage == 8 then
+        local c = controllers[inspection]
+        local path = patrol(c.dc_path)
+        a:set_actor_position(path:point(0))
+        starts = {}
+        xr_logic.pstor_store(a,"dc_population_qa",9)
+        ready_at=now+5000
+    elseif stage == 9 then
+        local c = controllers[inspection]
+        c:prune()
+        assert(#c.spawned_obj>0 and #c.spawned_obj<=caps[inspection],"Invalid tour population")
+        for _,id in ipairs(c.spawned_obj) do
+            local npc = assert(level.object_by_id(id),"Pack did not switch online: "..names[inspection])
+            assert(npc:accessible(npc:level_vertex_id()),"AI inaccessible in "..names[inspection])
+            assert(npc:accessible(patrol(c.dc_path):level_vertex_id(0)),"Home unreachable")
+            starts[id]=vector():set(npc:position())
+        end
+        -- Exercise the same-level long-distance visibility/raycast branch too.
+        local other=controllers[inspection==1 and 5 or 1]
+        local safe=other:safe_to_spawn()
+        assert(type(safe)=="boolean","Visibility test failed")
+        xr_logic.pstor_store(a,"dc_population_qa",10)
+        ready_at=now+8000
+    elseif stage == 10 then
+        local moved,c=0,controllers[inspection]
+        for _,id in ipairs(c.spawned_obj) do
+            local npc=level.object_by_id(id)
+            if npc and starts[id] and npc:position():distance_to(starts[id])>.3 then moved=moved+1 end
+        end
+        assert(moved>0,"No movement observed in "..names[inspection])
+        log1("DC_POP_QA: TOUR "..names[inspection].." online, reachable, moving="..moved)
+        inspection=inspection+1
+        if inspection<=#controllers then
+            xr_logic.pstor_store(a,"dc_population_qa",8)
+        else
+            xr_logic.pstor_store(a,"dc_population_qa",11)
+            for i,obj in ipairs(controllers) do
+                obj:prune()
+                xr_logic.pstor_store(a,"dc_population_ids_"..i,table.concat(obj.spawned_obj,","))
+            end
+            get_console():execute("save pravo_dc_population_final_qa")
+            log1("DC_POP_QA: PHASE3_PASS all eight habitats online and moving")
+            ready_at=now+2000
+        end
+    elseif stage == 11 then
+        get_console():execute("quit")
+    elseif stage == 12 then
+        local owned, count, seeded = {}, 0, false
+        for i,obj in ipairs(controllers) do
+            local signature=table.concat(obj.spawned_obj,",")
+            local expected=xr_logic.pstor_retrieve(a,"dc_population_ids_"..i,"")
+            if expected=="" then
+                xr_logic.pstor_store(a,"dc_population_ids_"..i,signature)
+                seeded=true
+            else
+                assert(signature==expected,"Owned creature IDs changed on load: "..names[i])
+            end
+            assert(#obj.spawned_obj<=caps[i],"Population duplicated on load")
+            for _,id in ipairs(obj.spawned_obj) do
+                assert(not owned[id],"Duplicate ownership after reload")
+                owned[id]=true
+            end
+        end
+        for id=0,65534 do
+            local obj=alife():object(id)
+            if obj and string.find(obj:section_name(),"^pravo_dc_") and IsMonster(obj) and obj:alive() then
+                assert(owned[id],"Extra unowned mutant after reload")
+                count=count+1
+            end
+        end
+        assert(count<=32 and count>0,"Actual population outside cap")
+        if seeded then
+            xr_logic.pstor_store(a,"dc_population_qa",11)
+            get_console():execute("save pravo_dc_population_final_qa")
+            log1("DC_POP_QA: population ownership verified; seeded ID snapshot for second reload")
+        else
+            log1("DC_POP_QA: PHASE4_PASS saved living population IDs preserved, no duplication")
+        end
+        get_console():execute("quit")
+    end
+end
+
+function run()
+    if db.actor and began==0 then
+        local stage=xr_logic.pstor_retrieve(db.actor,"dc_population_qa",0)
+        if stage==4 then xr_logic.pstor_store(db.actor,"dc_population_qa",5) end
+        if stage==11 then xr_logic.pstor_store(db.actor,"dc_population_qa",12) end
+    end
+    local ok, error = pcall(step)
+    if not ok then
+        log1("DC_POP_QA: FAIL "..tostring(error))
+        get_console():execute("quit")
+    end
+end

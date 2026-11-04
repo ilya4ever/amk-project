@@ -34,13 +34,11 @@ function main_menu:InitControls()
 	local _ver = xml:InitStatic		("static_version",self)
 	local mm						= _G.main_menu.get_main_menu()
 	_ver:SetText					("ver. " .. mm:GetGSVer())
-	pravo_debug.attach_panel(self)
 	
 end
 
 function main_menu:Show(f)
 	self.shniaga:SetVisibleMagnifier(f)
-	pravo_debug.show_panel(self, f)
 end
 
 
@@ -252,7 +250,6 @@ function main_menu:Dispatch(cmd, param)  --virtual function
 end
 
 function main_menu:OnKeyboard(dik, keyboard_action)  --virtual function
-	if keyboard_action == ui_events.WINDOW_KEY_PRESSED and pravo_debug.menu_key(dik) then return true end
 	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
 	local bind = dik_to_bind(dik)
 	local console = get_console()

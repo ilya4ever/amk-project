@@ -281,7 +281,9 @@
 		
 		
 #include "gameplay\character_dialogs.xml"
-	</specific_character>	
+	<actor_dialog>pravo_mil_lukash_intro</actor_dialog>
+<actor_dialog>pravo_mil_gift_return</actor_dialog>
+</specific_character>
 
 <!---------------------------SVOBODA TRADER----------------------->
 	<specific_character id="mil_Svoboda_trader" team_default = "1">
@@ -466,7 +468,8 @@
 #include "gameplay\character_dialogs.xml"
 
 		
-	</specific_character>
+	<actor_dialog>pravo_mil_barrier_intro</actor_dialog>
+</specific_character>
 <!---------------------------SVOBODA MASTER UGRUMIY----------------------->
 	<specific_character id="mil_Svoboda_master_Ugrumiy" team_default = "1">
 		<name>mil_Svoboda_master_Ugrumiy_name</name>		

@@ -2,4 +2,7 @@
 <articles>
   <article id="pravo_mil_barrier_descr" name="pravo_mil_barrier_title" article_type="task"><text>pravo_mil_barrier_goal</text></article>
   <article id="pravo_mil_lukash_descr" name="pravo_mil_lukash_title" article_type="task"><text>pravo_mil_lukash_goal</text></article>
+  <article id="pravo_mil_gift_descr" name="pravo_mil_gift_title" article_type="task"><text>pravo_mil_gift_description</text></article>
+  <article id="pravo_mil_gift_return_descr" name="pravo_mil_gift_return_title" article_type="task"><text>pravo_mil_gift_return_description</text></article>
+  <article id="pravo_mil_gift_evidence" name="pravo_mil_duty_pda_name" group="Diary" article_type="info"><text>pravo_mil_duty_pda_text</text></article>
 </articles>

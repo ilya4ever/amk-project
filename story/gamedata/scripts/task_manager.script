@@ -1,6 +1,7 @@
 local random_task = nil
 
 local parent_by_story = {
+	[6521] = "pravo_rad_trader",
 	[003] = "trader",
 	[500] = "barman",
 	[902] = "ecolog",
@@ -17,6 +18,7 @@ local parent_by_story = {
 }
 
 local story_by_parent = {
+	pravo_rad_trader = 6521,
 	trader						= 003,
 	barman						= 500,
 	ecolog						= 902,

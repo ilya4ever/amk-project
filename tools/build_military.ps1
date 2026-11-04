@@ -23,10 +23,16 @@ Write-Mil $dialogsPath $dialogs
 # Use the original named NPCs and IDs, but none of their vanilla quest offers.
 $characters = Read-Mil (Join-Path $ProjectRoot 'vanilla-reference\config\gameplay\character_desc_military.xml')
 foreach ($profile in @('mil_Svoboda_blockpost_leader', 'mil_Svoboda_leader')) {
-    $pattern = '(?s)<specific_character id="' + $profile + '".*?</specific_character>'
+    $pattern = '(?s)<specific_character id="' + $profile + '".*?</specific_character>[ \t]*'
     $m = [regex]::Match($characters, $pattern)
     if (-not $m.Success) { throw "Military profile missing: $profile" }
     $block = [regex]::Replace($m.Value, '<(?:start_dialog|actor_dialog)>.*?</(?:start_dialog|actor_dialog)>', '')
+    $dialog = if ($profile -eq 'mil_Svoboda_blockpost_leader') { 'pravo_mil_barrier_intro' } else { 'pravo_mil_lukash_intro' }
+    $block = $block.Replace('</specific_character>', "<actor_dialog>$dialog</actor_dialog>`n</specific_character>")
+    if ($profile -eq 'mil_Svoboda_leader') {
+        $block = $block.Replace('</specific_character>', "<actor_dialog>pravo_mil_gift_return</actor_dialog>`n</specific_character>")
+    }
+    $block = [regex]::Replace($block, '(?m)[ \t]+$', '')
     # character_dialogs.xml supplies a single generic hello and trade/help.
     $characters = $characters.Replace($m.Value, $block)
 }
@@ -54,6 +60,4 @@ foreach ($m in $blocks) {
     $kept += $b
 }
 Write-Mil $path (($kept -join "`n`n") + "`n")
-$cleanupText = "[remove]`n" + (($removed | Sort-Object -Unique | ForEach-Object { "$_ = true" }) -join "`n") + "`n"
-Write-Mil (Join-Path $story 'config\pravo_military_cleanup.ltx') $cleanupText
 Write-Host "Military story prepared; removed $($removed.Count) vanilla quest actors, props and respawners."

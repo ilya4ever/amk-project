@@ -25,7 +25,7 @@ if ($bind -notmatch 'pravo_story\.update\(\)') {
 }
 Write-Text1251 (Join-Path $storyScripts 'bind_stalker.script') $bind
 
-# One small condlist effect is needed by the Pripyat escape trigger.
+# Story effects called directly by the Pripyat escape restrictor in all.spawn.
 $effects = Read-Text1251 (Join-Path $vanillaScripts 'xr_effects.script')
 if ($effects -notmatch 'function pravo_dead_city_thought') {
     $effects += @"
@@ -35,6 +35,10 @@ function pravo_dead_city_thought(actor, npc)
     if db.actor ~= nil then
         news_manager.send_tip(db.actor, "pravo_pri_dead_city_thought", nil, nil, 9000)
     end
+end
+
+function pravo_pri_escape_aftermath(actor, npc)
+    pravo_dialogs.setup_kindergarten_aftermath(actor, npc)
 end
 "@
 }
@@ -55,6 +59,20 @@ ph_snd_themes["pravo_rad_freedom_radio"] = {
 }
 Write-Text1251 (Join-Path $storyScripts 'sound_theme.script') $soundTheme
 
+# A Dead City-only subclass retains native respawn ownership and creation.
+$classes = Read-Text1251 (Join-Path $vanillaScripts 'class_registrator.script')
+$nativeRespawn = [regex]::Match($classes, '(?m)^.*"se_respawn.se_respawn"[^\r\n]*').Value
+if (-not $nativeRespawn) { throw 'Native respawn class registration missing' }
+$dcRespawn = $nativeRespawn.Replace('se_respawn.se_respawn', 'pravo_dc_respawn.dc_respawn').Replace('RE_SPAWN', 'PR_DC_RP').Replace('"respawn"', '"pravo_dc_respawn"')
+$classes = $classes.Replace($nativeRespawn, $nativeRespawn + "`r`n" + $dcRespawn)
+Write-Text1251 (Join-Path $storyScripts 'class_registrator.script') $classes
+
+# SoC ships CZombie and its models, but omits it from the statistics table.
+# se_monster:on_death otherwise aborts when a real mutant zombie is killed.
+$statistics = Read-Text1251 (Join-Path $vanillaScripts 'xr_statistic.script')
+$statistics = $statistics.Replace('monster_classes = {', "monster_classes = {`r`n`t[clsid.zombie_s] = `"zombie`",")
+Write-Text1251 (Join-Path $storyScripts 'xr_statistic.script') $statistics
+
 # OGSR uses an empty parent ID for a dialogue root, not SoC's numeric -1.
 # Both generic NPC greetings and the custom trader's random jobs use these.
 foreach ($file in @('dialog_manager.script', 'task_manager.script')) {
@@ -66,6 +84,9 @@ foreach ($file in @('dialog_manager.script', 'task_manager.script')) {
         $script = [regex]::Replace($script, '(?m)^(function [^\r\n]*\([^\r\n]*\bp2\b[^\r\n]*\))', '$1' + "`r`n`t" + 'p2 = tonumber(p2)')
         $script = [regex]::Replace($script, '(?m)^(function [^\r\n]*\([^\r\n]*\bp3\b[^\r\n]*\))', '$1' + "`r`n`t" + 'p3 = tonumber(p3)')
     } else {
+        # Register the vendor directly by a stable all.spawn story ID.
+        $script = $script.Replace('local parent_by_story = {', "local parent_by_story = {`r`n`t[6521] = `"pravo_rad_trader`",")
+        $script = $script.Replace('local story_by_parent = {', "local story_by_parent = {`r`n`tpravo_rad_trader = 6521,")
         # Generated IDs are also used as keys by the custom trader callbacks.
         $script = $script.Replace('return self.task_phrase_id', 'return tostring(self.task_phrase_id)')
         # A clean story may omit entire task types or vanilla vendors. Item
@@ -82,7 +103,7 @@ Write-Text1251 (Join-Path $storyScripts 'level_tasks.script') $levelTasks
 
 Write-Host 'Clean OGSR script hooks prepared.'
 
-# Debug shortcuts live in the pause menu; gameplay function-key bindings stay intact.
+# Keep the OGSR options fix, but no debug UI or key interception.
 $menu = Read-Text1251 (Join-Path $vanillaScripts 'ui_main_menu.script')
 # OGSR's options window initializes its own controls and owns its menu
 # lifecycle. The SoC caller's UpdateControls method no longer exists, and
@@ -101,10 +122,17 @@ end
 $optionsPattern = '(?s)function main_menu:OnButton_options_clicked\(\).*?(?=function main_menu:OnButton_load_clicked\()'
 if ([regex]::Matches($menu, $optionsPattern).Count -ne 1) { throw 'Cannot find unique options menu handler' }
 $menu = [regex]::Replace($menu, $optionsPattern, $optionsHandler + "`r`n")
-$menu = [regex]::Replace($menu, '(?m)^(\s*_ver:SetText[^\r\n]*)', '$1' + "`r`n`tpravo_debug.attach_panel(self)")
-$menu = $menu.Replace('self.shniaga:SetVisibleMagnifier(f)', "self.shniaga:SetVisibleMagnifier(f)`r`n`tpravo_debug.show_panel(self, f)")
-$menu = $menu.Replace('CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)', "if keyboard_action == ui_events.WINDOW_KEY_PRESSED and pravo_debug.menu_key(dik) then return true end`r`n`tCUIScriptWnd.OnKeyboard(self,dik,keyboard_action)")
 Write-Text1251 (Join-Path $storyScripts 'ui_main_menu.script') $menu
-$debugXml = [IO.File]::ReadAllText((Join-Path $PSScriptRoot 'assets\ui_pravo_debug.xml'), [Text.Encoding]::UTF8)
-New-Item -ItemType Directory -Path (Join-Path $ProjectRoot 'story\gamedata\config\ui') -Force | Out-Null
-Write-Text1251 (Join-Path $ProjectRoot 'story\gamedata\config\ui\ui_pravo_debug.xml') $debugXml
+
+# NPC coordinate overlay: retain the vanilla custom statics and add one isolated block.
+$customMessages = [IO.File]::ReadAllText((Join-Path $ProjectRoot 'vanilla-reference\config\ui\ui_custom_msgs.xml'), [Text.Encoding]::UTF8)
+$coordinateBlock = @"
+    <pravo_coords x="20" y="150" width="980" height="160" complex_mode="1" priority="100">
+        <text x="0" y="0" font="letterica18" r="255" g="240" b="130" a="255" align="l"/>
+    </pravo_coords>
+"@
+if (-not $customMessages.Contains('</header>')) { throw 'Invalid ui_custom_msgs.xml template' }
+$customMessages = $customMessages.Replace('</header>', $coordinateBlock + "`r`n</header>")
+$customMessagesPath = Join-Path $ProjectRoot 'story\gamedata\config\ui\ui_custom_msgs.xml'
+New-Item -ItemType Directory -Path (Split-Path -Parent $customMessagesPath) -Force | Out-Null
+[IO.File]::WriteAllText($customMessagesPath, $customMessages, [Text.UTF8Encoding]::new($false))

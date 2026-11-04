@@ -26,3 +26,34 @@
     <infoportion_complete>pravo_mil_lukash_done</infoportion_complete>
   </objective>
 </game_task>
+
+<game_task id="pravo_mil_gift_task" prio="3">
+  <title>pravo_mil_gift_title</title>
+  <objective>
+    <text>pravo_mil_gift_title</text><icon>ui_iconsTotal_grouping</icon>
+    <article>pravo_mil_gift_descr</article>
+    <infoportion_complete>pravo_mil_gift_pda_found</infoportion_complete>
+  </objective>
+  <objective>
+    <text>pravo_mil_gift_find</text>
+    <map_location_type hint="pravo_mil_gift_find">green_location</map_location_type>
+    <object_story_id>pravo_mil_gift_attic</object_story_id>
+    <infoportion_complete>pravo_mil_gift_ambush_started</infoportion_complete>
+  </objective>
+  <objective><text>pravo_mil_gift_fight</text><infoportion_complete>pravo_mil_gift_all_dead</infoportion_complete></objective>
+  <objective><text>pravo_mil_gift_loot</text><infoportion_complete>pravo_mil_gift_pda_found</infoportion_complete></objective>
+</game_task>
+<game_task id="pravo_mil_gift_return_task" prio="3">
+  <title>pravo_mil_gift_return_title</title>
+  <objective>
+    <text>pravo_mil_gift_return_title</text><icon>ui_iconsTotal_grouping</icon>
+    <article>pravo_mil_gift_return_descr</article>
+    <infoportion_complete>pravo_mil_gift_done</infoportion_complete>
+  </objective>
+  <objective>
+    <text>pravo_mil_gift_return_title</text>
+    <map_location_type hint="pravo_mil_gift_return_title">green_location</map_location_type>
+    <object_story_id>Mil_Lukash</object_story_id>
+    <infoportion_complete>pravo_mil_gift_done</infoportion_complete>
+  </objective>
+</game_task>

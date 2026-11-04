@@ -50,6 +50,10 @@ if ($system -notmatch [regex]::Escape('#include "misc\pravo_items.ltx"')) {
 if ($system -notmatch [regex]::Escape('#include "creatures\pravo_story_sections.ltx"')) {
     $system = $system.Replace('#include "creatures\spawn_sections.ltx"', "#include `"creatures\spawn_sections.ltx`"`r`n#include `"creatures\pravo_story_sections.ltx`"")
 }
+$system = [regex]::Replace($system, '(?m)^#include "creatures\\pravo_military_bar.ltx"\r?\n?', '')
+if ($system -notmatch [regex]::Escape('#include "creatures\pravo_dc_population.ltx"')) {
+    $system = $system.Replace('#include "creatures\pravo_story_sections.ltx"', "#include `"creatures\pravo_story_sections.ltx`"`r`n#include `"creatures\pravo_dc_population.ltx`"")
+}
 $system = Add-CsvValue $system 'info_portions' 'files' @('info_pravo', 'info_pravo_military')
 $system = Add-CsvValue $system 'encyclopedia' 'files' @('storyline_info_pravo', 'storyline_info_pravo_trader', 'storyline_info_pravo_military')
 $system = Add-CsvValue $system 'dialogs' 'files' @('dialogs_pravo', 'dialogs_pravo_tasks', 'dialogs_pravo_military')
@@ -57,8 +61,8 @@ $system = Add-CsvValue $system 'dialogs' 'files' @('dialogs_pravo', 'dialogs_pra
 # registering it as a separate top-level document would define both dialogues
 # twice and its fragment has no game_dialogs wrapper.
 $system = Remove-CsvValue $system 'dialogs' 'files' @('dialogs_pravo_bar_dream')
-$system = Add-CsvValue $system 'profiles' 'files' @('npc_pravo')
-$system = Add-CsvValue $system 'profiles' 'specific_characters_files' @('character_desc_pravo')
+$system = Add-CsvValue $system 'profiles' 'files' @('npc_pravo', 'npc_pravo_bar')
+$system = Add-CsvValue $system 'profiles' 'specific_characters_files' @('character_desc_pravo', 'character_desc_pravo_bar')
 Write-Text1251 $systemPath $system
 
 $localizationPath = Join-Path $story 'config\localization.ltx'
@@ -173,14 +177,7 @@ Write-Text1251 $taskManagerPath $taskManager
 
 $externalPath = Join-Path $story 'config\external.ltx'
 $external = [System.IO.File]::ReadAllText($externalPath)
-$external = [regex]::Replace($external, '(?m)^\s*;\s*\[engine_custom_spawn\]\s*$', '[engine_custom_spawn]')
-if ($external -match '(?m)^\s*;?\s*waypoints_file\s*=.*$') {
-    $external = [regex]::Replace($external, '(?m)^\s*;?\s*waypoints_file\s*=.*$', 'waypoints_file = pravo_waypoints.ltx')
-} elseif ($external -match '(?m)^\[engine_custom_spawn\]\s*$') {
-    $external = [regex]::Replace($external, '(?m)^\[engine_custom_spawn\]\s*$', "[engine_custom_spawn]`r`nwaypoints_file = pravo_waypoints.ltx")
-} else {
-    $external += "`r`n[engine_custom_spawn]`r`nwaypoints_file = pravo_waypoints.ltx`r`n"
-}
+$external = [regex]::Replace($external, '(?m)^\s*waypoints_file\s*=\s*pravo_waypoints.ltx\s*\r?\n?', '')
 [System.IO.File]::WriteAllText($externalPath, $external, $utf8NoBom)
 
 foreach ($path in @(
@@ -198,6 +195,7 @@ $dialogs = [regex]::Replace($dialogs, '(?s)\s*<dialog id="pravo_mil_barrier_comm
 $dialogs = [regex]::Replace($dialogs, '(?s)\s*<dialog id="pravo_mil_lukash_welcome">.*?</dialog>', '')
 $dialogs = [regex]::Replace($dialogs, '(?m)^#include "gameplay\\dialogs_pravo_bar_dream.xml"\s*\r?\n?', '')
 $dialogs = $dialogs.Replace('<give_info>pravo_mil_barrier_talk_started</give_info>', '')
+$dialogs = $dialogs.Replace('<has_info>pravo_pri_duty_spawned</has_info>', '<has_info>pravo_pri_intro_done</has_info>')
 Write-Text1251 $dialogsPath $dialogs
 
 $pravoTasksPath = Join-Path $story 'config\gameplay\tasks_pravo.xml'
@@ -213,6 +211,7 @@ $pravoInfo = [regex]::Replace(
     '',
     [System.Text.RegularExpressions.RegexOptions]::Singleline
 )
+$pravoInfo = [regex]::Replace($pravoInfo, '\s*<info_portion id="pravo_pri_duty_spawned"\s*/>', '')
 Write-Text1251 $pravoInfoPath $pravoInfo
 
 $pravoArticlesPath = Join-Path $story 'config\gameplay\storyline_info_pravo.xml'

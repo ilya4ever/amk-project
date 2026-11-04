@@ -9,6 +9,11 @@ $current = Join-Path $ProjectRoot 'spawn-current'
 $output = Join-Path $ProjectRoot 'spawn-clean'
 
 if (Test-Path $output) {
+    $outputFull = [IO.Path]::GetFullPath($output)
+    $projectFull = [IO.Path]::GetFullPath($ProjectRoot).TrimEnd('\')
+    if ($outputFull -ne (Join-Path $projectFull 'spawn-clean')) {
+        throw "Refusing to clear a path outside the generated spawn directory: $outputFull"
+    }
     Remove-Item -LiteralPath $output -Recurse -Force
 }
 Copy-Item -LiteralPath $vanilla -Destination $output -Recurse
@@ -177,8 +182,6 @@ foreach ($wayFile in @(
         Write-Ltx $targetWay ($targetText + "`r`n`r`n" + ($customForLevel -join "`r`n`r`n") + "`r`n")
     }
 }
-$wayOut = Join-Path $ProjectRoot 'story\gamedata\config\pravo_waypoints.ltx'
-Write-Ltx $wayOut ((@($pathSections.Values) -join "`r`n`r`n") + "`r`n")
 
 Write-Host "Clean spawn source prepared: $output"
 Write-Host "Imported custom objects: $($nextId - 9000)"

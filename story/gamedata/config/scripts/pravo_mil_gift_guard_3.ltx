@@ -1,0 +1,16 @@
+[smart_terrains]
+none = true
+[logic]
+active = walker@ambush
+on_death = death
+[walker@ambush]
+path_walk = pravo_mil_gift_guard_3_walk
+meet = no_meet
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving3 = assault
+on_info = walker@fight %=actor_enemy%
+[walker@fight]:walker@ambush
+on_info =
+[death]
+on_info = %+pravo_mil_gift_guard_3_dead%
