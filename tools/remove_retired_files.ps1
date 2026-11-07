@@ -1,12 +1,6 @@
 param([string]$ProjectRoot = (Split-Path -Parent $PSScriptRoot), [switch]$SourceOnly)
 $ErrorActionPreference = 'Stop'
-$retired = @(
-    'scripts\pravo_debug.script', 'scripts\pravo_military_bar.script',
-    'scripts\pravo_camp_safety.script', 'scripts\xr_motivator.script',
-    'config\pravo_debug.ltx', 'config\ui\ui_pravo_debug.xml',
-    'config\pravo_deadcity.ltx', 'config\pravo_waypoints.ltx',
-    'config\pravo_military_cleanup.ltx', 'config\creatures\pravo_military_bar.ltx'
-)
+$retired = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'retired_files.txt')
 $roots = @((Join-Path $ProjectRoot 'story\gamedata'))
 if (-not $SourceOnly) { $roots += Join-Path $ProjectRoot 'game\gamedata' }
 foreach ($root in $roots) {

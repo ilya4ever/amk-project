@@ -1,0 +1,206 @@
+{
+  "base_dbb_sha256": "EA63DB113937CB9FB727D0119E756B33C73FAD6FC8EE4F3C14C090124C1FEEC5",
+  "game_graph_sha256": "8F4E34A45884509831DC443A7A030DAA3EA35DF90F0A209B21158FB9E487A6EB",
+  "files": [
+    {
+      "path": "levels/dead_city/build_details.dds",
+      "source": "levels/dead_city/build_details.dds",
+      "sha256": "6513538709CADF73BC8754ADCFB56CA312C4CD59E7D907DE1F2D909493FE562C"
+    },
+    {
+      "path": "levels/dead_city/level",
+      "source": "deploy/gamedata/levels/dead_city/level",
+      "sha256": "62963371F6B7A9BB33D4EE5AD127A1BC8556BDD720848812E36E34DF99BDE920"
+    },
+    {
+      "path": "levels/dead_city/level_lods_nm.dds",
+      "source": "levels/dead_city/level_lods_nm.dds",
+      "sha256": "9F43C147C0FE9BBFC2349E9ABB329C7DBF8C7558983C4BC876BFCD05FEF9D0D3"
+    },
+    {
+      "path": "levels/dead_city/level_lods.dds",
+      "source": "levels/dead_city/level_lods.dds",
+      "sha256": "3CE3E8DC1917421483DFC3FF496B76A031D98E3708786DD0912395DD45E18382"
+    },
+    {
+      "path": "levels/dead_city/level.ai",
+      "source": "levels/dead_city/level.ai",
+      "sha256": "F960EAD6960B42DA077617209D5D4DE1F4103119B0A31704D4E7A4508AF4AB86"
+    },
+    {
+      "path": "levels/dead_city/level.cform",
+      "source": "levels/dead_city/level.cform",
+      "sha256": "29D13BEB53910E42C52F03432319BA889604DEE155F49D9A618D665E026DAAB3"
+    },
+    {
+      "path": "levels/dead_city/level.details",
+      "source": "levels/dead_city/level.details",
+      "sha256": "7D9B659B22B26185CB22C321E24104FB73695391164CA3B0CD6E9294105AC85E"
+    },
+    {
+      "path": "levels/dead_city/level.game",
+      "source": "levels/dead_city/level.game",
+      "sha256": "C3D7E5CF3D22745953A4C1D91240B8739235550B6F7AF1DEA7B2E80734EE57B2"
+    },
+    {
+      "path": "levels/dead_city/level.gct",
+      "source": "deploy/gamedata/levels/dead_city/level.gct",
+      "sha256": "CFDF9BA768FBF1D67F975B5D5A432EDE7F08D194475D7A9AD2A22512DA289A74"
+    },
+    {
+      "path": "levels/dead_city/level.geom",
+      "source": "levels/dead_city/level.geom",
+      "sha256": "CE489005550813CCC81E3475F0DACE175AC662B47D855F4C5C087E9EE9D63CC4"
+    },
+    {
+      "path": "levels/dead_city/level.geomx",
+      "source": "levels/dead_city/level.geomx",
+      "sha256": "B5CBA6897CEF613EC988F71EE0B1EBAD1CAFDF1F22967BD70B43C1F710E8D235"
+    },
+    {
+      "path": "levels/dead_city/level.hom",
+      "source": "levels/dead_city/level.hom",
+      "sha256": "FE30C736B1487FD886C904C40A975F81E957095E53920DDA9CF45B4EB08044DD"
+    },
+    {
+      "path": "levels/dead_city/level.ltx",
+      "source": "deploy/gamedata/levels/dead_city/level.ltx",
+      "sha256": "47C9B47C551950AAB772B527A9341B99E0A0C07F33ED03AB7B1B2218104BF3B5"
+    },
+    {
+      "path": "levels/dead_city/level.wallmarks",
+      "source": "levels/dead_city/level.wallmarks",
+      "sha256": "FA5BADCC83905244CE5FEE4F56AF6B8DCC7291790CF688259B5CBDC57A1B0BEC"
+    },
+    {
+      "path": "levels/dead_city/lmap#1_1.dds",
+      "source": "levels/dead_city/lmap#1_1.dds",
+      "sha256": "D14D6A36D9B9FC211EE7FBABADA6E0D3FA18B602DC280482FB21C06443CB7CDD"
+    },
+    {
+      "path": "levels/dead_city/lmap#1_2.dds",
+      "source": "levels/dead_city/lmap#1_2.dds",
+      "sha256": "675713EC7B44461AEB39E24488A062B0131738CA964ABA3B3B9DBA3C270D9E2D"
+    },
+    {
+      "path": "levels/dead_city/terrain/terrain_gr_lm.dds",
+      "source": "levels/dead_city/terrain/terrain_gr_lm.dds",
+      "sha256": "97ED89C816E8711BB539E3D1ADAB553BE72A7CAFA902FF8A3DF0A7098A68B658"
+    },
+    {
+      "path": "levels/dead_city/terrain/terrain_gr.dds",
+      "source": "levels/dead_city/terrain/terrain_gr.dds",
+      "sha256": "262343ACAC67C47385AE3F033D2460506A1B31C9539D6F3CB6B0073FC2EDDF35"
+    },
+    {
+      "path": "textures/crete/crete_stupeni_a_bump.dds",
+      "source": "textures/crete/crete_stupeni_a_bump.dds",
+      "sha256": "B5DF2CFDC54978750D405F329112FD02B35925A1A8CA1E56DDBF3D1C1C097671"
+    },
+    {
+      "path": "textures/crete/crete_stupeni_a_bump#.dds",
+      "source": "textures/crete/crete_stupeni_a_bump#.dds",
+      "sha256": "5435B1907640A9CE6AB10FD1755342C9194408698CCF7A9A6DED4D0B2834FB69"
+    },
+    {
+      "path": "textures/crete/crete_stupeni_a.dds",
+      "source": "textures/crete/crete_stupeni_a.dds",
+      "sha256": "BD83655E494E8D3A2BCD8DB6FEE3D172D250D609979D9CC2DC70FE277AF7C6DB"
+    },
+    {
+      "path": "textures/grnd/grnd_dirt_dust_02_bump.dds",
+      "source": "textures/grnd/grnd_dirt_dust_02_bump.dds",
+      "sha256": "9CC6B7807CA36D0148AD6CC6C19A7E9CFAE8E1D12DED5DE54B31C243D2483B5A"
+    },
+    {
+      "path": "textures/grnd/grnd_dirt_dust_02_bump#.dds",
+      "source": "textures/grnd/grnd_dirt_dust_02_bump#.dds",
+      "sha256": "83355EDD6F6C724FB958F3F73628FBF678F98557911B5CCBD07404445A46CE3F"
+    },
+    {
+      "path": "textures/grnd/grnd_dirt_dust_02.dds",
+      "source": "textures/grnd/grnd_dirt_dust_02.dds",
+      "sha256": "42FF33422A0A0BB213EF3DED9F97F12FD666575E9B1798A642838177BC7E50E1"
+    },
+    {
+      "path": "textures/grnd/grnd_land_01_bump.dds",
+      "source": "textures/grnd/grnd_land_01_bump.dds",
+      "sha256": "A6DB9D59BF0320BCD8330C6E8FCBB50713BA18C894306C09FCD0067B2906D6E0"
+    },
+    {
+      "path": "textures/grnd/grnd_land_01_bump#.dds",
+      "source": "textures/grnd/grnd_land_01_bump#.dds",
+      "sha256": "7809F569510236D04A46AB71259957043D0065B0C371D9058E78A4829BA61517"
+    },
+    {
+      "path": "textures/grnd/grnd_land_01.dds",
+      "source": "textures/grnd/grnd_land_01.dds",
+      "sha256": "C99B6511AC1949C4C41F21AECB0E075E2A6D80CBA77287D92B17BB0F06A161D0"
+    },
+    {
+      "path": "textures/map/map_dead_city.dds",
+      "source": "textures/map/map_dead_city.dds",
+      "sha256": "AE3DCF188023EF6BC50AE8F4A747CCEB608215900D1034B95F568AFDB70D3D79"
+    },
+    {
+      "path": "textures/pravo/dead_city/mtl_fence1.dds",
+      "source": "deploy/gamedata/textures/pravo/dead_city/mtl_fence1.dds",
+      "sha256": "3E38FBC33D1BAE1F6F411587BF2C111ACF2E028E7B43EFF9EB4D322D7D046F3A"
+    },
+    {
+      "path": "textures/prop/prop_sigaret_bump.dds",
+      "source": "textures/prop/prop_sigaret_bump.dds",
+      "sha256": "65258CD350923DA166753D8C9F9B1739BD0C01E8896EF48592C9C43AD18D8A69"
+    },
+    {
+      "path": "textures/prop/prop_sigaret_bump#.dds",
+      "source": "textures/prop/prop_sigaret_bump#.dds",
+      "sha256": "88CD3216A57E7BF447E939146AEC31043001B64FFD8053871A185977E41A1EE4"
+    },
+    {
+      "path": "textures/prop/prop_sigaret.dds",
+      "source": "textures/prop/prop_sigaret.dds",
+      "sha256": "21EE7345FC7E33D351BB41B6E4AA7045D51F2116B6D3850CBA27A25F60B9333A"
+    },
+    {
+      "path": "textures/prop/prop_small_stove.dds",
+      "source": "textures/prop/prop_small_stove.dds",
+      "sha256": "494EE0631140F72CDCA063E8D9D0546C5A83A08F216E43301C1AAC19234582CD"
+    },
+    {
+      "path": "textures/terrain/terrain_gr_mask.dds",
+      "source": "textures/terrain/terrain_gr_mask.dds",
+      "sha256": "EDE322B5DCF84ACC0BF42A8AEF19168B3E42430612D57AD02C5338E5BC55F121"
+    },
+    {
+      "path": "textures/terrain/terrain_gr_puddles_mask.dds",
+      "source": "deploy/gamedata/textures/terrain/terrain_gr_puddles_mask.dds",
+      "sha256": "336637EDDF248CDB05F5B38598F471C4459B92BD7240EA5FCA41A73A791B2F38"
+    },
+    {
+      "path": "textures/wood/wood_collect_bump.dds",
+      "source": "textures/wood/wood_collect_bump.dds",
+      "sha256": "82ED24DBCD7E0E6989379D0B1E9066AF8A9BFA927DCFD78116593BA0463E5525"
+    },
+    {
+      "path": "textures/wood/wood_collect_bump#.dds",
+      "source": "textures/wood/wood_collect_bump#.dds",
+      "sha256": "4144AE6699EEE6BC4984309D9E7C04A00D2A9A4E485706A447FF6279632D9CC9"
+    },
+    {
+      "path": "textures/wood/wood_collect.dds",
+      "source": "textures/wood/wood_collect.dds",
+      "sha256": "478AAD5338140D2F7DC42BA2D14ACBA252A70FC373DD4DF04A1166A630B53670"
+    },
+    {
+      "path": "textures/zz_pravo_deadcity_textures.ltx",
+      "source": "deploy/gamedata/textures/zz_pravo_deadcity_textures.ltx",
+      "sha256": "71AD39A9E56550981085DD0A48BD2DA3290CEF620C590EE541B8721ADBC2632E"
+    },
+    {
+      "path": "spawns/all.spawn",
+      "source": "deploy/gamedata/spawns/all.spawn",
+      "sha256": "49635FA3F65B8CDB1672DDE59F0932F2ADB2D3C3F2933293ECFF67E823F6481C"
+    }
+  ]
+}
