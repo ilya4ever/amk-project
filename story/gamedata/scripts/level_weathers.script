@@ -1,0 +1,94 @@
+-- Atmospherics 2.69 RC7.1 OGSR Edition: weighted hourly weather graph.
+-- Adapted to this mod's SoC actor binder: keep its stringZ + u32 save layout.
+local weather_manager = nil
+local prefix = "AOGSR1|"
+
+class "WeatherManager"
+
+function WeatherManager:__init()
+    weather_manager = self
+    self.current_weather = nil
+    self.target_weather = nil
+    self.requested_hour = -1
+end
+
+function WeatherManager:valid(name)
+    return name ~= nil and self.cycles:line_exist("cycles", name)
+end
+
+function WeatherManager:reset()
+    self.graphs_ini = ini_file("environment\\dynamic_weather_graphs.ltx")
+    self.cycles = ini_file("pravo_atmospherics.ltx")
+    local maps = ini_file("game_maps_single.ltx")
+    self.level_name = level.name()
+    local weather = utils.cfg_get_string(maps, self.level_name, "weathers", db.actor, false, "", "dynamic_default")
+    self.weather_condlist = xr_logic.parse_condlist(db.actor, self.level_name, "weather", weather)
+    if self.loaded_level == self.level_name and self:valid(self.loaded_current) and self:valid(self.loaded_target) then
+        self.current_weather = self.loaded_current
+        self.target_weather = self.loaded_target
+        level.set_weather(self.current_weather, true)
+        if self.current_weather ~= self.target_weather then level.set_weather(self.target_weather, false) end
+    else
+        self.requested_hour = -1
+        self:select_weather(true)
+    end
+    self.loaded_level, self.loaded_current, self.loaded_target = nil, nil, nil
+end
+
+function WeatherManager:select_weather(now)
+    local name = xr_logic.pick_section_from_condlist(db.actor, db.actor, self.weather_condlist)
+    if self.graphs_ini:section_exist(name) then
+        local choices, total = {}, 0
+        for i = 0, self.graphs_ini:line_count(name) - 1 do
+            local _, cycle, weight = self.graphs_ini:r_line(name, i, "", "")
+            weight = tonumber(weight)
+            if weight and weight > 0 and self:valid(cycle) then
+                total = total + weight
+                choices[#choices + 1] = {name = cycle, limit = total}
+            end
+        end
+        assert(total > 0, "Atmospherics: empty weather graph " .. name)
+        local draw = math.random() * total
+        for _, choice in ipairs(choices) do
+            if draw <= choice.limit then name = choice.name; break end
+        end
+    end
+    assert(self:valid(name), "Atmospherics: unknown weather cycle " .. tostring(name))
+    self.current_weather = now and name or self.target_weather
+    self.target_weather = name
+    level.set_weather(name, now)
+end
+
+function WeatherManager:update()
+    if self.level_name ~= level.name() then self:reset(); return end
+    -- Ask just before the next hour; OGSR blends toward the next descriptor.
+    local hour = level.get_time_days() * 24 + level.get_time_hours()
+    if level.get_time_minutes() >= 59 and self.requested_hour ~= hour then
+        self:select_weather(false)
+        self.requested_hour = hour
+    end
+end
+
+function WeatherManager:forced_weather_change()
+    self:select_weather(true)
+end
+
+function WeatherManager:save(packet)
+    packet:w_stringZ(prefix .. self.level_name .. "|" .. self.current_weather .. "|" .. self.target_weather)
+    packet:w_u32(self.requested_hour + 1)
+end
+
+function WeatherManager:load(packet)
+    local state, hour = packet:r_stringZ(), packet:r_u32()
+    -- Pre-Atmospherics saves store a level name and an update timer here.
+    -- Consume exactly those two fields so following quest data remains aligned.
+    if string.sub(state, 1, #prefix) == prefix then
+        self.loaded_level, self.loaded_current, self.loaded_target = string.match(state, "^AOGSR1|([^|]+)|([^|]+)|([^|]+)$")
+        self.requested_hour = hour - 1
+    end
+end
+
+function get_weather_manager()
+    if weather_manager == nil then weather_manager = WeatherManager() end
+    return weather_manager
+end

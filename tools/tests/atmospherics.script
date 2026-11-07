@@ -1,0 +1,65 @@
+-- Temporary native probe: old save -> weather cycles -> new save/load -> maps.
+local ready = 0
+local initial = false
+local variants = {"w_clear1", "w_cloudy1", "w_foggy1", "w_rain1", "w_storm1"}
+local flags = {"accepted", "ambush_spawned", "all_dead", "pda_found", "done"}
+local function stage(value, delay)
+    xr_logic.pstor_store(db.actor, "atmos_qa_stage", value)
+    ready = time_global() + (delay or 2000)
+end
+function run()
+    if not db.actor or device().precache_frame > 0 or time_global() < ready then return end
+    if not initial then initial = true; ready = time_global() + 1500; return end
+    local actor = db.actor
+    local wm = level_weathers.get_weather_manager()
+    local current = xr_logic.pstor_retrieve(actor, "atmos_qa_stage", 0)
+    if current == 0 then
+        assert(level.name()=="l07_military", "Expected copied Army Warehouses save")
+        assert(wm:valid(level.get_weather()) and string.find(level.get_weather(), "^w_"), "Legacy save did not use new outdoor weather")
+        for _, flag in ipairs(flags) do
+            xr_logic.pstor_store(actor, "atmos_qa_flag_"..flag, actor:has_info("pravo_mil_gift_"..flag))
+        end
+        log1("ATMOS_QA: original pre-install save loaded; new weather="..level.get_weather())
+        stage(10, 500)
+    elseif current >= 10 and current < 10+#variants then
+        local name = variants[current-9]
+        level.set_weather(name, true)
+        assert(level.get_weather()==name, "Weather cycle missing: "..name)
+        wm.current_weather, wm.target_weather = name, name
+        local env = level.environment():getCurrentWeather(0)
+        assert(env and env.far_plane > 0, "Environment descriptor unavailable")
+        log1("ATMOS_QA: native weather "..name.."; descriptor="..env.m_identifier.."; far_plane="..env.far_plane)
+        stage(current+1, 1400)
+    elseif current == 15 then
+        xr_logic.pstor_store(actor, "atmos_qa_weather", wm.target_weather)
+        stage(20, 1200)
+        get_console():execute("save atmospherics_qa")
+    elseif current == 20 then
+        local path = getFS():update_path("$app_data_root$", "reload.requested")
+        local file = io.open(path, "r")
+        if not file then
+            file = assert(io.open(path,"w")); file:write("reload"); file:close()
+            ready = time_global()+4000
+            get_console():execute("load atmospherics_qa")
+            return
+        end
+        file:close()
+        assert(wm.target_weather==xr_logic.pstor_retrieve(actor,"atmos_qa_weather",""), "Weather state lost after load")
+        for _, flag in ipairs(flags) do
+            assert(actor:has_info("pravo_mil_gift_"..flag)==xr_logic.pstor_retrieve(actor,"atmos_qa_flag_"..flag,false), "Quest state changed: "..flag)
+        end
+        log1("ATMOS_QA: actual save/load retained weather and military quest info; old binder packet alignment OK")
+        stage(30, 2000)
+        level.change_level(3512,11268,vector():set(-384.276184,1.34132,91.870827),vector():set(0,0,0))
+    elseif current == 30 and level.name()=="dead_city" then
+        assert(string.find(level.get_weather(),"^w_"), "Dead City uses vanilla weather")
+        log1("ATMOS_QA: Dead City dynamic weather="..level.get_weather())
+        stage(40, 2000)
+        level.change_level(727,4134,vector():set(-52.665089,-6.467153,11.198317),vector():set(0,0,0))
+    elseif current == 40 and level.name()=="l03u_agr_underground" then
+        assert(level.get_weather()=="indoor", "Outdoor weather in underground")
+        log1("ATMOS_QA: underground uses indoor cycle")
+        log1("ATMOS_QA: PASS - legacy save, five weather cycles, save/load, preserved quest state, Dead City and underground")
+        get_console():execute("quit")
+    end
+end

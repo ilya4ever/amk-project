@@ -1,0 +1,22 @@
+{
+  "version": "Atmospherics 2.69 RC7.1 OGSR Edition (ShOC 1.0006, 2026-10-03)",
+  "official_source": "https://github.com/OGSR/OGSR-Engine/wiki/Mod-adaptation-ru-RU",
+  "archives": [
+    {
+      "filename": "Atmospherics_2.69_RC7.1_OGSR_CoP_Base.7z",
+      "download_url": "https://drive.usercontent.google.com/download?id=1jBzI5UB6fnb2IpaEiHB5MkZQRe9UK_Rq&export=download&confirm=t",
+      "source_url": "https://drive.google.com/file/d/1jBzI5UB6fnb2IpaEiHB5MkZQRe9UK_Rq/view",
+      "size": 1378465540,
+      "sha256": "5eb7aa62dc274b1f578c5a82471fe64e472246912737e5f946b92580f388da50",
+      "extract_to": "base"
+    },
+    {
+      "filename": "Atmospherics_2.69_RC7.1_OGSR_ShOC.7z",
+      "download_url": "https://drive.usercontent.google.com/download?id=1wwzxPmJNXStUDelBtzaOUDWOmIn7dDjh&export=download&confirm=t",
+      "source_url": "https://drive.google.com/file/d/1wwzxPmJNXStUDelBtzaOUDWOmIn7dDjh/view",
+      "size": 37938,
+      "sha256": "6a36699ee80e5736eaa3e4e8cf8e08a32a47760671ffd7d5dc998b189d08638f",
+      "extract_to": "unpacked"
+    }
+  ]
+}

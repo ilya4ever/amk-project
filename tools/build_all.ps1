@@ -20,6 +20,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Military gift preparation failed' }
 & (Join-Path $PSScriptRoot 'build_deadcity.ps1') -ProjectRoot $ProjectRoot -AcdcRoot $AcdcRoot -PerlExe $PerlExe -PythonExe $PythonExe
 & $PythonExe -B (Join-Path $PSScriptRoot 'build_deadcity_population.py') --project $ProjectRoot
 if ($LASTEXITCODE -ne 0) { throw 'Dead City population preparation failed' }
+& $PythonExe -B (Join-Path $PSScriptRoot 'build_atmospherics.py') --project $ProjectRoot
+if ($LASTEXITCODE -ne 0) { throw 'Atmospherics configuration failed' }
 & (Join-Path $PSScriptRoot 'remove_retired_files.ps1') -ProjectRoot $ProjectRoot -SourceOnly:$NoDeploy
 
 $spawnSource = Join-Path $ProjectRoot 'spawn-clean'
@@ -28,6 +30,14 @@ $acdcWorkspace = Join-Path $ProjectRoot 'build-deadcity\acdc'
 New-Item -ItemType Directory -Path $acdcWorkspace -Force | Out-Null
 Copy-Item -LiteralPath (Join-Path $AcdcRoot 'sections.ini') -Destination (Join-Path $acdcWorkspace 'sections.ini') -Force
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'acdc_sections.ini') -Destination (Join-Path $acdcWorkspace 'user_sections.ini') -Force
+# ACDC's Perl parser retains CR in class names. Git on Windows can check out
+# user_sections.ini with CRLF, so normalize both temporary tables before use.
+$acdcEncoding = [Text.Encoding]::GetEncoding(1251)
+foreach ($table in @('sections.ini', 'user_sections.ini')) {
+    $tablePath = Join-Path $acdcWorkspace $table
+    $tableText = [IO.File]::ReadAllText($tablePath, $acdcEncoding).Replace("`r`n", "`n")
+    [IO.File]::WriteAllText($tablePath, $tableText, $acdcEncoding)
+}
 Push-Location $acdcWorkspace
 try {
     & $PerlExe -I $AcdcRoot (Join-Path $AcdcRoot 'universal_acdc.pl') -compile $spawnSource -out $spawnOutput
